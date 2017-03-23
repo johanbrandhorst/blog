@@ -1,0 +1,3 @@
+[submodule "themes/nofancy"]
+	path = themes/nofancy
+	url = git@github.com:gizak/nofancy.git
