@@ -2,6 +2,7 @@ publishDir = "docs"
 title = "My blog"
 baseURL = "https://johanbrandhorst.github.io/blog/"
 languageCode = "en-gb"
+canonifyURLs = true
 
 [params]
 	# See themes/nofancy/static/highlight/styles for available options
