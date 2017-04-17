@@ -1,7 +1,12 @@
 +++
-date = "2017-04-17T19:58:04+01:00"
+date = "2017-04-17"
 draft = true
 title = "GopherJS Client and gRPC Server"
+description = "A guide to implementing a GopherJS frontend to a gRPC backend exposed over HTTP via the gRPC-gateway"
+tags = [ "gRPC", "protobuf", "golang", "gopherjs", "grpc-gateway" ]
+categories = [
+  "Programming",
+]
 +++
 I've been using [gRPC](http://www.grpc.io/) and [Go](https://golang.org/) a lot in the last year.
 At [Cognitive Logic](https://www.cognitivelogic.com) every one of our backend services is
@@ -17,7 +22,7 @@ statically typed code that transpiles to Javascript. It comes with a couple of
 quirks but as long as I don't have to use Javascript I'm happy.
 
 Naturally, I want to be able to use Go and gRPC in the backend as well if I can,
-and with the use of the[gRPC HTTP Gateway](https://github.com/grpc-ecosystem/grpc-gateway)
+and with the use of the [gRPC HTTP Gateway](https://github.com/grpc-ecosystem/grpc-gateway)
 it becomes as simple as writing a normal gRPC service.
 
 So what are the steps required to get a GopherJS frontend client talking to a gRPC backend
