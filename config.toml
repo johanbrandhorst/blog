@@ -1,5 +1,5 @@
 publishDir = "docs"
-title = "My blog"
+title = "My Blog"
 baseURL = "https://johanbrandhorst.github.io/blog/"
 languageCode = "en-gb"
 canonifyURLs = true
