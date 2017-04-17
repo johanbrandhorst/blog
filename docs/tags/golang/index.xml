@@ -142,7 +142,7 @@ since nothing imports it at the minute. I&amp;rsquo;d still suggest adding it to
 that you&amp;rsquo;ll generate go code from so that in the future when a dependency might arise, you&amp;rsquo;ve
 saved yourself, or even better, someone else, a whole lot of head scratching.&lt;/p&gt;
 
-&lt;h4 id=&#34;protoc-gen-go-output-paths-with-go-option&#34;&gt;&lt;code&gt;protoc-gen-go&lt;/code&gt; output paths with &lt;code&gt;go_option&lt;/code&gt;&lt;/h4&gt;
+&lt;h4 id=&#34;protoc-gen-go-output-paths-with-go-package-option&#34;&gt;&lt;code&gt;protoc-gen-go&lt;/code&gt; output paths with &lt;code&gt;go_package&lt;/code&gt; option&lt;/h4&gt;
 
 &lt;p&gt;One final note on the &lt;code&gt;go_package&lt;/code&gt; option. Specifying it in your proto file means the
 &lt;code&gt;protoc-gen-go&lt;/code&gt; &lt;code&gt;protoc&lt;/code&gt; plugin outputs your generated files as if the specified output directory is at the root of the &lt;code&gt;go_package&lt;/code&gt; path. So&amp;hellip; you&amp;rsquo;ll probably want to slightly modify your &lt;code&gt;protoc&lt;/code&gt; line:&lt;/p&gt;

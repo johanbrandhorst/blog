@@ -228,7 +228,7 @@ since nothing imports it at the minute. I&rsquo;d still suggest adding it to all
 that you&rsquo;ll generate go code from so that in the future when a dependency might arise, you&rsquo;ve
 saved yourself, or even better, someone else, a whole lot of head scratching.</p>
 
-<h4 id="protoc-gen-go-output-paths-with-go-option"><code>protoc-gen-go</code> output paths with <code>go_option</code></h4>
+<h4 id="protoc-gen-go-output-paths-with-go-package-option"><code>protoc-gen-go</code> output paths with <code>go_package</code> option</h4>
 
 <p>One final note on the <code>go_package</code> option. Specifying it in your proto file means the
 <code>protoc-gen-go</code> <code>protoc</code> plugin outputs your generated files as if the specified output directory is at the root of the <code>go_package</code> path. So&hellip; you&rsquo;ll probably want to slightly modify your <code>protoc</code> line:</p>
