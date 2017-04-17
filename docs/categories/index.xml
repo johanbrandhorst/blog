@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on My blog</title>
+    <title>Categories on My Blog</title>
     <link>https://johanbrandhorst.github.io/blog/categories/index.xml</link>
-    <description>Recent content in Categories on My blog</description>
+    <description>Recent content in Categories on My Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <copyright>Copyright (c) 2017, Johan Brandhorst; all rights reserved.</copyright>
     <atom:link href="https://johanbrandhorst.github.io/blog/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Programming</title>
+      <link>https://johanbrandhorst.github.io/blog/categories/programming/</link>
+      <pubDate>Sun, 16 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://johanbrandhorst.github.io/blog/categories/programming/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

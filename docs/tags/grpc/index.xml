@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>My Blog</title>
-    <link>https://johanbrandhorst.github.io/blog/index.xml</link>
-    <description>Recent content on My Blog</description>
+    <title>Grpc on My Blog</title>
+    <link>https://johanbrandhorst.github.io/blog/tags/grpc/index.xml</link>
+    <description>Recent content in Grpc on My Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <copyright>Copyright (c) 2017, Johan Brandhorst; all rights reserved.</copyright>
-    <lastBuildDate>Sun, 16 Apr 2017 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://johanbrandhorst.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://johanbrandhorst.github.io/blog/tags/grpc/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Go Protobuf Tips</title>
@@ -174,26 +173,6 @@ $ protoc myproto/myproto.proto -I. --grpc-gateway_out=logtostderr=true,Mgoogle/a
 &lt;p&gt;Feel free to reach out to me on gophers slack or on
 &lt;a href=&#34;https://twitter.com/JohanBrandhorst&#34;&gt;my twitter&lt;/a&gt; if you found this helpful or if you have
 any more tips I should include in this list.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>About me</title>
-      <link>https://johanbrandhorst.github.io/blog/about/</link>
-      <pubDate>Thu, 23 Mar 2017 22:25:56 +0000</pubDate>
-      
-      <guid>https://johanbrandhorst.github.io/blog/about/</guid>
-      <description>&lt;p&gt;I&amp;rsquo;m Johan, I like gaming, programming, floorball, skiing and many other things.
-I&amp;rsquo;m originally from Sweden but I live and work in the United Kingdom.
-I work at &lt;a href=&#34;https://www.cognitivelogic.com&#34;&gt;Cognitive Logic&lt;/a&gt;, a data startup in
-Basingstoke, UK.&lt;/p&gt;
-
-&lt;p&gt;My (current!) favourite programming languages are Go and Python. I also
-have a great interest in learning Rust and Elm.&lt;/p&gt;
-
-&lt;p&gt;You can find me on the &lt;a href=&#34;https://invite.slack.golangbridge.org/&#34;&gt;Gophers Slack&lt;/a&gt;
-under the id &lt;code&gt;jbrandhorst&lt;/code&gt;, where I like
-to hang around and discuss Go with fellow Gophers.&lt;/p&gt;
 </description>
     </item>
     
