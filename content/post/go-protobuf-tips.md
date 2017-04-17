@@ -132,7 +132,7 @@ since nothing imports it at the minute. I'd still suggest adding it to all the p
 that you'll generate go code from so that in the future when a dependency might arise, you've
 saved yourself, or even better, someone else, a whole lot of head scratching.
 
-#### `protoc-gen-go` output paths with `go_option`
+#### `protoc-gen-go` output paths with `go_package` option
 One final note on the `go_package` option. Specifying it in your proto file means the
 `protoc-gen-go` `protoc` plugin outputs your generated files as if the specified output directory is at the root of the `go_package` path. So... you'll probably want to slightly modify your `protoc` line:
 
