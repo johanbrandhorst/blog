@@ -3,6 +3,7 @@ title = "My blog"
 baseURL = "https://johanbrandhorst.github.io/blog/"
 languageCode = "en-gb"
 canonifyURLs = true
+copyright = "Copyright (c) 2017, Johan Brandhorst; all rights reserved."
 
 [params]
 	# See themes/nofancy/static/highlight/styles for available options
