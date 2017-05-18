@@ -2,7 +2,7 @@
 date = "2017-04-17"
 title = "GopherJS Client and gRPC Server - Part 2"
 description = "A guide to implementing a GopherJS frontend to a gRPC backend exposed over HTTP via the gRPC-gateway"
-tags = [ "gRPC", "protobuf", "golang", "gopherjs", "grpc-gateway" ]
+tags = [ "golang", "protobuf", "gRPC", "gRPC-gateway", "GopherJS" ]
 categories = [
   "Programming",
 ]
