@@ -1,6 +1,6 @@
 publishDir = "docs"
 title = "My Blog"
-baseURL = "https://johanbrandhorst.github.io/blog/"
+baseURL = "https://jbrandhorst.com/"
 languageCode = "en-gb"
 canonifyURLs = true
 copyright = "Copyright (c) 2017, Johan Brandhorst; all rights reserved."

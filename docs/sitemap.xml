@@ -2,64 +2,64 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://johanbrandhorst.github.io/blog/post/go-protobuf-tips/</loc>
+    <loc>https://jbrandhorst.com/post/go-protobuf-tips/</loc>
     <lastmod>2017-04-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://johanbrandhorst.github.io/blog/about/</loc>
+    <loc>https://jbrandhorst.com/about/</loc>
     <lastmod>2017-03-23T22:25:56+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://johanbrandhorst.github.io/blog/categories/</loc>
+    <loc>https://jbrandhorst.com/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://johanbrandhorst.github.io/blog/tags/golang/</loc>
+    <loc>https://jbrandhorst.com/tags/golang/</loc>
     <lastmod>2017-04-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://johanbrandhorst.github.io/blog/tags/grpc/</loc>
+    <loc>https://jbrandhorst.com/tags/grpc/</loc>
     <lastmod>2017-04-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://johanbrandhorst.github.io/blog/tags/grpc-gateway/</loc>
+    <loc>https://jbrandhorst.com/tags/grpc-gateway/</loc>
     <lastmod>2017-04-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://johanbrandhorst.github.io/blog/</loc>
+    <loc>https://jbrandhorst.com/</loc>
     <lastmod>2017-04-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://johanbrandhorst.github.io/blog/post/</loc>
+    <loc>https://jbrandhorst.com/post/</loc>
     <lastmod>2017-04-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://johanbrandhorst.github.io/blog/categories/programming/</loc>
+    <loc>https://jbrandhorst.com/categories/programming/</loc>
     <lastmod>2017-04-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://johanbrandhorst.github.io/blog/tags/protobuf/</loc>
+    <loc>https://jbrandhorst.com/tags/protobuf/</loc>
     <lastmod>2017-04-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://johanbrandhorst.github.io/blog/tags/</loc>
+    <loc>https://jbrandhorst.com/tags/</loc>
     <lastmod>2017-04-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>

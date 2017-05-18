@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Programming on My Blog</title>
-    <link>https://johanbrandhorst.github.io/blog/categories/programming/index.xml</link>
+    <link>https://jbrandhorst.com/categories/programming/index.xml</link>
     <description>Recent content in Programming on My Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <copyright>Copyright (c) 2017, Johan Brandhorst; all rights reserved.</copyright>
-    <atom:link href="https://johanbrandhorst.github.io/blog/categories/programming/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://jbrandhorst.com/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Go Protobuf Tips</title>
-      <link>https://johanbrandhorst.github.io/blog/post/go-protobuf-tips/</link>
+      <link>https://jbrandhorst.com/post/go-protobuf-tips/</link>
       <pubDate>Sun, 16 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://johanbrandhorst.github.io/blog/post/go-protobuf-tips/</guid>
+      <guid>https://jbrandhorst.com/post/go-protobuf-tips/</guid>
       <description>
 
 &lt;p&gt;I&amp;rsquo;ve had my fair share of dealing with proto files in go (and to some extent JS),
