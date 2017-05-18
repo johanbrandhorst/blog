@@ -92,10 +92,10 @@ that imports `person/person.pb.go`. That's no good!
 
 Enter the `go_package` option.
 #### Using the `go_package` option
-For a proto file defined in `github.com/myrepo/myprotos/myproto/myproto.proto` the
-appropriate `go_option` value would be `github.com/myrepo/myprotos/myproto/myproto`.
+For a proto file defined in `github.com/myuser/myprotos/myproto/myproto.proto` the
+appropriate `go_option` value would be `github.com/myuser/myprotos/myproto`.
 This means that the `protoc` compiler can generate a go file that will include the package
-`github.com/myrepo/myprotos/myproto/myproto` if you have another proto file that depends
+`github.com/myuser/myprotos/myproto` if you have another proto file that depends
 on `myproto/myproto.proto`.
 
 So let's fix the `person.proto` and `team.proto` proto files.

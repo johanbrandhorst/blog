@@ -190,10 +190,10 @@ that imports <code>person/person.pb.go</code>. That&rsquo;s no good!</p>
 
 <h4 id="using-the-go-package-option">Using the <code>go_package</code> option</h4>
 
-<p>For a proto file defined in <code>github.com/myrepo/myprotos/myproto/myproto.proto</code> the
-appropriate <code>go_option</code> value would be <code>github.com/myrepo/myprotos/myproto/myproto</code>.
+<p>For a proto file defined in <code>github.com/myuser/myprotos/myproto/myproto.proto</code> the
+appropriate <code>go_option</code> value would be <code>github.com/myuser/myprotos/myproto</code>.
 This means that the <code>protoc</code> compiler can generate a go file that will include the package
-<code>github.com/myrepo/myprotos/myproto/myproto</code> if you have another proto file that depends
+<code>github.com/myuser/myprotos/myproto</code> if you have another proto file that depends
 on <code>myproto/myproto.proto</code>.</p>
 
 <p>So let&rsquo;s fix the <code>person.proto</code> and <code>team.proto</code> proto files.</p>

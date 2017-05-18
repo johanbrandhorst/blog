@@ -105,10 +105,10 @@ that imports &lt;code&gt;person/person.pb.go&lt;/code&gt;. That&amp;rsquo;s no g
 
 &lt;h4 id=&#34;using-the-go-package-option&#34;&gt;Using the &lt;code&gt;go_package&lt;/code&gt; option&lt;/h4&gt;
 
-&lt;p&gt;For a proto file defined in &lt;code&gt;github.com/myrepo/myprotos/myproto/myproto.proto&lt;/code&gt; the
-appropriate &lt;code&gt;go_option&lt;/code&gt; value would be &lt;code&gt;github.com/myrepo/myprotos/myproto/myproto&lt;/code&gt;.
+&lt;p&gt;For a proto file defined in &lt;code&gt;github.com/myuser/myprotos/myproto/myproto.proto&lt;/code&gt; the
+appropriate &lt;code&gt;go_option&lt;/code&gt; value would be &lt;code&gt;github.com/myuser/myprotos/myproto&lt;/code&gt;.
 This means that the &lt;code&gt;protoc&lt;/code&gt; compiler can generate a go file that will include the package
-&lt;code&gt;github.com/myrepo/myprotos/myproto/myproto&lt;/code&gt; if you have another proto file that depends
+&lt;code&gt;github.com/myuser/myprotos/myproto&lt;/code&gt; if you have another proto file that depends
 on &lt;code&gt;myproto/myproto.proto&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;So let&amp;rsquo;s fix the &lt;code&gt;person.proto&lt;/code&gt; and &lt;code&gt;team.proto&lt;/code&gt; proto files.&lt;/p&gt;
