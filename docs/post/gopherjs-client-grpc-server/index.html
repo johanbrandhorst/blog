@@ -4,8 +4,8 @@
 
   
   <meta charset="utf-8">
-  <title>Categories</title>
-  <meta name="description" content="Categories">
+  <title>GopherJS Client and gRPC Server</title>
+  <meta name="description" content="GopherJS Client and gRPC Server">
   <meta name="author" content="Johan Brandhorst">
 
   
@@ -74,23 +74,86 @@
     </div>
     <div class="pure-u-1-24 pure-u-md-1-6"></div>
 </div>
+
 <div class="pure-g">
-<div class="pure-u-1-24 pure-u-md-5-24"></div>
-<div class="pure-u-11-12 pure-u-md-5-8">
-	<p class="posts-name">Categories:</p>
-	<div class="post-content">
-		<ul class="posts">
-		
-		
-			<li>
-				<a href="programming">programming</a>
-				<span>&#40;6&#41;</span>
-			</li>
-		
-		</ul>
+    <div class="pure-u-1-24 pure-u-md-5-24"></div>
+	<div class="pure-u-11-12 pure-u-md-5-8">
+        <div class="post">
+
+            <div class="post-title">
+                <p class="footnote">
+                    <time class="">2017-04-17</time>
+		            
+                    
+                    |
+                    
+                    
+                    tags:<a href="https://jbrandhorst.com/tags/grpc">gRPC</a> <a href="https://jbrandhorst.com/tags/protobuf">protobuf</a> <a href="https://jbrandhorst.com/tags/golang">golang</a> <a href="https://jbrandhorst.com/tags/gopherjs">gopherjs</a> <a href="https://jbrandhorst.com/tags/grpc-gateway">grpc-gateway</a> 
+                    
+
+                    
+                    categories:<a href="https://jbrandhorst.com/categories/programming">Programming</a> 
+                    
+
+                    
+                </p>
+                <h1>GopherJS Client and gRPC Server</h1>
+            </div>
+
+            <div class="post-content">
+                
+
+<p>I&rsquo;ve been using <a href="http://www.grpc.io/">gRPC</a> and <a href="https://golang.org/">Go</a> a lot in the last year.
+At <a href="https://www.cognitivelogic.com">Cognitive Logic</a> every one of our backend services is
+implemented with Go and gRPC, and it enables us to abstract away most of the complexities
+of networked micro services and keep interfaces typed and well defined using
+<a href="https://developers.google.com/protocol-buffers/">Google protobuffers</a>.</p>
+
+<p>I really enjoy using both, but sometimes I need to write a frontend to a
+web server and I despise writing Javascript. So what do? Use Go of course!</p>
+
+<p>With <a href="https://github.com/gopherjs/gopherjs">GopherJS</a> it&rsquo;s possible to write safe
+statically typed code that transpiles to Javascript. It comes with a couple of
+quirks but as long as I don&rsquo;t have to use Javascript I&rsquo;m happy.</p>
+
+<p>Naturally, I want to be able to use Go and gRPC in the backend as well if I can,
+and with the use of the <a href="https://github.com/grpc-ecosystem/grpc-gateway">gRPC HTTP Gateway</a>
+it becomes as simple as writing a normal gRPC service.</p>
+
+<p>So what are the steps required to get a GopherJS frontend client talking to a gRPC backend
+seamlessly? In short:</p>
+
+<ul>
+<li><a href="https://jbrandhorst.com/post/gopherjs-client-grpc-server-1/">Create the protobuf interface</a></li>
+<li><a href="https://jbrandhorst.com/post/gopherjs-client-grpc-server-2/">Implement the server</a></li>
+<li><a href="https://jbrandhorst.com/post/gopherjs-client-grpc-server-3/">Implement the client</a></li>
+<li><a href="https://jbrandhorst.com/post/gopherjs-client-grpc-server-4/">Putting it all together</a></li>
+</ul>
+
+<p>If you want to skip ahead, the finished example can be found on
+<a href="https://github.com/johanbrandhorst/gopherjs-grpc-websocket">my github</a>.</p>
+
+<h2 id="preparation">Preparation</h2>
+
+<p>Some structure will help organization. Let&rsquo;s create a <code>client</code>, <code>server</code>, and <code>protos</code> folder:</p>
+
+<pre><code class="language-bash">$ tree -L 1 -d
+.
+|-- client
+|-- protos
+`-- server
+</code></pre>
+
+<p>Next up we&rsquo;ll create the proto interface.</p>
+
+<p><a href="https://jbrandhorst.com/post/gopherjs-client-grpc-server-1/">Part 1</a></p>
+
+            </div>
+        </div>
 	</div>
+    <div class="pure-u-1-24 pure-u-md-1-6"></div>
 </div>
-<div class="pure-u-1-24 pure-u-md-1-6"></div>
+
 <div class="footer pure-g">
     <div class="pure-u-1-24 pure-u-md-5-24"></div>
     <div class="pure-u-11-12 pure-u-md-5-8">

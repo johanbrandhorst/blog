@@ -4,8 +4,8 @@
 
   
   <meta charset="utf-8">
-  <title>Categories</title>
-  <meta name="description" content="Categories">
+  <title>GopherJS Client and gRPC Server - Part 2</title>
+  <meta name="description" content="GopherJS Client and gRPC Server - Part 2">
   <meta name="author" content="Johan Brandhorst">
 
   
@@ -74,23 +74,126 @@
     </div>
     <div class="pure-u-1-24 pure-u-md-1-6"></div>
 </div>
+
 <div class="pure-g">
-<div class="pure-u-1-24 pure-u-md-5-24"></div>
-<div class="pure-u-11-12 pure-u-md-5-8">
-	<p class="posts-name">Categories:</p>
-	<div class="post-content">
-		<ul class="posts">
-		
-		
-			<li>
-				<a href="programming">programming</a>
-				<span>&#40;6&#41;</span>
-			</li>
-		
-		</ul>
+    <div class="pure-u-1-24 pure-u-md-5-24"></div>
+	<div class="pure-u-11-12 pure-u-md-5-8">
+        <div class="post">
+
+            <div class="post-title">
+                <p class="footnote">
+                    <time class="">2017-04-17</time>
+		            
+                    
+                    |
+                    
+                    
+                    tags:<a href="https://jbrandhorst.com/tags/grpc">gRPC</a> <a href="https://jbrandhorst.com/tags/protobuf">protobuf</a> <a href="https://jbrandhorst.com/tags/golang">golang</a> <a href="https://jbrandhorst.com/tags/gopherjs">gopherjs</a> <a href="https://jbrandhorst.com/tags/grpc-gateway">grpc-gateway</a> 
+                    
+
+                    
+                    categories:<a href="https://jbrandhorst.com/categories/programming">Programming</a> 
+                    
+
+                    
+                </p>
+                <h1>GopherJS Client and gRPC Server - Part 2</h1>
+            </div>
+
+            <div class="post-content">
+                
+
+<p><a href="https://jbrandhorst.com/post/gopherjs-client-grpc-server-1/">go back</a></p>
+
+<h2 id="implement-the-server">Implement the server</h2>
+
+<p>I like to start by creating a struct and write a simple definition that&rsquo;ll
+immediately fail to compile.</p>
+
+<pre><code class="language-go">package server
+
+import (
+	&quot;github.com/johanbrandhorst/gopherjs-grpc-websocket/protos/server&quot;
+)
+
+type Server struct{}
+
+var _ server.MyServerServer = &amp;Server{}
+</code></pre>
+
+<p>This won&rsquo;t compile, because the <code>Server</code> struct does not implement the
+<code>server.MyServerServer</code> interface. But it&rsquo;ll also tell us what we&rsquo;ve got
+left to implement. So lets implement the server methods:</p>
+
+<pre><code class="language-go">func (s Server) Simple(ctx context.Context, _ *empty.Empty) (*server.MyMessage, error) {
+	return &amp;server.MyMessage{
+		Msg: &quot;A simple message&quot;,
+	}, nil
+}
+</code></pre>
+
+<p>The <code>Simple</code> method gets a simple implementation, returning a simple message.</p>
+
+<pre><code class="language-go">func (s Server) Unary(_ *empty.Empty, srv server.MyServer_UnaryServer) error {
+	// Send 4 messages
+	for i := uint32(0); i &lt; 4; i++ {
+		msg := &amp;server.MyMessage{
+			Msg: &quot;A unary message&quot;,
+			Num: i,
+		}
+
+		if err := srv.Send(msg); err != nil {
+			return err
+		}
+
+		// Sleep to simulate some work
+		time.Sleep(time.Second)
+	}
+
+	return nil
+}
+</code></pre>
+
+<p>The <code>Unary</code> method simulates a longer running function that does some work and
+periodically replies with some result.</p>
+
+<pre><code class="language-go">func (s Server) Bidi(srv server.MyServer_BidiServer) error {
+	for i := uint32(0); ; i++ {
+		// Blocks until a message is received
+		msg, err := srv.Recv()
+		if err != nil {
+			if err == io.EOF {
+				// Client closed connection
+				return nil
+			}
+
+			return err
+		}
+
+		// Just echo back the message sent,
+		// incrementing the counter
+		msg.Num = i
+		if err := srv.Send(msg); err != nil {
+			return err
+		}
+	}
+}
+</code></pre>
+
+<p>The <code>Bidi</code> method listens for any messages sent over the stream and echoes the message back,
+incrementing the counter each time. This is a very simple use of the gRPC bidi server, but since
+what we&rsquo;re really interested in here is the client implementation, it&rsquo;ll do.</p>
+
+<p>Now that we&rsquo;re done with the server, we can start looking at the client implementation.</p>
+
+<p><a href="https://jbrandhorst.com/post/gopherjs-client-grpc-server-3/">Part 3</a></p>
+
+            </div>
+        </div>
 	</div>
+    <div class="pure-u-1-24 pure-u-md-1-6"></div>
 </div>
-<div class="pure-u-1-24 pure-u-md-1-6"></div>
+
 <div class="footer pure-g">
     <div class="pure-u-1-24 pure-u-md-5-24"></div>
     <div class="pure-u-11-12 pure-u-md-5-8">

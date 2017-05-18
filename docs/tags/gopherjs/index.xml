@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Grpc on My Blog</title>
-    <link>https://jbrandhorst.com/tags/grpc/index.xml</link>
-    <description>Recent content in Grpc on My Blog</description>
+    <title>Gopherjs on My Blog</title>
+    <link>https://jbrandhorst.com/tags/gopherjs/index.xml</link>
+    <description>Recent content in Gopherjs on My Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <copyright>Copyright (c) 2017, Johan Brandhorst; all rights reserved. Thanks to Netlify.com for hosting my blog!</copyright>
-    <atom:link href="https://jbrandhorst.com/tags/grpc/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://jbrandhorst.com/tags/gopherjs/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>GopherJS Client and gRPC Server</title>
@@ -1053,173 +1053,6 @@ with &lt;code&gt;GopherJS&lt;/code&gt; and undoubtedly continue to use &lt;code&
 please contact me on gophers slack or via &lt;a href=&#34;https://twitter.com/JohanBrandhorst&#34;&gt;my twitter&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://jbrandhorst.com/post/gopherjs-client-grpc-server/&#34;&gt;Introduction&lt;/a&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Go Protobuf Tips</title>
-      <link>https://jbrandhorst.com/post/go-protobuf-tips/</link>
-      <pubDate>Sun, 16 Apr 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://jbrandhorst.com/post/go-protobuf-tips/</guid>
-      <description>
-
-&lt;p&gt;I&amp;rsquo;ve had my fair share of dealing with proto files in go (and to some extent JS),
-so I thought I&amp;rsquo;d share some stuff I&amp;rsquo;ve learnt the hard way by working
-with proto files.&lt;/p&gt;
-
-&lt;h2 id=&#34;protoc-include-paths&#34;&gt;Protoc include paths&lt;/h2&gt;
-
-&lt;p&gt;The &lt;code&gt;protoc&lt;/code&gt; include paths can be pretty confusing, so I&amp;rsquo;ll give a few examples
-of how to use it properly.&lt;/p&gt;
-
-&lt;h4 id=&#34;just-include-the-current-directory&#34;&gt;Just include the current directory&lt;/h4&gt;
-
-&lt;p&gt;&lt;code&gt;protoc&lt;/code&gt; requires that the files referenced are in the include path, so if you&amp;rsquo;re
-referencing files relative to the current directory, you&amp;rsquo;ll need to specify &lt;code&gt;-I.&lt;/code&gt;,
-which also means the &lt;code&gt;protoc&lt;/code&gt; will resolve
-all proto import paths relative to the current directory.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ protoc myproto/myproto.proto -I. --go_out=:.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;As long as your proto file imports are all relative to the current directory, this will work.&lt;/p&gt;
-
-&lt;h4 id=&#34;several-include-paths&#34;&gt;Several include paths&lt;/h4&gt;
-
-&lt;p&gt;If you&amp;rsquo;re using the &lt;a href=&#34;https://github.com/grpc-ecosystem/grpc-gateway&#34;&gt;grpc-gateway&lt;/a&gt;
-you&amp;rsquo;ll have to include the &lt;code&gt;google/api/annotations.proto&lt;/code&gt; proto file.
-The way I&amp;rsquo;ve always done that is by vendoring the proto files and adding the vendor path
-as an include path:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ protoc myproto/myproto.proto -I. -I./vendor/github.com/googleapis/googleapis/ --go_out=:.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Includes are specified in order of priority, so &lt;code&gt;protoc&lt;/code&gt; will first see if
-&lt;code&gt;./google/api/annotations.proto&lt;/code&gt; exists, and if it doesn&amp;rsquo;t, it&amp;rsquo;ll check
-&lt;code&gt;./vendor/github.com/googleapis/googleapis/google/api/annotations.proto&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Note that vendoring is obviously a Go thing, so this might not chime well
-with the other Devs in the office who want to keep the proto repository language agnostic.
-In that case, you&amp;rsquo;ll probably define some &lt;code&gt;third_party&lt;/code&gt; folder where you can put
-the external dependencies.&lt;/p&gt;
-
-&lt;h2 id=&#34;use-the-go-package-option&#34;&gt;Use the &lt;code&gt;go_package&lt;/code&gt; option&lt;/h2&gt;
-
-&lt;p&gt;This isn&amp;rsquo;t something readily advertised in the
-&lt;a href=&#34;https://developers.google.com/protocol-buffers/docs/gotutorial&#34;&gt;introduction to protobuffers in Go&lt;/a&gt;
-or &lt;a href=&#34;http://www.grpc.io/docs/quickstart/go.html&#34;&gt;Go gRPC quick start&lt;/a&gt;, but I find it
-is essential if you ever want to import proto definitions from one proto file to another.&lt;/p&gt;
-
-&lt;h4 id=&#34;raison-d-être&#34;&gt;Raison d&amp;rsquo;être&lt;/h4&gt;
-
-&lt;p&gt;For example, lets say we have &lt;code&gt;person.proto&lt;/code&gt; in &lt;code&gt;person/person.proto&lt;/code&gt;. It defines the
-proto package &lt;code&gt;person&lt;/code&gt; and the message &lt;code&gt;Person&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-protobuf&#34;&gt;syntax = &amp;quot;proto3&amp;quot;;
-
-package person;
-
-message Person {
-  string Name = 1;
-  uint32 Age = 2;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;We also have &lt;code&gt;team.proto&lt;/code&gt; in &lt;code&gt;team/team.proto&lt;/code&gt;, defining the proto package
-&lt;code&gt;team&lt;/code&gt; and the message &lt;code&gt;Team&lt;/code&gt;. A &lt;code&gt;Team&lt;/code&gt; consists of a sorted list of &lt;code&gt;Person&lt;/code&gt;s,
-so &lt;code&gt;team.proto&lt;/code&gt; will need to import that definition from &lt;code&gt;person.proto&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;No problem, just add an &lt;code&gt;import person/person.proto&lt;/code&gt; to &lt;code&gt;team.proto&lt;/code&gt; and reference it
-using the namespace specified by the &lt;code&gt;person.proto&lt;/code&gt; package name:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-protobuf&#34;&gt;syntax = &amp;quot;proto3&amp;quot;;
-
-package team;
-
-import &amp;quot;person/person.proto&amp;quot;
-
-message Team {
-  repeated person.Person people = 1;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;When we generate a go file from this definition using &lt;code&gt;protoc&lt;/code&gt;, we&amp;rsquo;ll end up with a Go file
-that imports &lt;code&gt;person/person.pb.go&lt;/code&gt;. That&amp;rsquo;s no good!&lt;/p&gt;
-
-&lt;p&gt;Enter the &lt;code&gt;go_package&lt;/code&gt; option.&lt;/p&gt;
-
-&lt;h4 id=&#34;using-the-go-package-option&#34;&gt;Using the &lt;code&gt;go_package&lt;/code&gt; option&lt;/h4&gt;
-
-&lt;p&gt;For a proto file defined in &lt;code&gt;github.com/myuser/myprotos/myproto/myproto.proto&lt;/code&gt; the
-appropriate &lt;code&gt;go_option&lt;/code&gt; value would be &lt;code&gt;github.com/myuser/myprotos/myproto&lt;/code&gt;.
-This means that the &lt;code&gt;protoc&lt;/code&gt; compiler can generate a go file that will include the package
-&lt;code&gt;github.com/myuser/myprotos/myproto&lt;/code&gt; if you have another proto file that depends
-on &lt;code&gt;myproto/myproto.proto&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;So let&amp;rsquo;s fix the &lt;code&gt;person.proto&lt;/code&gt; and &lt;code&gt;team.proto&lt;/code&gt; proto files.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-protobuf&#34;&gt;syntax = &amp;quot;proto3&amp;quot;;
-
-option go_package = &amp;quot;github.com/myuser/myprotos/person&amp;quot;;
-
-package person;
-
-message Person {
-  string Name = 1;
-  uint32 Age = 2;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-protobuf&#34;&gt;syntax = &amp;quot;proto3&amp;quot;;
-
-option go_package = &amp;quot;github.com/myuser/myprotos/team&amp;quot;;
-
-package team;
-
-import &amp;quot;person/person.proto&amp;quot;
-
-message Team {
-  repeated person.Person members = 1;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now, you might say we don&amp;rsquo;t strictly &lt;em&gt;need&lt;/em&gt; to specify the &lt;code&gt;go_package&lt;/code&gt; for &lt;code&gt;team.proto&lt;/code&gt;,
-since nothing imports it at the minute. I&amp;rsquo;d still suggest adding it to all the proto files
-that you&amp;rsquo;ll generate go code from so that in the future when a dependency might arise, you&amp;rsquo;ve
-saved yourself, or even better, someone else, a whole lot of head scratching.&lt;/p&gt;
-
-&lt;h4 id=&#34;protoc-gen-go-output-paths-with-go-package-option&#34;&gt;&lt;code&gt;protoc-gen-go&lt;/code&gt; output paths with &lt;code&gt;go_package&lt;/code&gt; option&lt;/h4&gt;
-
-&lt;p&gt;One final note on the &lt;code&gt;go_package&lt;/code&gt; option. Specifying it in your proto file means the
-&lt;code&gt;protoc-gen-go&lt;/code&gt; &lt;code&gt;protoc&lt;/code&gt; plugin outputs your generated files as if the specified output directory is at the root of the &lt;code&gt;go_package&lt;/code&gt; path. So&amp;hellip; you&amp;rsquo;ll probably want to slightly modify your &lt;code&gt;protoc&lt;/code&gt; line:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;protoc person/person.proto team/team.proto -I. --go_out=:$GOPATH/src
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This should mean the files appear where you expect them to appear. Mind you make sure there
-are no typos in the &lt;code&gt;go_package&lt;/code&gt; option as it means the files will be generated in wrong place.&lt;/p&gt;
-
-&lt;h2 id=&#34;protoc-plugin-parameters&#34;&gt;&lt;code&gt;protoc&lt;/code&gt; plugin parameters&lt;/h2&gt;
-
-&lt;p&gt;Another thing I&amp;rsquo;ve learned through hours staring at my terminal in bewilderment is
-how parameters are passed to &lt;code&gt;protoc&lt;/code&gt; plugins. For example, the &lt;code&gt;protoc-gen-go&lt;/code&gt; plugin
-allows you to specify &lt;code&gt;plugin=grpc&lt;/code&gt; as a parameter, and the &lt;code&gt;protoc-gen-grpc-gateway&lt;/code&gt; takes
-a boolean parameter &lt;code&gt;logtostderr=true&lt;/code&gt;. I also think the &lt;code&gt;M&lt;/code&gt; parameter is a &lt;code&gt;protoc&lt;/code&gt;-wide way
-to change the import path of a specific import as defined in a proto file. Parameters are
-comma (&lt;code&gt;,&lt;/code&gt;) separated. Parameter specification is delimited by the colon (&lt;code&gt;:&lt;/code&gt;) character,
-after which comes the desired output path.
-The following are all valid &lt;code&gt;protoc&lt;/code&gt; commands illustrating this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ protoc myproto/myproto.proto -I. --go_out=plugin=grpc:.
-$ protoc myproto/myproto.proto -I. --grpc-gateway_out=logtostderr=true,Mgoogle/api/annotations.proto=myrepo/api/annotations.proto:.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;more&#34;&gt;More&lt;/h2&gt;
-
-&lt;p&gt;Feel free to reach out to me on gophers slack or on
-&lt;a href=&#34;https://twitter.com/JohanBrandhorst&#34;&gt;my twitter&lt;/a&gt; if you found this helpful or if you have
-any more tips I should include in this list.&lt;/p&gt;
 </description>
     </item>
     

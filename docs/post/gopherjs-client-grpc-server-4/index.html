@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  
+  <meta charset="utf-8">
+  <title>GopherJS Client and gRPC Server - Part 4</title>
+  <meta name="description" content="GopherJS Client and gRPC Server - Part 4">
+  <meta name="author" content="Johan Brandhorst">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://jbrandhorst.com/css/fonts.css">
+  
+  
+  <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.1/build/pure-min.css" integrity="sha384-CCTZv2q9I9m3UOxRLaJneXrrqKwUNOzZ6NGEUMwHtShDJ+nCoiXJCAgi05KfkLGY" crossorigin="anonymous">
+  
+  
+    <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.1/build/grids-responsive-min.css">
+  
+  <link rel="stylesheet" href="https://jbrandhorst.com/css/custom.css">
+
+  
+  
+  <link rel="stylesheet" href="https://jbrandhorst.com/highlight/styles/default.css">
+  
+  <script src="https://jbrandhorst.com/highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <meta name="generator" content="Hugo 0.20-DEV" />
+  
+</head>
+<body>
+
+<div class="header pure-g">
+    <div class="pure-u-1-24 pure-u-md-5-24"></div>
+    <div class="pure-u-11-12 pure-u-md-5-8">
+        <div class="desktop pure-menu pure-menu-horizontal nav-menu">
+            
+            <a href="https://jbrandhorst.com/" class="site-title pure-menu-heading">My Blog</a>
+            <ul class="pure-menu-list">
+				
+                
+                <li class="pure-menu-item">
+                    <a href="https://jbrandhorst.com/categories/programming" class="pure-menu-link">Programming</a>
+                </li>
+                
+				
+                <li class="pure-menu-item">
+                    <a href="https://jbrandhorst.com/about/" class="pure-menu-link">About</a>
+                </li>
+            </ul>
+        </div>
+        <div class="mobile pure-menu nav-menu">
+            <a href="https://jbrandhorst.com/" class="pure-menu-heading" id="toggle-home">My Blog</a>
+            <a href="#" id="toggle-btn">&#9776;</a>
+            <ul class="pure-menu-list" id="toggle-content" style="display:none;">
+                
+				
+                
+                <li class="pure-menu-item">
+                    <a href="https://jbrandhorst.com/categories/programming" class="pure-menu-link">Programming</a>
+                </li>
+                
+				
+                <li class="pure-menu-item">
+                    <a href="https://jbrandhorst.com/about" class="pure-menu-link">About</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="pure-u-1-24 pure-u-md-1-6"></div>
+</div>
+
+<div class="pure-g">
+    <div class="pure-u-1-24 pure-u-md-5-24"></div>
+	<div class="pure-u-11-12 pure-u-md-5-8">
+        <div class="post">
+
+            <div class="post-title">
+                <p class="footnote">
+                    <time class="">2017-04-17</time>
+		            
+                    
+                    |
+                    
+                    
+                    tags:<a href="https://jbrandhorst.com/tags/grpc">gRPC</a> <a href="https://jbrandhorst.com/tags/protobuf">protobuf</a> <a href="https://jbrandhorst.com/tags/golang">golang</a> <a href="https://jbrandhorst.com/tags/gopherjs">gopherjs</a> <a href="https://jbrandhorst.com/tags/grpc-gateway">grpc-gateway</a> 
+                    
+
+                    
+                    categories:<a href="https://jbrandhorst.com/categories/programming">Programming</a> 
+                    
+
+                    
+                </p>
+                <h1>GopherJS Client and gRPC Server - Part 4</h1>
+            </div>
+
+            <div class="post-content">
+                
+
+<p><a href="https://jbrandhorst.com/post/gopherjs-client-grpc-server-3/">go back</a></p>
+
+<h2 id="putting-it-all-together">Putting it all together</h2>
+
+<p>As we touched upon earlier, we generate a package from the generated JS
+(meta, right?), which can be served from the server. We&rsquo;ll create a new
+file, <code>main.go</code>, in which we can spin up a server, serve the frontend
+and the gRPC backend.</p>
+
+<p>Much of the logic in this file is inspired by the
+<a href="https://coreos.com/blog/grpc-protobufs-swagger.html">excellent blog post put together by Brandon Philips</a>
+over at CoreOS. We&rsquo;re using his elegant solution to serve
+both the HTTP API and the gRPC API on the same port.</p>
+
+<pre><code class="language-go">package main
+
+import (
+	&quot;context&quot;
+	&quot;crypto/tls&quot;
+	&quot;net&quot;
+	&quot;net/http&quot;
+	&quot;os&quot;
+	&quot;os/signal&quot;
+	&quot;strings&quot;
+	&quot;syscall&quot;
+	&quot;time&quot;
+
+	&quot;github.com/Sirupsen/logrus&quot;
+	assetfs &quot;github.com/elazarl/go-bindata-assetfs&quot;
+	&quot;github.com/grpc-ecosystem/grpc-gateway/runtime&quot;
+	&quot;github.com/tmc/grpc-websocket-proxy/wsproxy&quot;
+	&quot;google.golang.org/grpc&quot;
+	&quot;google.golang.org/grpc/credentials&quot;
+	&quot;google.golang.org/grpc/grpclog&quot;
+
+	&quot;github.com/johanbrandhorst/gopherjs-grpc-websocket/client/compiled&quot;
+	pserver &quot;github.com/johanbrandhorst/gopherjs-grpc-websocket/protos/server&quot;
+	&quot;github.com/johanbrandhorst/gopherjs-grpc-websocket/server&quot;
+	&quot;github.com/johanbrandhorst/gopherjs-grpc-websocket/server/insecure&quot;
+)
+
+// If you change this, you'll need to change the cert as well
+const addr = &quot;localhost:10000&quot;
+
+// Cert and Key should be replaced if you're going to use this
+// Copied from
+// https://github.com/philips/grpc-gateway-example/blob/0412e3928cb7d47e68b91971a8e79f93d92361ee/insecure/certs.go
+const (
+	key = `-----BEGIN RSA PRIVATE KEY-----
+MIIEogIBAAKCAQEA2KEH2CLMVmPLGwuExXDUk4TdQInkD0AAe22a1ixKxmRdSXkf
+lDKu4cHL0N5ohJBonL/udGWkI6AI51lvJ54zl9SxPoZdWzkdca5H9Cw/7Es3SYyd
+eVBkEo341D4hZqpFJM+vPReCQyTCHKGR6XnmN8E9V2RhTKpiagqfSpNmj08Rg3o3
+Ap7IzaRRnqmGyKLgJEC2hEXj7nIvHtpm4SCjm2px4bRKQRxREuujOGfqBDh6uYQF
+L46PI+QKWDN5J9+fROU9Y0HRFy7JnTkNyTuUxhjB5r2KReQ7cGGpUJzRIyyUDp/u
+3+N58AoyQHf/bXpWE0oSfOhwNABVaRWWgxOP2wIDAQABAoIBAEyvtLcummd6rEvG
+qBm894PBZRGTvsgnQARxqH5o74+Lt/pqhmNQDdidYiluklFbTa0vxJov4Qs7e+tq
+HY9I0brN8HDR3/qLHYFA0Pf/MiHT/p5qyNRJQSPQXmXEGM7fN9rwKnjV+acLPCwm
+hiDApl7WaYCmaEtbhbtER19/Dq9sB2vwF2hWvaS8TkpMe6otPVO+3h8MZfrCEQCY
+sKpZRJEGaHGX+Oe14NlmO+WhpCR9YXftq5En//zZie5TXiSM596IDriUYf9pWr99
+Xeo1JggyrGkQvmGfi5u5qpieX4QBjBKdSqOhiaUKaLQ9T6+mnijp3Cfl/HAkhS5d
+RQcmJwECgYEA6+gAvAvPaWxeTY2hiyZfL7trbwJAjrNPxCim6eJJZbhByXnG7oVT
+JZQo0pNaE/Exszv0BoaxURKNHM5mU6dEZRgwaiY4UUuKyK2OkSHEu8sOwpXcGI7k
+udjEbRaeYBcNAmB25qgisubjbveDJiwK1hbG9T+pSn3E+VotRU2Vk3UCgYEA6xSu
+wxSq79llO25O5BQ39DHKfTPeb6KBRdtCIM1L9FQH5CswVQcv1BwqvtvP724cQLkR
+5fSQyG5G9qHXmh2dj9pB65h05wlO+F03DP1pQB25QyiogyrWwNmWGnrdsJRo1lAh
+pbEWFP+/26n+VtFBcbDcClQsvPL0gOz7hiAuvA8CgYB9SYwKUuNnBAzZd1zSQCDR
+guI95J5Qq16zuTtcf7endEJMNIa4asqL7LH5lBSE/tX8cNzbEnHdstKK9/tUdkNW
+xZAA8Cd81XfxuGs9HQgVDHTcVya7TDihk0RPA3I9akCYgI7lVWqIRSOI7Z8TiNSA
+ezxTR+orC7yvCXt9kQTdeQKBgF2z+dFCzLwcMJDW8FVThdYtfqQXZ8Ohx9ubgSlo
+C62RTS/y0yohWjw3GgbHwYOTpWlbG7pImOl7o4etjS4ePe7YNcx+EaMB/9tZ9JaV
+8D0hW/ZcH4dhLQbj9EQL05AOKBe9CxxrkPy/0K7zfLEIagiyUZNAaDDMuw8k50FY
+VKibAoGAMLZlWDtCHA4J5GhLqRFzOzt2I650EOu/kNhGtJ/8YybgtMVaoN50PGfk
+Dr7+TS/DxJzY7h0yNakDg6KZKT4U4qLh74VFaHCnADyQfQnJK+1ffhNhdeoSzp+L
+zpDUVEXH6eEeRWmyxoWjWnsquube0gRKf2BQ+yYjk+CUwL/Aqk4=
+-----END RSA PRIVATE KEY-----`
+	cert = `-----BEGIN CERTIFICATE-----
+MIIEBjCCAu6gAwIBAgIJALzaDcEdLBD7MA0GCSqGSIb3DQEBBQUAMF8xCzAJBgNV
+BAYTAkFVMRMwEQYDVQQIEwpTb21lLVN0YXRlMSEwHwYDVQQKExhJbnRlcm5ldCBX
+aWRnaXRzIFB0eSBMdGQxGDAWBgNVBAMTD2xvY2FsaG9zdDoxMDAwMDAeFw0xNjAy
+MTgwMzU5NDJaFw0yNjAyMTUwMzU5NDJaMF8xCzAJBgNVBAYTAkFVMRMwEQYDVQQI
+EwpTb21lLVN0YXRlMSEwHwYDVQQKExhJbnRlcm5ldCBXaWRnaXRzIFB0eSBMdGQx
+GDAWBgNVBAMTD2xvY2FsaG9zdDoxMDAwMDCCASIwDQYJKoZIhvcNAQEBBQADggEP
+ADCCAQoCggEBANihB9gizFZjyxsLhMVw1JOE3UCJ5A9AAHttmtYsSsZkXUl5H5Qy
+ruHBy9DeaISQaJy/7nRlpCOgCOdZbyeeM5fUsT6GXVs5HXGuR/QsP+xLN0mMnXlQ
+ZBKN+NQ+IWaqRSTPrz0XgkMkwhyhkel55jfBPVdkYUyqYmoKn0qTZo9PEYN6NwKe
+yM2kUZ6phsii4CRAtoRF4+5yLx7aZuEgo5tqceG0SkEcURLrozhn6gQ4ermEBS+O
+jyPkClgzeSffn0TlPWNB0RcuyZ05Dck7lMYYwea9ikXkO3BhqVCc0SMslA6f7t/j
+efAKMkB3/216VhNKEnzocDQAVWkVloMTj9sCAwEAAaOBxDCBwTAdBgNVHQ4EFgQU
+7JqKxmk2/4aClcix32bvTr0MUkQwgZEGA1UdIwSBiTCBhoAU7JqKxmk2/4aClcix
+32bvTr0MUkShY6RhMF8xCzAJBgNVBAYTAkFVMRMwEQYDVQQIEwpTb21lLVN0YXRl
+MSEwHwYDVQQKExhJbnRlcm5ldCBXaWRnaXRzIFB0eSBMdGQxGDAWBgNVBAMTD2xv
+Y2FsaG9zdDoxMDAwMIIJALzaDcEdLBD7MAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcN
+AQEFBQADggEBAGo0MdEPAV6EH2mhIXBJb6qjg7X0kGqmh10UzmNc/r4N0lcfoPc3
+q91N3tAk2zxASW16FPumd3eRtn5FdEWLTK2SAJkP24g6199pUbcEvzHas5/awRI3
+PFwNJ+cqsYkXxsW09/cvRBFqMqrkavvoMfCwQhMJwGnql+BeN4mBS00JglHWSfDT
+e8T2yhkPc0+FuAH4ZfmdZUb+yPAv+liT+lCw+vUEsN8mnam8lZKCzhROVfmgKEHM
+Ze0aj9tzK3Su1tjAEzN4arrajCopkJA2aDI2i8EZ+2Zx1qbhNXwJd3E9MYs9WmLf
+RX7r0aSW3Y9r+/SmjYJLXB36CwbcjLHmQN0=
+-----END CERTIFICATE-----`
+)
+
+var (
+	KeyPair  *tls.Certificate
+	CertPool *x509.CertPool
+	logger *logrus.Logger
+)
+
+func init() {
+	var err error
+	pair, err := tls.X509KeyPair([]byte(cert), []byte(key))
+	if err != nil {
+		panic(err)
+	}
+	KeyPair = &amp;pair
+	CertPool = x509.NewCertPool()
+	ok := CertPool.AppendCertsFromPEM([]byte(cert))
+	if !ok {
+		panic(&quot;bad certs&quot;)
+	}
+	logger = logrus.StandardLogger()
+	logrus.SetLevel(logrus.InfoLevel)
+	logrus.SetFormatter(&amp;logrus.TextFormatter{
+		ForceColors:     true,
+		FullTimestamp:   true,
+		TimestampFormat: time.Kitchen,
+		DisableSorting:  true,
+	})
+	grpclog.SetLogger(logger)
+}
+
+func main() {
+	s := &amp;server.Server{}
+
+	gs := grpc.NewServer(grpc.Creds(credentials.NewServerTLSFromCert(KeyPair)))
+	pserver.RegisterMyServerServer(gs, s)
+	conn, err := net.Listen(&quot;tcp&quot;, addr)
+	if err != nil {
+		logger.WithError(err).Fatal(&quot;Failed to start listener&quot;)
+	}
+
+	// Create a context for easy cancellation
+	ctx, cancelFunc := context.WithCancel(context.Background())
+	defer cancelFunc()
+
+	// Gracefully shut down on ctrl-c
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, syscall.SIGINT, syscall.SIGTERM)
+	go func() {
+		&lt;-c
+		go cancelFunc()
+		go gs.GracefulStop()
+		go conn.Close()
+	}()
+
+	mux := http.NewServeMux()
+
+	// Serve the gopherjs client
+	mux.Handle(&quot;/&quot;, http.FileServer(&amp;assetfs.AssetFS{
+		Asset:     compiled.Asset,
+		AssetDir:  compiled.AssetDir,
+		AssetInfo: compiled.AssetInfo,
+	}))
+
+	gwMux := runtime.NewServeMux(
+		runtime.WithMarshalerOption(runtime.MIMEWildcard, &amp;runtime.JSONPb{
+			EmitDefaults: true,
+			OrigName:     true,
+		}),
+	)
+	// Wrap the gateway in the websocket proxy for bidi streams!
+	mux.Handle(&quot;/api/&quot;, wsproxy.WebsocketProxy(gwMux))
+
+	dcreds := credentials.NewTLS(&amp;tls.Config{
+		ServerName: addr,
+		RootCAs:    CertPool,
+	})
+	dopts := []grpc.DialOption{grpc.WithTransportCredentials(dcreds)}
+	err = pserver.RegisterMyServerHandlerFromEndpoint(ctx, gwMux, addr, dopts)
+	if err != nil {
+		logger.WithError(err).Fatal(&quot;Failed to dial server&quot;)
+	}
+
+	srv := &amp;http.Server{
+		Addr:    addr,
+		Handler: grpcHandlerFunc(gs, mux),
+		TLSConfig: &amp;tls.Config{
+			NextProtos:   []string{&quot;h2&quot;},
+			Certificates: []tls.Certificate{*KeyPair},
+		},
+	}
+
+	logger.Warn(&quot;Serving on &quot;, addr)
+	logger.Fatal(srv.Serve(tls.NewListener(conn, srv.TLSConfig)))
+}
+
+// GrpcHandlerFunc returns an http.Handler that delegates to grpcServer on incoming gRPC
+// connections or otherHandler otherwise. Copied from cockroachdb.
+func grpcHandlerFunc(grpcServer http.Handler, otherHandler http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// This is a partial recreation of gRPC's internal checks https://github.com/grpc/grpc-go/pull/514/files#diff-95e9a25b738459a2d3030e1e6fa2a718R61
+		if r.ProtoMajor == 2 &amp;&amp; strings.Contains(r.Header.Get(&quot;Content-Type&quot;), &quot;application/grpc&quot;) {
+			grpcServer.ServeHTTP(w, r)
+		} else {
+			otherHandler.ServeHTTP(w, r)
+		}
+	})
+}
+</code></pre>
+
+<p>Most of this is basic boilerplate when setting up a Go gRPC server, but there&rsquo;s a couple of
+things I want to draw attention to.</p>
+
+<pre><code class="language-go">// Serve the gopherjs client
+mux.Handle(&quot;/&quot;, http.FileServer(&amp;assetfs.AssetFS{
+	Asset:     compiled.Asset,
+	AssetDir:  compiled.AssetDir,
+	AssetInfo: compiled.AssetInfo,
+}))
+</code></pre>
+
+<p>This is the magic that serves the GopherJS generated JS (and the <code>HTML</code>). Thanks to
+<code>go-bindata</code> we can just import the package and register it as a file server.</p>
+
+<pre><code class="language-go">gwMux := runtime.NewServeMux(
+	runtime.WithMarshalerOption(runtime.MIMEWildcard, &amp;runtime.JSONPb{
+		EmitDefaults: true,
+		OrigName:     true,
+	}),
+)
+</code></pre>
+
+<p>This creates a new <code>gRPC-gateway</code> mux, but with a custom JSON marshaler which always
+marshals all values of the struct into the <code>JSON</code>. This is not default behaviour, because
+it means the client (frontend) can&rsquo;t tell the difference between when a value was not set
+and when it was set to the zero value of that type. We add it because I think it&rsquo;s mostly
+expected of real REST APIs to always return all fields.</p>
+
+<pre><code class="language-go">// Wrap the gateway in the websocket proxy for bidi streams!
+mux.Handle(&quot;/api/&quot;, wsproxy.WebsocketProxy(gwMux))
+</code></pre>
+
+<p>This magic is what makes it possible for our <code>grpc-gateway</code> to handle bidi streams
+through websockets, thanks to the work of <a href="https://github.com/tmc">tmc</a> and his library
+<a href="https://github.com/tmc/grpc-websocket-proxy">grpc-websocket-proxy</a>. It&rsquo;s a lovely
+little wrapper and I encourage you to take a look at it to understand how it works.</p>
+
+<pre><code class="language-go">// GrpcHandlerFunc returns an http.Handler that delegates to grpcServer on incoming gRPC
+// connections or otherHandler otherwise. Copied from cockroachdb.
+func grpcHandlerFunc(grpcServer http.Handler, otherHandler http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// This is a partial recreation of gRPC's internal checks https://github.com/grpc/grpc-go/pull/514/files#diff-95e9a25b738459a2d3030e1e6fa2a718R61
+		if r.ProtoMajor == 2 &amp;&amp; strings.Contains(r.Header.Get(&quot;Content-Type&quot;), &quot;application/grpc&quot;) {
+			grpcServer.ServeHTTP(w, r)
+		} else {
+			otherHandler.ServeHTTP(w, r)
+		}
+	})
+}
+</code></pre>
+
+<p>This is what allows us to serve the gRPC and HTTP API on the same port. A simple
+handler for splitting the gRPC requests from the rest. Pretty cool!</p>
+
+<p>Now with all the puzzle pieces together we should be able to just generate the JS once
+and run the server!</p>
+
+<pre><code class="language-bash">$ go generate ./client/...
+$ go run main.go
+WARN[7:31PM] Serving on https://localhost:10000
+</code></pre>
+
+<p>Now hopefully if we navigate to <a href="https://localhost:10000">https://localhost:10000</a> in
+a browser we&rsquo;ll be greeted by our website. And that&rsquo;s it!</p>
+
+<h2 id="final-thoughts">Final thoughts</h2>
+
+<p><code>GopherJS</code> is cool, <code>gRPC</code> is great, the <code>gRPC-gateway</code> is awesome, and
+the <code>grpc-websocket-proxy</code> is amazing. With these tools put together
+we&rsquo;ve shown that it&rsquo;s possible to use all the features of modern
+browsers while still writing Go. I&rsquo;m going to continue playing around
+with <code>GopherJS</code> and undoubtedly continue to use <code>gRPC</code> at work.</p>
+
+<p>Again, to see the whole example in one place, please check out
+<a href="https://github.com/johanbrandhorst/gopherjs-grpc-websocket">my github</a>.</p>
+
+<p>I hope you&rsquo;ve enjoyed reading this, and if you have any feedback or questions,
+please contact me on gophers slack or via <a href="https://twitter.com/JohanBrandhorst">my twitter</a>.</p>
+
+<p><a href="https://jbrandhorst.com/post/gopherjs-client-grpc-server/">Introduction</a></p>
+
+            </div>
+        </div>
+	</div>
+    <div class="pure-u-1-24 pure-u-md-1-6"></div>
+</div>
+
+<div class="footer pure-g">
+    <div class="pure-u-1-24 pure-u-md-5-24"></div>
+    <div class="pure-u-11-12 pure-u-md-5-8">
+        <div class="footer-content">
+		  <div class="pure-menu pure-menu-horizontal">
+              <ul>
+			      
+                  <li class="pure-menu-heading" id="foot-name">Johan Brandhorst:</li>
+                  
+				  
+                  
+          
+                  
+                  <li class="pure-menu-item">
+                      <a href="https://github.com/johanbrandhorst" class="pure-menu-link">GitHub</a>
+                  </li>
+                  
+          
+                  
+                  <li class="pure-menu-item">
+                      <a href="https://www.linkedin.com/in/johan-brandhorst-satzkorn-aa318220" class="pure-menu-link">LinkedIn</a>
+                  </li>
+                  
+          
+                  
+                  <li class="pure-menu-item">
+                      <a href="https://www.facebook.com/johan.brandhorst" class="pure-menu-link">Facebook</a>
+                  </li>
+                  
+          
+                  
+                  <li class="pure-menu-item">
+                      <a href="https://twitter.com/JohanBrandhorst" class="pure-menu-link">Twitter</a>
+                  </li>
+                  
+          
+              </ul>
+              <a href="#" class="pure-menu-heading pull-right" id="gototop-btn">↑↑</a>
+          </div>
+		  
+		  <p id="foot-copyright">Copyright (c) 2017, Johan Brandhorst; all rights reserved. Thanks to Netlify.com for hosting my blog!</p>
+		  
+		</div>
+	  </div>
+      <div class="pure-u-1-24 pure-u-md-1-6"></div>
+</div>
+
+
+<script src="https://jbrandhorst.com/js/jquery.min.js" type="text/javascript"></script>
+<script src="https://jbrandhorst.com/js/jquery.timeago.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $(function(){
+    $("time.timeago").timeago();
+  })
+  $("#toggle-btn").click(function(){
+    $("#toggle-content").toggle();
+    if($(this).html() === "☰") {
+        $(this).html("X")
+    } else {
+        $(this).html("☰")
+    }
+  });
+  $(window).resize(function(){
+    if(window.innerWidth > 768) {
+      $(".desktop").removeAttr("style");
+    }
+  });
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-96154465-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+</body>
+</html>
+

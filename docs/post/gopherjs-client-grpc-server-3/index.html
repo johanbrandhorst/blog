@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  
+  <meta charset="utf-8">
+  <title>GopherJS Client and gRPC Server - Part 3</title>
+  <meta name="description" content="GopherJS Client and gRPC Server - Part 3">
+  <meta name="author" content="Johan Brandhorst">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://jbrandhorst.com/css/fonts.css">
+  
+  
+  <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.1/build/pure-min.css" integrity="sha384-CCTZv2q9I9m3UOxRLaJneXrrqKwUNOzZ6NGEUMwHtShDJ+nCoiXJCAgi05KfkLGY" crossorigin="anonymous">
+  
+  
+    <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.1/build/grids-responsive-min.css">
+  
+  <link rel="stylesheet" href="https://jbrandhorst.com/css/custom.css">
+
+  
+  
+  <link rel="stylesheet" href="https://jbrandhorst.com/highlight/styles/default.css">
+  
+  <script src="https://jbrandhorst.com/highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <meta name="generator" content="Hugo 0.20-DEV" />
+  
+</head>
+<body>
+
+<div class="header pure-g">
+    <div class="pure-u-1-24 pure-u-md-5-24"></div>
+    <div class="pure-u-11-12 pure-u-md-5-8">
+        <div class="desktop pure-menu pure-menu-horizontal nav-menu">
+            
+            <a href="https://jbrandhorst.com/" class="site-title pure-menu-heading">My Blog</a>
+            <ul class="pure-menu-list">
+				
+                
+                <li class="pure-menu-item">
+                    <a href="https://jbrandhorst.com/categories/programming" class="pure-menu-link">Programming</a>
+                </li>
+                
+				
+                <li class="pure-menu-item">
+                    <a href="https://jbrandhorst.com/about/" class="pure-menu-link">About</a>
+                </li>
+            </ul>
+        </div>
+        <div class="mobile pure-menu nav-menu">
+            <a href="https://jbrandhorst.com/" class="pure-menu-heading" id="toggle-home">My Blog</a>
+            <a href="#" id="toggle-btn">&#9776;</a>
+            <ul class="pure-menu-list" id="toggle-content" style="display:none;">
+                
+				
+                
+                <li class="pure-menu-item">
+                    <a href="https://jbrandhorst.com/categories/programming" class="pure-menu-link">Programming</a>
+                </li>
+                
+				
+                <li class="pure-menu-item">
+                    <a href="https://jbrandhorst.com/about" class="pure-menu-link">About</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="pure-u-1-24 pure-u-md-1-6"></div>
+</div>
+
+<div class="pure-g">
+    <div class="pure-u-1-24 pure-u-md-5-24"></div>
+	<div class="pure-u-11-12 pure-u-md-5-8">
+        <div class="post">
+
+            <div class="post-title">
+                <p class="footnote">
+                    <time class="">2017-04-17</time>
+		            
+                    
+                    |
+                    
+                    
+                    tags:<a href="https://jbrandhorst.com/tags/grpc">gRPC</a> <a href="https://jbrandhorst.com/tags/protobuf">protobuf</a> <a href="https://jbrandhorst.com/tags/golang">golang</a> <a href="https://jbrandhorst.com/tags/gopherjs">gopherjs</a> <a href="https://jbrandhorst.com/tags/grpc-gateway">grpc-gateway</a> 
+                    
+
+                    
+                    categories:<a href="https://jbrandhorst.com/categories/programming">Programming</a> 
+                    
+
+                    
+                </p>
+                <h1>GopherJS Client and gRPC Server - Part 3</h1>
+            </div>
+
+            <div class="post-content">
+                
+
+<p><a href="https://jbrandhorst.com/post/gopherjs-client-grpc-server-2/">go back</a></p>
+
+<h2 id="implement-the-client">Implement the client</h2>
+
+<p>GopherJS can be used in a couple of different ways, and there&rsquo;s a couple of different
+bindings to many popular JavaScript frameworks.
+The <a href="https://github.com/gopherjs/gopherjs/wiki/bindings">GopherJS wiki</a>
+has some great resources.</p>
+
+<p>I tried a couple of different ones and ended up using the
+<a href="https://github.com/oskca/gopherjs-vue">VueJS bindings</a> because it made it easy to
+prototype things quickly. I hear <a href="https://vuejs.org/">VueJS</a> works well for many JS
+evangelisers out there, but I&rsquo;ve only used it with small projects. It&rsquo;ll do for this
+blog post, but in the future I want to try working with
+<a href="https://github.com/myitcv/react">myitcv&rsquo;s React bindings</a> and the
+<a href="https://github.com/gopherjs/vecty">Vecty toolkit</a>.</p>
+
+<p>One of the biggest problems with GopherJS at the moment is it
+<a href="https://github.com/gopherjs/gopherjs/issues/136">does not have deadcode elimination</a>.
+This can be remedied by avoiding many standard library packages. Throughout this I&rsquo;ve kept
+minimizing generated file size a priority, to show that it&rsquo;s possible to implement
+fully featured frontend apps with GopherJS without compromising on file size.</p>
+
+<p>To make things a little saner we&rsquo;ll create a couple of folders again.
+Lets add <code>compiled</code> and <code>html</code> to the <code>client</code> folder:</p>
+
+<pre><code class="language-bash">$ cd client &amp;&amp; tree -L 1 -d
+.
+|-- compiled
+|-- html
+`-- protos
+</code></pre>
+
+<p>Next we&rsquo;ll define the <code>HTML</code> of our page. Create <code>index.html</code> in the <code>html</code> folder.
+It&rsquo;s not supposed to be anything fancy, we just want a skeleton for our GopherJS code.
+The full HTML can be found on
+<a href="https://github.com/johanbrandhorst/gopherjs-grpc-websocket/blob/4f15a95d84ed6e60ce70359204ce2a64c3021776/client/html/index.html">my github</a>,
+but it won&rsquo;t make sense without looking at the GopherJS code!</p>
+
+<p>Skipping out on some boilerplate, we&rsquo;ll start with the Simple button:</p>
+
+<pre><code class="language-html">&lt;div id=&quot;app&quot; v-cloak&gt;
+	&lt;h1&gt;gRPC through gopherjs!&lt;/h1&gt;
+	&lt;p&gt;
+		&lt;h2&gt;Simple&lt;/h2&gt;
+		&lt;button v-if=&quot;!simple_message&quot; @click=&quot;Simple()&quot;&gt;Send GET&lt;/button&gt;
+		&lt;div v-if=&quot;simple_message&quot;&gt;
+			Message: {{ simple_message.msg }}, Num: {{ simple_message.num }}
+		&lt;/div&gt;
+	&lt;/p&gt;
+&lt;/div&gt;
+&lt;script src=&quot;index.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+
+<p>This creates a button with the label <code>Send GET</code>, that will, when clicked, call the
+function <code>Simple</code>. There&rsquo;s also all kinds of references to things we haven&rsquo;t seen yet
+so lets move on to the GopherJS code. Again, you can skip ahead and see the full code
+on <a href="https://github.com/johanbrandhorst/gopherjs-grpc-websocket/blob/4f15a95d84ed6e60ce70359204ce2a64c3021776/client/client.go">my github</a>. Create <code>client.go</code> in the <code>client</code> folder.</p>
+
+<pre><code class="language-go">package main
+
+//go:generate gopherjs build -m client.go -o html/index.js
+//go:generate go-bindata -pkg compiled -nometadata -o compiled/client.go -prefix html ./html
+//go:generate bash -c &quot;rm html/*.js*&quot;
+
+import (
+	&quot;github.com/gopherjs/gopherjs/js&quot;
+	&quot;github.com/johanbrandhorst/gopherjs-json&quot;
+	&quot;github.com/oskca/gopherjs-vue&quot;
+	&quot;honnef.co/go/js/xhr&quot;
+
+	&quot;github.com/johanbrandhorst/gopherjs-grpc-websocket/client/helpers&quot;
+	&quot;github.com/johanbrandhorst/gopherjs-grpc-websocket/client/protos/server&quot;
+)
+
+// Model is the state keeper of the app.
+type Model struct {
+	*js.Object
+	SimpleMessage *server.MyMessage   `js:&quot;simple_message&quot;`
+}
+
+func (m *Model) Simple() {
+	req := xhr.NewRequest(&quot;GET&quot;, &quot;/api/v1/simple&quot;)
+	req.SetRequestHeader(&quot;Content-Type&quot;, &quot;application/json&quot;)
+
+	// Wrap call in goroutine to use blocking code
+	go func() {
+		// Blocks until reply received
+		err := req.Send(nil)
+		if err != nil {
+			panic(err)
+		}
+
+		if req.Status != 200 {
+			panic(req.ResponseText)
+		}
+
+		rObj, err := json.Unmarshal(req.ResponseText)
+		if err != nil {
+			panic(err)
+		}
+
+		msg := &amp;server.MyMessage{
+			Object: rObj,
+		}
+
+		m.SimpleMessage = msg
+	}()
+}
+
+func main() {
+	m := &amp;Model{
+		Object: js.Global.Get(&quot;Object&quot;).New(),
+	}
+
+	// These must be set after the struct has been initialised
+	// so that the values can be mirrored into the internal JS Object.
+	m.SimpleMessage = nil
+
+	// Create the VueJS viewModel using a struct pointer
+	vue.New(&quot;#app&quot;, m)
+}
+</code></pre>
+
+<p>There&rsquo;s quite a bit to break down here, so we&rsquo;ll start from the top.</p>
+
+<p>GopherJS requires packages to pretend that they&rsquo;re binaries,
+so we must use <code>package main</code> at the top.</p>
+
+<p>Then we&rsquo;ve got a couple of <code>go generate</code> directives that will create and pack
+the JS file so that we can easily serve it from the server later on.</p>
+
+<pre><code class="language-go">//go:generate gopherjs build -m client.go -o html/index.js
+//go:generate go-bindata -pkg compiled -nometadata -o compiled/client.go -prefix html ./html
+//go:generate bash -c &quot;rm html/*.js*&quot;
+</code></pre>
+
+<p>The first one will compile <code>client.go</code> file into <code>html/index.js</code>. The <code>-m</code>
+flag creates a minified JS output file.</p>
+
+<p>The second one uses the excellent <a href="https://github.com/jteeuwen/go-bindata">go-bindata</a>
+to generate a convenience package for serving static content from a
+Go webserver. It means we can distribute
+a single binary which contains both the webserver logic and the static content.
+The <code>-pkg</code> flag is the name of the package that is generated, the <code>-prefix</code> flag
+removes the specified path from the path in the package. We&rsquo;ll see later how to use it.</p>
+
+<p>The last one just removes the generated JS file. We do this because all the
+data is already in the package we generated in step two and the generated JS
+is just a huge unmanageable text file. Who likes looking at JS anyway ;)?</p>
+
+<p>Next up we&rsquo;ve got the <code>Model</code>.</p>
+
+<pre><code class="language-go">// Model is the state keeper of the app.
+type Model struct {
+	*js.Object
+	SimpleMessage *server.MyMessage   `js:&quot;simple_message&quot;`
+}
+</code></pre>
+
+<p>Any Go structs that we want to use with JS need to embed the GopherJS <code>*js.Object</code> type.
+<a href="https://github.com/gopherjs/gopherjs/wiki/JavaScript-Tips-and-Gotchas">This is a quirk of GopherJS</a>,
+we&rsquo;ll see more later about what it means.</p>
+
+<p>The <code>Model</code> is required by the <code>VueJS</code> bindings, and is how we communicate between the Go
+world and the <code>HTML</code>. Anything we assign to properties on the <code>Model</code> will be reflected
+in the <code>HTML</code> and all methods defined on the <code>Model</code> are accessible from the <code>HTML</code>.</p>
+
+<p>The definition of <code>*server.MyMessage</code> is taken from the <code>protoc</code> Gopherjs plugin
+generated file. This is what the definition looks like:</p>
+
+<pre><code class="language-go">type MyMessage struct {
+	*js.Object
+	Msg string `js:&quot;msg&quot;`
+	Num uint32 `js:&quot;num&quot;`
+}
+</code></pre>
+
+<p>The <code>js</code> struct tag tells GopherJS what the variable should be called in the JS world,
+and by extension, in the <code>HTML</code>. So when we look back at the <code>HTML</code> we
+defined it should now be clearer how things work.</p>
+
+<pre><code class="language-html">&lt;p&gt;
+	&lt;h2&gt;Simple&lt;/h2&gt;
+	&lt;button v-if=&quot;!simple_message&quot; @click=&quot;Simple()&quot;&gt;Send GET&lt;/button&gt;
+	&lt;div v-if=&quot;simple_message&quot;&gt;
+		Message: {{ simple_message.msg }}, Num: {{ simple_message.num }}
+	&lt;/div&gt;
+&lt;/p&gt;
+</code></pre>
+
+<p>I&rsquo;m a little unhappy about keeping logic in the markup, especially when it means using
+JS logic, but it&rsquo;ll do for this short introduction. So we show the button if <code>simple_message</code>
+is unpopulated, otherwise we display the contents of the <code>simple_message</code>.</p>
+
+<p>Next up we&rsquo;ve got the definition of the <code>Simple</code> function.</p>
+
+<pre><code class="language-go">func (m *Model) Simple() {
+	req := xhr.NewRequest(&quot;GET&quot;, &quot;/api/v1/simple&quot;)
+	req.SetRequestHeader(&quot;Content-Type&quot;, &quot;application/json&quot;)
+
+	// Wrap call in goroutine to use blocking code
+	go func() {
+		// Blocks until reply received
+		err := req.Send(nil)
+		if err != nil {
+			panic(err)
+		}
+
+		if req.Status != 200 {
+			panic(req.ResponseText)
+		}
+
+		rObj, err := json.Unmarshal(req.ResponseText)
+		if err != nil {
+			panic(err)
+		}
+
+		msg := &amp;server.MyMessage{
+			Object: rObj,
+		}
+
+		m.SimpleMessage = msg
+	}()
+}
+</code></pre>
+
+<p>We&rsquo;ll use the excellent <a href="https://godoc.org/honnef.co/go/js/xhr">xhr</a> package for
+interacting with the API the server exposes. Using the <code>xhr</code> library means we can
+avoid importing <code>net/http</code> which adds 3MB to the generated JS file size.</p>
+
+<p>Another quirk of GopherJS is that blocking code must be wrapped in a goroutine,
+this is apparently because JS cannot contain blocking code.
+You can find more information about this quirk in the
+<a href="https://github.com/gopherjs/gopherjs#goroutines">GopherJS README</a>.</p>
+
+<p>As you can probably see, we&rsquo;re using <code>panic</code> quite liberally in this code,
+compared to how it would be used in real Go code. A <code>panic</code> in GopherJS
+will dump the stack to the browser console, which is fine for
+something simple like this, but in a real app you might want to capture the
+error produced and assign it to something in the <code>Model</code> to make it visible
+to the user.</p>
+
+<p>Next we use <a href="https://github.com/johanbrandhorst/gopherjs-json">a simple json helper library</a>
+to create a GopherJS <code>*js.Object</code> from the <code>JSON</code> string the server responds with. Because
+we know the <code>JSON</code> is of the type <code>server.MyMessage</code>, we can use the <code>*js.Object</code>
+returned to intialise a new <code>server.MyMessage</code> from the object,
+and use that to update the <code>Model</code>. Simple!</p>
+
+<p>Lastly we&rsquo;ve got the <code>main</code> boilerplate:</p>
+
+<pre><code class="language-go">func main() {
+	m := &amp;Model{
+		Object: js.Global.Get(&quot;Object&quot;).New(),
+	}
+
+	// These must be set after the struct has been initialised
+	// so that the values can be mirrored into the internal JS Object.
+	m.SimpleMessage = nil
+
+	// Create the VueJS viewModel using a struct pointer
+	vue.New(&quot;#app&quot;, m)
+}
+</code></pre>
+
+<p>Whenever we create a GopherJS struct, a new <code>*js.Object</code> needs to be assigned to it.
+Any properties on the GopherJS structs need to be initialized after the object
+has been assigned to it. Note that we must <em>explicitly</em> initialize properties on
+the <code>Model</code>, in order for the value to be reflected in the underlying
+<code>*js.Object</code>. This is just another quirk of GopherJS.</p>
+
+<p>We use the <code>VueJS bindings</code> to create the app. The first parameter is the identifier
+of the element in the <code>HTML</code> which we want to populate the app with.</p>
+
+<p>We&rsquo;ve got just enough here for a minimal GopherJS frontend to a grpc-gateway proxied
+Go gRPC server. But we&rsquo;re still missing the really interesting stuff! Lets implement the
+unary streaming function as well:</p>
+
+<pre><code class="language-html">&lt;p&gt;
+    &lt;h2&gt;Unary&lt;/h2&gt;
+    &lt;button v-if=&quot;unary_messages.length == 0&quot; @click=&quot;Unary()&quot;&gt;Send GET&lt;/button&gt;
+    &lt;div v-if=&quot;unary_messages&quot;&gt;
+        &lt;div v-for=&quot;msg in unary_messages&quot;&gt;
+            Message: {{ msg.msg }}, Num: {{ msg.num }}
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/p&gt;
+</code></pre>
+
+<p>This is very similar to the simple one, but we iterate over the messages as they come in.
+Next we need to add something to the model, to display the unary messages.</p>
+
+<pre><code class="language-go">type Model struct {
+	...
+	UnaryMessages []*server.MyMessage `js:&quot;unary_messages&quot;`
+}
+</code></pre>
+
+<p>We&rsquo;ll need to initialize the new struct member in the <code>main</code> function as well.</p>
+
+<pre><code class="language-go">func main() {
+	...
+	m.UnaryMessages = []*server.MyMessage{}
+	...
+}
+</code></pre>
+
+<p>Now we can implement the <code>Unary</code> streaming function.</p>
+
+<pre><code class="language-go">func getStreamMessage(msg string) *server.MyMessage {
+	rObj, err := json.Unmarshal(msg)
+	if err != nil {
+		panic(err)
+	}
+
+	// The actual message is wrapped in a &quot;result&quot; key,
+	// and there might be an error returned as well.
+	// See https://github.com/grpc-ecosystem/grpc-gateway/blob/b75dbe36289963caa453a924bd92ddf68c3f2a62/runtime/handler.go#L163
+	aux := &amp;struct {
+		*js.Object
+		msg *server.MyMessage `js:&quot;result&quot;`
+	}{
+		Object: rObj,
+	}
+
+	// The most reliable way I've found to check whether
+	// an error was returned.
+	if rObj.Get(&quot;error&quot;).Bool() {
+		panic(msg)
+	}
+
+	return aux.msg
+}
+
+func (m *Model) Unary() {
+	req := xhr.NewRequest(&quot;GET&quot;, &quot;/api/v1/unary&quot;)
+	req.SetRequestHeader(&quot;cache-control&quot;, &quot;no-cache&quot;)
+	req.SetRequestHeader(&quot;Content-Type&quot;, &quot;application/json&quot;)
+
+	bytesRead := 0
+	req.AddEventListener(&quot;readystatechange&quot;, false, func(_ *js.Object) {
+		switch req.ReadyState {
+		case xhr.Loading:
+			// This whole dance is because the XHR ResponseText
+			// will contain all the messages, and we just want to read
+			// anything we havent already read
+			resp := req.ResponseText[bytesRead:]
+			bytesRead += len(resp)
+
+			m.UnaryMessages = append(m.UnaryMessages, getStreamMessage(resp))
+		}
+	})
+
+	// Wrap call in goroutine to use blocking code
+	go func() {
+		// Blocks until reply received
+		err := req.Send(nil)
+		if err != nil {
+			panic(err)
+		}
+
+		if req.Status != 200 {
+			panic(req.ResponseText)
+		}
+	}()
+}
+</code></pre>
+
+<p>While I&rsquo;m quite happy with the overall simplicity of this, unfortunately it&rsquo;s
+very much JS in Go clothing. I haven&rsquo;t found a better way to handle periodically
+updating requests. Again, the <code>xhr</code> library makes this much nicer. Unfortunately
+the grotesque error check inside the handler is, as far as I can tell, unavoidable.
+Hopefully most of the other stuff should be fairly self-explanatory with the comments.</p>
+
+<p>That leaves us with the bidi-websocket streaming functions left to implement. I wanted
+this to show off the capabilities of the websocket protocol, so it&rsquo;s a little more elaborate
+than it probably needed to be. This&rsquo;ll be a bit of a code dump but I think most of this
+should be reasonable easy to understand, given what we&rsquo;ve talked about so far.</p>
+
+<pre><code class="language-html">&lt;p&gt;
+	&lt;h2&gt;Bidi&lt;/h2&gt;
+	&lt;div v-if=&quot;!ws_conn&quot;&gt;
+		&lt;button @click=&quot;Connect()&quot;&gt;Connect to Websocket&lt;/button&gt;
+	&lt;/div&gt;
+	&lt;form v-if=&quot;ws_conn&quot; v-on:submit.prevent&gt;
+		&lt;input type=&quot;text&quot; v-model=&quot;input_message&quot;&gt;&lt;/input&gt;
+		&lt;button @click=&quot;Send()&quot;&gt;Send Websocket message&lt;/button&gt;
+		&lt;button @click=&quot;Close()&quot;&gt;Close Websocket&lt;/button&gt;
+	&lt;/form&gt;
+	&lt;div v-if=&quot;bidi_messages&quot;&gt;
+		&lt;div v-for=&quot;msg in bidi_messages&quot;&gt;
+			Message: {{ msg.msg }}, Num: {{ msg.num }}
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/p&gt;
+</code></pre>
+
+<pre><code class="language-go">type Model struct {
+	...
+	InputMessage  string              `js:&quot;input_message&quot;`
+	BidiMessages  []*server.MyMessage `js:&quot;bidi_messages&quot;`
+	ConnOpen      bool                `js:&quot;ws_conn&quot;`
+}
+
+func main() {
+	...
+	m.BidiMessages = []*server.MyMessage{}
+	m.InputMessage = &quot;&quot;
+	m.ConnOpen = false
+	...
+}
+
+// GetWSBaseURL constructs the base URL for WebSocket calls
+// Copied from
+// https://github.com/gopherjs/websocket/blob/edfe1438a4184bea0b3f9e35fd77969061676d9c/test/test/index.go
+func GetWSBaseURL() string {
+	document := js.Global.Get(&quot;window&quot;).Get(&quot;document&quot;)
+	location := document.Get(&quot;location&quot;)
+
+	wsProtocol := &quot;ws&quot;
+	if location.Get(&quot;protocol&quot;).String() == &quot;https:&quot; {
+		wsProtocol = &quot;wss&quot;
+	}
+
+	return wsProtocol + &quot;://&quot; + location.Get(&quot;hostname&quot;).String() + &quot;:&quot; + location.Get(&quot;port&quot;).String()
+}
+
+func (m *Model) Connect() {
+	// Wrap call in goroutine to use blocking code
+	go func() {
+		// Blocks until connection is established
+		var err error
+		WSConn, err = websocket.Dial(GetWSBaseURL() + &quot;/api/v1/bidi&quot;)
+		if err != nil {
+			panic(err)
+		}
+
+		m.ConnOpen = true
+	}()
+}
+
+func (m *Model) Close() {
+	err := WSConn.Close()
+	if err != nil {
+		panic(err)
+	}
+
+	m.ConnOpen = false
+	m.InputMessage = &quot;&quot;
+	m.BidiMessages = []*server.MyMessage{}
+}
+
+func (m *Model) Send() {
+	msg := &amp;server.MyMessage{
+		Object: js.Global.Get(&quot;Object&quot;).New(),
+	}
+	msg.Msg = m.InputMessage
+	s, err := json.Marshal(msg.Object)
+	if err != nil {
+		panic(err)
+	}
+
+	_, err = WSConn.Write([]byte(s))
+	if err != nil {
+		panic(err)
+	}
+
+	buf := make([]byte, 1024)
+	// Wrap call in goroutine to use blocking code
+	go func() {
+		// Blocks until a WebSocket frame is received
+		n, err := WSConn.Read(buf)
+		if err != nil {
+			panic(err)
+		}
+
+		m.BidiMessages = append(m.BidiMessages, getStreamMessage(string(buf[:n])))
+	}()
+}
+</code></pre>
+
+<p>In this, we have separate functions for connecting to the WebSocket,
+sending and reading a message, and closing the WebSocket. We use another
+excellent GopherJS package, the <a href="https://github.com/gopherjs/websocket">websocket</a>
+wrapper for working with the browsers native websockets. The <code>Send</code> function
+takes the text from the form input, marshals it to JSON and sends it on the websocket.
+It then reads until it gets a reply. Obviously this can be designed differently
+if we need different behaviour.</p>
+
+<p>Now that we&rsquo;ve finished the client, we need to put everything together.</p>
+
+<p><a href="https://jbrandhorst.com/post/gopherjs-client-grpc-server-4/">Part 4</a></p>
+
+            </div>
+        </div>
+	</div>
+    <div class="pure-u-1-24 pure-u-md-1-6"></div>
+</div>
+
+<div class="footer pure-g">
+    <div class="pure-u-1-24 pure-u-md-5-24"></div>
+    <div class="pure-u-11-12 pure-u-md-5-8">
+        <div class="footer-content">
+		  <div class="pure-menu pure-menu-horizontal">
+              <ul>
+			      
+                  <li class="pure-menu-heading" id="foot-name">Johan Brandhorst:</li>
+                  
+				  
+                  
+          
+                  
+                  <li class="pure-menu-item">
+                      <a href="https://github.com/johanbrandhorst" class="pure-menu-link">GitHub</a>
+                  </li>
+                  
+          
+                  
+                  <li class="pure-menu-item">
+                      <a href="https://www.linkedin.com/in/johan-brandhorst-satzkorn-aa318220" class="pure-menu-link">LinkedIn</a>
+                  </li>
+                  
+          
+                  
+                  <li class="pure-menu-item">
+                      <a href="https://www.facebook.com/johan.brandhorst" class="pure-menu-link">Facebook</a>
+                  </li>
+                  
+          
+                  
+                  <li class="pure-menu-item">
+                      <a href="https://twitter.com/JohanBrandhorst" class="pure-menu-link">Twitter</a>
+                  </li>
+                  
+          
+              </ul>
+              <a href="#" class="pure-menu-heading pull-right" id="gototop-btn">↑↑</a>
+          </div>
+		  
+		  <p id="foot-copyright">Copyright (c) 2017, Johan Brandhorst; all rights reserved. Thanks to Netlify.com for hosting my blog!</p>
+		  
+		</div>
+	  </div>
+      <div class="pure-u-1-24 pure-u-md-1-6"></div>
+</div>
+
+
+<script src="https://jbrandhorst.com/js/jquery.min.js" type="text/javascript"></script>
+<script src="https://jbrandhorst.com/js/jquery.timeago.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $(function(){
+    $("time.timeago").timeago();
+  })
+  $("#toggle-btn").click(function(){
+    $("#toggle-content").toggle();
+    if($(this).html() === "☰") {
+        $(this).html("X")
+    } else {
+        $(this).html("☰")
+    }
+  });
+  $(window).resize(function(){
+    if(window.innerWidth > 768) {
+      $(".desktop").removeAttr("style");
+    }
+  });
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-96154465-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+</body>
+</html>
+

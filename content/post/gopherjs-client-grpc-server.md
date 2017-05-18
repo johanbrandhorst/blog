@@ -1,6 +1,5 @@
 +++
 date = "2017-04-17"
-draft = true
 title = "GopherJS Client and gRPC Server"
 description = "A guide to implementing a GopherJS frontend to a gRPC backend exposed over HTTP via the gRPC-gateway"
 tags = [ "gRPC", "protobuf", "golang", "gopherjs", "grpc-gateway" ]
@@ -29,9 +28,9 @@ So what are the steps required to get a GopherJS frontend client talking to a gR
 seamlessly? In short:
 
 * [Create the protobuf interface](/post/gopherjs-client-grpc-server-1/)
-* [Implement the server](#server)
-* [Implement the client](#client)
-* [Putting it all together](#main)
+* [Implement the server](/post/gopherjs-client-grpc-server-2/)
+* [Implement the client](/post/gopherjs-client-grpc-server-3/)
+* [Putting it all together](/post/gopherjs-client-grpc-server-4/)
 
 If you want to skip ahead, the finished example can be found on
 [my github](https://github.com/johanbrandhorst/gopherjs-grpc-websocket).

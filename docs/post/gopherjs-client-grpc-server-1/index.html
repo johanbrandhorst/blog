@@ -4,8 +4,8 @@
 
   
   <meta charset="utf-8">
-  <title>Grpc Gateway</title>
-  <meta name="description" content="Grpc Gateway">
+  <title>GopherJS Client and gRPC Server - Part 1</title>
+  <meta name="description" content="GopherJS Client and gRPC Server - Part 1">
   <meta name="author" content="Johan Brandhorst">
 
   
@@ -75,174 +75,120 @@
     <div class="pure-u-1-24 pure-u-md-1-6"></div>
 </div>
 
-
 <div class="pure-g">
     <div class="pure-u-1-24 pure-u-md-5-24"></div>
 	<div class="pure-u-11-12 pure-u-md-5-8">
-	<div class="post-content">
-	  <p class="posts-name">Grpc Gateway:</p>
+        <div class="post">
 
-	  <ul class="posts">
-		
-		
-		
-		<li>
-		  
-		  <a href="https://jbrandhorst.com/post/gopherjs-client-grpc-server/">GopherJS Client and gRPC Server</a>
+            <div class="post-title">
+                <p class="footnote">
+                    <time class="">2017-04-17</time>
+		            
+                    
+                    |
+                    
+                    
+                    tags:<a href="https://jbrandhorst.com/tags/grpc">gRPC</a> <a href="https://jbrandhorst.com/tags/protobuf">protobuf</a> <a href="https://jbrandhorst.com/tags/golang">golang</a> <a href="https://jbrandhorst.com/tags/gopherjs">gopherjs</a> <a href="https://jbrandhorst.com/tags/grpc-gateway">grpc-gateway</a> 
+                    
 
-		  <p class="footnote">
-			submitted <time datetime="2017-04-17T00:00:00Z" class="post-list timeago">2017-04-17T00:00:00Z</time>
+                    
+                    categories:<a href="https://jbrandhorst.com/categories/programming">Programming</a> 
+                    
 
-			
-			to
-			
+                    
+                </p>
+                <h1>GopherJS Client and gRPC Server - Part 1</h1>
+            </div>
 
-			
-			tags:[ <a href="https://jbrandhorst.com/tags/grpc">gRPC</a> <a href="https://jbrandhorst.com/tags/protobuf">protobuf</a> <a href="https://jbrandhorst.com/tags/golang">golang</a> <a href="https://jbrandhorst.com/tags/gopherjs">gopherjs</a> <a href="https://jbrandhorst.com/tags/grpc-gateway">grpc-gateway</a> ]
-			
+            <div class="post-content">
+                
 
-			
-			categories:[ <a href="https://jbrandhorst.com/categories/programming">Programming</a> ]
-			
+<p><a href="https://jbrandhorst.com/post/gopherjs-client-grpc-server/">go back</a></p>
 
-			
+<h2 id="create-the-protobuf-interface">Create the protobuf interface</h2>
 
-		  </p>
-		</li>
-		
-		
-		
-		<li>
-		  
-		  <a href="https://jbrandhorst.com/post/gopherjs-client-grpc-server-1/">GopherJS Client and gRPC Server - Part 1</a>
+<p>We&rsquo;ll start by creating a folder for the package we want to create. Lets call it <code>server</code>.
+Next we type up a <code>.proto</code> file to define the interface between the server and the client.
+We&rsquo;ll have to include some extra
+<a href="https://github.com/googleapis/googleapis/blob/f83f68b532d7423f1713d8ec56b16badc0955b6a/google/api/http.proto#L37">proto annotations</a> in order to have the gRPC-gateway generate the translations methods we need. Lets define a simple service with a single <code>HTTP GET</code> endpoint:</p>
 
-		  <p class="footnote">
-			submitted <time datetime="2017-04-17T00:00:00Z" class="post-list timeago">2017-04-17T00:00:00Z</time>
+<pre><code class="language-protobuf">service MyServer {
+    rpc Simple(google.protobuf.Empty) returns (MyMessage) {
+        option (google.api.http) = {
+            get: &quot;/api/v1/simple&quot;
+        };
+    }
+}
 
-			
-			to
-			
+message MyMessage {
+    string msg = 1;
+    uint32 num = 2;
+}
+</code></pre>
 
-			
-			tags:[ <a href="https://jbrandhorst.com/tags/grpc">gRPC</a> <a href="https://jbrandhorst.com/tags/protobuf">protobuf</a> <a href="https://jbrandhorst.com/tags/golang">golang</a> <a href="https://jbrandhorst.com/tags/gopherjs">gopherjs</a> <a href="https://jbrandhorst.com/tags/grpc-gateway">grpc-gateway</a> ]
-			
+<p>This creates a new endpoint, <code>Simple</code>, with takes a <code>google.protobuf.Empty</code> type as input
+(that is, no input), and returns a <code>MyMessage</code> type. From this, the gRPC-gateway will generate
+an endpoint that translates a <code>HTTP GET</code> on <code>/api/v1/simple</code> to a gRPC call to the <code>Simple</code>
+function, translating the returned data (or error) back to HTTP. If you&rsquo;re interested in how
+gRPC errors are translated to HTTP Status codes, you can take a look at
+<a href="https://github.com/grpc-ecosystem/grpc-gateway/blob/2ad234c172af14e85f3be9546f6c64c768d4eccd/runtime/errors.go">the grpc-gateway source</a>.</p>
 
-			
-			categories:[ <a href="https://jbrandhorst.com/categories/programming">Programming</a> ]
-			
+<p>Lets make things a bit more interesting and throw in a couple of streaming endpoints as well:</p>
 
-			
+<pre><code class="language-protobuf">service MyServer {
+    ...
+    rpc Unary(google.protobuf.Empty) returns (stream MyMessage) {
+        option (google.api.http) = {
+            get: &quot;/api/v1/unary&quot;
+        };
+    }
+    rpc Bidi(stream MyMessage) returns (stream MyMessage) {
+        option (google.api.http) = {
+            get: &quot;/api/v1/bidi&quot;
+        };
+    }
+}
+</code></pre>
 
-		  </p>
-		</li>
-		
-		
-		
-		<li>
-		  
-		  <a href="https://jbrandhorst.com/post/gopherjs-client-grpc-server-2/">GopherJS Client and gRPC Server - Part 2</a>
+<p>The streaming endpoints are a bit more complicated, as they don&rsquo;t readily translate to
+the simple HTTP methods. Unary streaming functions are supported by the gRPC-gateway,
+as we&rsquo;ll see when we implement the client. Bi-directional streaming is not (currently!)
+supported natively by the gRPC-gateway, but it can be remedied by wrapping the gRPC-gateway
+mux in the <a href="https://github.com/tmc/grpc-websocket-proxy">grpc-websocket-proxy</a>. This
+allows us to use websockets from the client in order to consume bidi endpoints.</p>
 
-		  <p class="footnote">
-			submitted <time datetime="2017-04-17T00:00:00Z" class="post-list timeago">2017-04-17T00:00:00Z</time>
+<p>The complete protobuf file (with imports and options) can be viewed
+<a href="https://github.com/johanbrandhorst/gopherjs-grpc-websocket/blob/5aa1d17633c077a52a48393a4d8678a187e43a12/protos/server/server.proto">on github</a>.
+Now that we&rsquo;ve got the protobuf interface defined we&rsquo;ll just need to generate the
+files that we&rsquo;ll interface with in the Go code. We&rsquo;ll whip out our trusty <code>protoc</code> compiler
+and run it with the Go, gRPC-gateway and
+<a href="https://github.com/johanbrandhorst/protoc-gen-gopherjs">gopherjs</a> plugins:</p>
 
-			
-			to
-			
+<pre><code class="language-bash">$ protoc protos/server/server.proto \
+    # Generate Go gRPC stubs.
+    # Output is relative to the go_package option,
+    # hence the reference to $GOPATH/src.
+    --go_out=plugins=grpc:$GOPATH/src \
+    # Generate Go gRPC-gateway proxy.
+    # Output is relative to file path.
+    --grpc-gateway_out=logtostderr=true:./ \
+    # Generate GopherJS client structs.
+    # Output is relative to file path.
+    --gopherjs_out=:./client \
+    # Add include paths (in order of importance)
+    -I./ \
+    # For google/api/annotations.proto
+    -I./vendor/github.com/googleapis/googleapis/ \
+</code></pre>
 
-			
-			tags:[ <a href="https://jbrandhorst.com/tags/grpc">gRPC</a> <a href="https://jbrandhorst.com/tags/protobuf">protobuf</a> <a href="https://jbrandhorst.com/tags/golang">golang</a> <a href="https://jbrandhorst.com/tags/gopherjs">gopherjs</a> <a href="https://jbrandhorst.com/tags/grpc-gateway">grpc-gateway</a> ]
-			
+<p>We&rsquo;ll end up with the files <code>protos/server/server.pb.go</code>, <code>protos/server/server.pb.gw.go</code> and <code>client/protos/server/server.pb.gopherjs.go</code>.
+The first two belong to the server, and the last one the client.
+Now we&rsquo;re ready to implement the server.</p>
 
-			
-			categories:[ <a href="https://jbrandhorst.com/categories/programming">Programming</a> ]
-			
+<p><a href="https://jbrandhorst.com/post/gopherjs-client-grpc-server-2/">Part 2</a></p>
 
-			
-
-		  </p>
-		</li>
-		
-		
-		
-		<li>
-		  
-		  <a href="https://jbrandhorst.com/post/gopherjs-client-grpc-server-3/">GopherJS Client and gRPC Server - Part 3</a>
-
-		  <p class="footnote">
-			submitted <time datetime="2017-04-17T00:00:00Z" class="post-list timeago">2017-04-17T00:00:00Z</time>
-
-			
-			to
-			
-
-			
-			tags:[ <a href="https://jbrandhorst.com/tags/grpc">gRPC</a> <a href="https://jbrandhorst.com/tags/protobuf">protobuf</a> <a href="https://jbrandhorst.com/tags/golang">golang</a> <a href="https://jbrandhorst.com/tags/gopherjs">gopherjs</a> <a href="https://jbrandhorst.com/tags/grpc-gateway">grpc-gateway</a> ]
-			
-
-			
-			categories:[ <a href="https://jbrandhorst.com/categories/programming">Programming</a> ]
-			
-
-			
-
-		  </p>
-		</li>
-		
-		
-		
-		<li>
-		  
-		  <a href="https://jbrandhorst.com/post/gopherjs-client-grpc-server-4/">GopherJS Client and gRPC Server - Part 4</a>
-
-		  <p class="footnote">
-			submitted <time datetime="2017-04-17T00:00:00Z" class="post-list timeago">2017-04-17T00:00:00Z</time>
-
-			
-			to
-			
-
-			
-			tags:[ <a href="https://jbrandhorst.com/tags/grpc">gRPC</a> <a href="https://jbrandhorst.com/tags/protobuf">protobuf</a> <a href="https://jbrandhorst.com/tags/golang">golang</a> <a href="https://jbrandhorst.com/tags/gopherjs">gopherjs</a> <a href="https://jbrandhorst.com/tags/grpc-gateway">grpc-gateway</a> ]
-			
-
-			
-			categories:[ <a href="https://jbrandhorst.com/categories/programming">Programming</a> ]
-			
-
-			
-
-		  </p>
-		</li>
-		
-		
-		
-		<li>
-		  
-		  <a href="https://jbrandhorst.com/post/go-protobuf-tips/">Go Protobuf Tips</a>
-
-		  <p class="footnote">
-			submitted <time datetime="2017-04-16T00:00:00Z" class="post-list timeago">2017-04-16T00:00:00Z</time>
-
-			
-			to
-			
-
-			
-			tags:[ <a href="https://jbrandhorst.com/tags/golang">golang</a> <a href="https://jbrandhorst.com/tags/protobuf">protobuf</a> <a href="https://jbrandhorst.com/tags/grpc">gRPC</a> <a href="https://jbrandhorst.com/tags/grpc-gateway">gRPC-gateway</a> ]
-			
-
-			
-			categories:[ <a href="https://jbrandhorst.com/categories/programming">Programming</a> ]
-			
-
-			
-
-		  </p>
-		</li>
-		
-		
-	  </ul>
-	</div>
+            </div>
+        </div>
 	</div>
     <div class="pure-u-1-24 pure-u-md-1-6"></div>
 </div>
