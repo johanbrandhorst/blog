@@ -66,8 +66,7 @@ The complete protobuf file (with imports and options) can be viewed
 [on github](https://github.com/johanbrandhorst/gopherjs-grpc-websocket/blob/5aa1d17633c077a52a48393a4d8678a187e43a12/protos/server/server.proto).
 Now that we've got the protobuf interface defined we'll just need to generate the
 files that we'll interface with in the Go code. We'll whip out our trusty `protoc` compiler
-and run it with the Go, gRPC-gateway and
-[gopherjs](https://github.com/johanbrandhorst/protoc-gen-gopherjs) plugins:
+and run it with the Go and gRPC-gateway plugins:
 
 ```bash
 $ protoc protos/server/server.proto \
@@ -78,17 +77,13 @@ $ protoc protos/server/server.proto \
     # Generate Go gRPC-gateway proxy.
     # Output is relative to file path.
     --grpc-gateway_out=logtostderr=true:./ \
-    # Generate GopherJS client structs.
-    # Output is relative to file path.
-    --gopherjs_out=:./client \
     # Add include paths (in order of importance)
     -I./ \
     # For google/api/annotations.proto
     -I./vendor/github.com/googleapis/googleapis/ \
 ```
 
-We'll end up with the files `protos/server/server.pb.go`, `protos/server/server.pb.gw.go` and `client/protos/server/server.pb.gopherjs.go`.
-The first two belong to the server, and the last one the client.
+We'll end up with the files `protos/server/server.pb.go` and `protos/server/server.pb.gw.go`.
 Now we're ready to implement the server.
 
 [Part 2](/post/gopherjs-client-grpc-server-2/)

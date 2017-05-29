@@ -130,8 +130,7 @@ allows us to use websockets from the client in order to consume bidi endpoints.&
 &lt;a href=&#34;https://github.com/johanbrandhorst/gopherjs-grpc-websocket/blob/5aa1d17633c077a52a48393a4d8678a187e43a12/protos/server/server.proto&#34;&gt;on github&lt;/a&gt;.
 Now that we&amp;rsquo;ve got the protobuf interface defined we&amp;rsquo;ll just need to generate the
 files that we&amp;rsquo;ll interface with in the Go code. We&amp;rsquo;ll whip out our trusty &lt;code&gt;protoc&lt;/code&gt; compiler
-and run it with the Go, gRPC-gateway and
-&lt;a href=&#34;https://github.com/johanbrandhorst/protoc-gen-gopherjs&#34;&gt;gopherjs&lt;/a&gt; plugins:&lt;/p&gt;
+and run it with the Go and gRPC-gateway plugins:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ protoc protos/server/server.proto \
     # Generate Go gRPC stubs.
@@ -141,17 +140,13 @@ and run it with the Go, gRPC-gateway and
     # Generate Go gRPC-gateway proxy.
     # Output is relative to file path.
     --grpc-gateway_out=logtostderr=true:./ \
-    # Generate GopherJS client structs.
-    # Output is relative to file path.
-    --gopherjs_out=:./client \
     # Add include paths (in order of importance)
     -I./ \
     # For google/api/annotations.proto
     -I./vendor/github.com/googleapis/googleapis/ \
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;We&amp;rsquo;ll end up with the files &lt;code&gt;protos/server/server.pb.go&lt;/code&gt;, &lt;code&gt;protos/server/server.pb.gw.go&lt;/code&gt; and &lt;code&gt;client/protos/server/server.pb.gopherjs.go&lt;/code&gt;.
-The first two belong to the server, and the last one the client.
+&lt;p&gt;We&amp;rsquo;ll end up with the files &lt;code&gt;protos/server/server.pb.go&lt;/code&gt; and &lt;code&gt;protos/server/server.pb.gw.go&lt;/code&gt;.
 Now we&amp;rsquo;re ready to implement the server.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://jbrandhorst.com/post/gopherjs-client-grpc-server-2/&#34;&gt;Part 2&lt;/a&gt;&lt;/p&gt;
@@ -336,10 +331,16 @@ import (
 	&amp;quot;github.com/johanbrandhorst/gopherjs-grpc-websocket/client/protos/server&amp;quot;
 )
 
+type MyMessage struct {
+	*js.Object
+	Msg string `js:&amp;quot;msg&amp;quot;`
+	Num uint32 `js:&amp;quot;num&amp;quot;`
+}
+
 // Model is the state keeper of the app.
 type Model struct {
 	*js.Object
-	SimpleMessage *server.MyMessage   `js:&amp;quot;simple_message&amp;quot;`
+	SimpleMessage *MyMessage   `js:&amp;quot;simple_message&amp;quot;`
 }
 
 func (m *Model) Simple() {
@@ -363,7 +364,7 @@ func (m *Model) Simple() {
 			panic(err)
 		}
 
-		msg := &amp;amp;server.MyMessage{
+		msg := &amp;amp;MyMessage{
 			Object: rObj,
 		}
 
@@ -412,25 +413,8 @@ removes the specified path from the path in the package. We&amp;rsquo;ll see lat
 data is already in the package we generated in step two and the generated JS
 is just a huge unmanageable text file. Who likes looking at JS anyway ;)?&lt;/p&gt;
 
-&lt;p&gt;Next up we&amp;rsquo;ve got the &lt;code&gt;Model&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;// Model is the state keeper of the app.
-type Model struct {
-	*js.Object
-	SimpleMessage *server.MyMessage   `js:&amp;quot;simple_message&amp;quot;`
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Any Go structs that we want to use with JS need to embed the GopherJS &lt;code&gt;*js.Object&lt;/code&gt; type.
-&lt;a href=&#34;https://github.com/gopherjs/gopherjs/wiki/JavaScript-Tips-and-Gotchas&#34;&gt;This is a quirk of GopherJS&lt;/a&gt;,
-we&amp;rsquo;ll see more later about what it means.&lt;/p&gt;
-
-&lt;p&gt;The &lt;code&gt;Model&lt;/code&gt; is required by the &lt;code&gt;VueJS&lt;/code&gt; bindings, and is how we communicate between the Go
-world and the &lt;code&gt;HTML&lt;/code&gt;. Anything we assign to properties on the &lt;code&gt;Model&lt;/code&gt; will be reflected
-in the &lt;code&gt;HTML&lt;/code&gt; and all methods defined on the &lt;code&gt;Model&lt;/code&gt; are accessible from the &lt;code&gt;HTML&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;The definition of &lt;code&gt;*server.MyMessage&lt;/code&gt; is taken from the &lt;code&gt;protoc&lt;/code&gt; Gopherjs plugin
-generated file. This is what the definition looks like:&lt;/p&gt;
+&lt;p&gt;Then we&amp;rsquo;ve got the &lt;code&gt;MyMessage&lt;/code&gt; struct. It&amp;rsquo;s manually crafted to correspond
+to the one defined in the protofile.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;type MyMessage struct {
 	*js.Object
@@ -442,6 +426,23 @@ generated file. This is what the definition looks like:&lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;js&lt;/code&gt; struct tag tells GopherJS what the variable should be called in the JS world,
 and by extension, in the &lt;code&gt;HTML&lt;/code&gt;. So when we look back at the &lt;code&gt;HTML&lt;/code&gt; we
 defined it should now be clearer how things work.&lt;/p&gt;
+
+&lt;p&gt;Next up we&amp;rsquo;ve got the &lt;code&gt;Model&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;// Model is the state keeper of the app.
+type Model struct {
+	*js.Object
+	SimpleMessage *MyMessage   `js:&amp;quot;simple_message&amp;quot;`
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Any Go structs that we want to use with JS need to embed the GopherJS &lt;code&gt;*js.Object&lt;/code&gt; type.
+&lt;a href=&#34;https://github.com/gopherjs/gopherjs/wiki/JavaScript-Tips-and-Gotchas&#34;&gt;This is a quirk of GopherJS&lt;/a&gt;,
+we&amp;rsquo;ll see more later about what it means.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;Model&lt;/code&gt; is required by the &lt;code&gt;VueJS&lt;/code&gt; bindings, and is how we communicate between the Go
+world and the &lt;code&gt;HTML&lt;/code&gt;. Anything we assign to properties on the &lt;code&gt;Model&lt;/code&gt; will be reflected
+in the &lt;code&gt;HTML&lt;/code&gt; and all methods defined on the &lt;code&gt;Model&lt;/code&gt; are accessible from the &lt;code&gt;HTML&lt;/code&gt;.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;p&amp;gt;
 	&amp;lt;h2&amp;gt;Simple&amp;lt;/h2&amp;gt;
@@ -479,7 +480,7 @@ is unpopulated, otherwise we display the contents of the &lt;code&gt;simple_mess
 			panic(err)
 		}
 
-		msg := &amp;amp;server.MyMessage{
+		msg := &amp;amp;MyMessage{
 			Object: rObj,
 		}
 
@@ -506,8 +507,8 @@ to the user.&lt;/p&gt;
 
 &lt;p&gt;Next we use &lt;a href=&#34;https://github.com/johanbrandhorst/gopherjs-json&#34;&gt;a simple json helper library&lt;/a&gt;
 to create a GopherJS &lt;code&gt;*js.Object&lt;/code&gt; from the &lt;code&gt;JSON&lt;/code&gt; string the server responds with. Because
-we know the &lt;code&gt;JSON&lt;/code&gt; is of the type &lt;code&gt;server.MyMessage&lt;/code&gt;, we can use the &lt;code&gt;*js.Object&lt;/code&gt;
-returned to intialise a new &lt;code&gt;server.MyMessage&lt;/code&gt; from the object,
+we know the &lt;code&gt;JSON&lt;/code&gt; is of the type &lt;code&gt;MyMessage&lt;/code&gt;, we can use the &lt;code&gt;*js.Object&lt;/code&gt;
+returned to intialise a new &lt;code&gt;MyMessage&lt;/code&gt; from the object,
 and use that to update the &lt;code&gt;Model&lt;/code&gt;. Simple!&lt;/p&gt;
 
 &lt;p&gt;Lastly we&amp;rsquo;ve got the &lt;code&gt;main&lt;/code&gt; boilerplate:&lt;/p&gt;
@@ -555,7 +556,7 @@ Next we need to add something to the model, to display the unary messages.&lt;/p
 
 &lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;type Model struct {
 	...
-	UnaryMessages []*server.MyMessage `js:&amp;quot;unary_messages&amp;quot;`
+	UnaryMessages []*MyMessage `js:&amp;quot;unary_messages&amp;quot;`
 }
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -563,14 +564,14 @@ Next we need to add something to the model, to display the unary messages.&lt;/p
 
 &lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;func main() {
 	...
-	m.UnaryMessages = []*server.MyMessage{}
+	m.UnaryMessages = []*MyMessage{}
 	...
 }
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Now we can implement the &lt;code&gt;Unary&lt;/code&gt; streaming function.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;func getStreamMessage(msg string) *server.MyMessage {
+&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;func getStreamMessage(msg string) *MyMessage {
 	rObj, err := json.Unmarshal(msg)
 	if err != nil {
 		panic(err)
@@ -581,7 +582,7 @@ Next we need to add something to the model, to display the unary messages.&lt;/p
 	// See https://github.com/grpc-ecosystem/grpc-gateway/blob/b75dbe36289963caa453a924bd92ddf68c3f2a62/runtime/handler.go#L163
 	aux := &amp;amp;struct {
 		*js.Object
-		msg *server.MyMessage `js:&amp;quot;result&amp;quot;`
+		msg *MyMessage `js:&amp;quot;result&amp;quot;`
 	}{
 		Object: rObj,
 	}
@@ -661,13 +662,13 @@ should be reasonable easy to understand, given what we&amp;rsquo;ve talked about
 &lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;type Model struct {
 	...
 	InputMessage  string              `js:&amp;quot;input_message&amp;quot;`
-	BidiMessages  []*server.MyMessage `js:&amp;quot;bidi_messages&amp;quot;`
+	BidiMessages  []*MyMessage `js:&amp;quot;bidi_messages&amp;quot;`
 	ConnOpen      bool                `js:&amp;quot;ws_conn&amp;quot;`
 }
 
 func main() {
 	...
-	m.BidiMessages = []*server.MyMessage{}
+	m.BidiMessages = []*MyMessage{}
 	m.InputMessage = &amp;quot;&amp;quot;
 	m.ConnOpen = false
 	...
@@ -710,11 +711,11 @@ func (m *Model) Close() {
 
 	m.ConnOpen = false
 	m.InputMessage = &amp;quot;&amp;quot;
-	m.BidiMessages = []*server.MyMessage{}
+	m.BidiMessages = []*MyMessage{}
 }
 
 func (m *Model) Send() {
-	msg := &amp;amp;server.MyMessage{
+	msg := &amp;amp;MyMessage{
 		Object: js.Global.Get(&amp;quot;Object&amp;quot;).New(),
 	}
 	msg.Msg = m.InputMessage
