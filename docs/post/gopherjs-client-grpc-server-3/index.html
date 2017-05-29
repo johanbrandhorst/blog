@@ -178,10 +178,16 @@ import (
 	&quot;github.com/johanbrandhorst/gopherjs-grpc-websocket/client/protos/server&quot;
 )
 
+type MyMessage struct {
+	*js.Object
+	Msg string `js:&quot;msg&quot;`
+	Num uint32 `js:&quot;num&quot;`
+}
+
 // Model is the state keeper of the app.
 type Model struct {
 	*js.Object
-	SimpleMessage *server.MyMessage   `js:&quot;simple_message&quot;`
+	SimpleMessage *MyMessage   `js:&quot;simple_message&quot;`
 }
 
 func (m *Model) Simple() {
@@ -205,7 +211,7 @@ func (m *Model) Simple() {
 			panic(err)
 		}
 
-		msg := &amp;server.MyMessage{
+		msg := &amp;MyMessage{
 			Object: rObj,
 		}
 
@@ -254,25 +260,8 @@ removes the specified path from the path in the package. We&rsquo;ll see later h
 data is already in the package we generated in step two and the generated JS
 is just a huge unmanageable text file. Who likes looking at JS anyway ;)?</p>
 
-<p>Next up we&rsquo;ve got the <code>Model</code>.</p>
-
-<pre><code class="language-go">// Model is the state keeper of the app.
-type Model struct {
-	*js.Object
-	SimpleMessage *server.MyMessage   `js:&quot;simple_message&quot;`
-}
-</code></pre>
-
-<p>Any Go structs that we want to use with JS need to embed the GopherJS <code>*js.Object</code> type.
-<a href="https://github.com/gopherjs/gopherjs/wiki/JavaScript-Tips-and-Gotchas">This is a quirk of GopherJS</a>,
-we&rsquo;ll see more later about what it means.</p>
-
-<p>The <code>Model</code> is required by the <code>VueJS</code> bindings, and is how we communicate between the Go
-world and the <code>HTML</code>. Anything we assign to properties on the <code>Model</code> will be reflected
-in the <code>HTML</code> and all methods defined on the <code>Model</code> are accessible from the <code>HTML</code>.</p>
-
-<p>The definition of <code>*server.MyMessage</code> is taken from the <code>protoc</code> Gopherjs plugin
-generated file. This is what the definition looks like:</p>
+<p>Then we&rsquo;ve got the <code>MyMessage</code> struct. It&rsquo;s manually crafted to correspond
+to the one defined in the protofile.</p>
 
 <pre><code class="language-go">type MyMessage struct {
 	*js.Object
@@ -284,6 +273,23 @@ generated file. This is what the definition looks like:</p>
 <p>The <code>js</code> struct tag tells GopherJS what the variable should be called in the JS world,
 and by extension, in the <code>HTML</code>. So when we look back at the <code>HTML</code> we
 defined it should now be clearer how things work.</p>
+
+<p>Next up we&rsquo;ve got the <code>Model</code>.</p>
+
+<pre><code class="language-go">// Model is the state keeper of the app.
+type Model struct {
+	*js.Object
+	SimpleMessage *MyMessage   `js:&quot;simple_message&quot;`
+}
+</code></pre>
+
+<p>Any Go structs that we want to use with JS need to embed the GopherJS <code>*js.Object</code> type.
+<a href="https://github.com/gopherjs/gopherjs/wiki/JavaScript-Tips-and-Gotchas">This is a quirk of GopherJS</a>,
+we&rsquo;ll see more later about what it means.</p>
+
+<p>The <code>Model</code> is required by the <code>VueJS</code> bindings, and is how we communicate between the Go
+world and the <code>HTML</code>. Anything we assign to properties on the <code>Model</code> will be reflected
+in the <code>HTML</code> and all methods defined on the <code>Model</code> are accessible from the <code>HTML</code>.</p>
 
 <pre><code class="language-html">&lt;p&gt;
 	&lt;h2&gt;Simple&lt;/h2&gt;
@@ -321,7 +327,7 @@ is unpopulated, otherwise we display the contents of the <code>simple_message</c
 			panic(err)
 		}
 
-		msg := &amp;server.MyMessage{
+		msg := &amp;MyMessage{
 			Object: rObj,
 		}
 
@@ -348,8 +354,8 @@ to the user.</p>
 
 <p>Next we use <a href="https://github.com/johanbrandhorst/gopherjs-json">a simple json helper library</a>
 to create a GopherJS <code>*js.Object</code> from the <code>JSON</code> string the server responds with. Because
-we know the <code>JSON</code> is of the type <code>server.MyMessage</code>, we can use the <code>*js.Object</code>
-returned to intialise a new <code>server.MyMessage</code> from the object,
+we know the <code>JSON</code> is of the type <code>MyMessage</code>, we can use the <code>*js.Object</code>
+returned to intialise a new <code>MyMessage</code> from the object,
 and use that to update the <code>Model</code>. Simple!</p>
 
 <p>Lastly we&rsquo;ve got the <code>main</code> boilerplate:</p>
@@ -397,7 +403,7 @@ Next we need to add something to the model, to display the unary messages.</p>
 
 <pre><code class="language-go">type Model struct {
 	...
-	UnaryMessages []*server.MyMessage `js:&quot;unary_messages&quot;`
+	UnaryMessages []*MyMessage `js:&quot;unary_messages&quot;`
 }
 </code></pre>
 
@@ -405,14 +411,14 @@ Next we need to add something to the model, to display the unary messages.</p>
 
 <pre><code class="language-go">func main() {
 	...
-	m.UnaryMessages = []*server.MyMessage{}
+	m.UnaryMessages = []*MyMessage{}
 	...
 }
 </code></pre>
 
 <p>Now we can implement the <code>Unary</code> streaming function.</p>
 
-<pre><code class="language-go">func getStreamMessage(msg string) *server.MyMessage {
+<pre><code class="language-go">func getStreamMessage(msg string) *MyMessage {
 	rObj, err := json.Unmarshal(msg)
 	if err != nil {
 		panic(err)
@@ -423,7 +429,7 @@ Next we need to add something to the model, to display the unary messages.</p>
 	// See https://github.com/grpc-ecosystem/grpc-gateway/blob/b75dbe36289963caa453a924bd92ddf68c3f2a62/runtime/handler.go#L163
 	aux := &amp;struct {
 		*js.Object
-		msg *server.MyMessage `js:&quot;result&quot;`
+		msg *MyMessage `js:&quot;result&quot;`
 	}{
 		Object: rObj,
 	}
@@ -503,13 +509,13 @@ should be reasonable easy to understand, given what we&rsquo;ve talked about so 
 <pre><code class="language-go">type Model struct {
 	...
 	InputMessage  string              `js:&quot;input_message&quot;`
-	BidiMessages  []*server.MyMessage `js:&quot;bidi_messages&quot;`
+	BidiMessages  []*MyMessage `js:&quot;bidi_messages&quot;`
 	ConnOpen      bool                `js:&quot;ws_conn&quot;`
 }
 
 func main() {
 	...
-	m.BidiMessages = []*server.MyMessage{}
+	m.BidiMessages = []*MyMessage{}
 	m.InputMessage = &quot;&quot;
 	m.ConnOpen = false
 	...
@@ -552,11 +558,11 @@ func (m *Model) Close() {
 
 	m.ConnOpen = false
 	m.InputMessage = &quot;&quot;
-	m.BidiMessages = []*server.MyMessage{}
+	m.BidiMessages = []*MyMessage{}
 }
 
 func (m *Model) Send() {
-	msg := &amp;server.MyMessage{
+	msg := &amp;MyMessage{
 		Object: js.Global.Get(&quot;Object&quot;).New(),
 	}
 	msg.Msg = m.InputMessage
