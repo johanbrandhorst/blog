@@ -3,11 +3,6 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://jbrandhorst.com/post/thing/</loc>
-    <lastmod>2017-05-30T23:22:20+01:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://jbrandhorst.com/post/go-protobuf-tips/</loc>
     <lastmod>2017-04-18T00:00:00+00:00</lastmod>
   </url>
@@ -49,7 +44,7 @@
   
   <url>
     <loc>https://jbrandhorst.com/</loc>
-    <lastmod>2017-05-30T23:22:20+01:00</lastmod>
+    <lastmod>2017-04-18T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -85,7 +80,7 @@
   
   <url>
     <loc>https://jbrandhorst.com/post/</loc>
-    <lastmod>2017-05-30T23:22:20+01:00</lastmod>
+    <lastmod>2017-04-18T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
