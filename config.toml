@@ -2,7 +2,7 @@ publishDir = "docs"
 canonifyURLs = true
 baseurl = "https://jbrandhorst.com"
 DefaultContentLanguage = "en"
-title = "Go ahead"
+title = "Go Ahead"
 theme = "beautifulhugo"
 metaDataFormat = "yaml"
 pygmentsUseClasses = true
@@ -11,7 +11,6 @@ googleAnalytics = "UA-96154465-1"
 
 [Params]
   	subtitle = "Golang, gRPC and friends"
-	copyright = "Copyright 2017, Johan Brandhorst"
 	logo = "img/icon.jpg"
   	favicon = "img/favicon.ico"
   	dateFormat = "January 2, 2006"
