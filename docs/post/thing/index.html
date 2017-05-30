@@ -5,12 +5,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>GopherJS Client and gRPC Server - Part 1</title>
-  <meta property="og:title" content="GopherJS Client and gRPC Server - Part 1" />
-  <meta name="twitter:title" content="GopherJS Client and gRPC Server - Part 1" />
-  <meta name="description" content="A guide to implementing a GopherJS frontend to a gRPC backend exposed over HTTP via the gRPC-gateway">
-  <meta property="og:description" content="A guide to implementing a GopherJS frontend to a gRPC backend exposed over HTTP via the gRPC-gateway">
-  <meta name="twitter:description" content="A guide to implementing a GopherJS frontend to a gRPC backend exposed over HTTP via the gRPC-gateway">
+  <title>thing</title>
+  <meta property="og:title" content="thing" />
+  <meta name="twitter:title" content="thing" />
   <meta name="author" content="Johan Brandhorst"/>
   <link href='https://jbrandhorst.com/img/favicon.ico' rel='icon' type='image/x-icon'/>
   <meta property="og:image" content="https://jbrandhorst.com/img/icon.jpg" />
@@ -18,12 +15,12 @@
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@JohanBrandhorst" />
   <meta name="twitter:creator" content="@JohanBrandhorst" />
-  <meta property="og:url" content="https://jbrandhorst.com/post/gopherjs-client-grpc-server-1/" />
+  <meta property="og:url" content="https://jbrandhorst.com/post/thing/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Go Ahead" />
 
   <meta name="generator" content="Hugo 0.21" />
-  <link rel="canonical" href="https://jbrandhorst.com/post/gopherjs-client-grpc-server-1/" />
+  <link rel="canonical" href="https://jbrandhorst.com/post/thing/" />
   <link rel="alternate" href="https://jbrandhorst.com/index.xml" type="application/rss+xml" title="Go Ahead">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -118,15 +115,11 @@ ga('send', 'pageview');
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
-              <h1>GopherJS Client and gRPC Server - Part 1</h1>
-                
-                  
-                    <h2 class="post-subheading">A guide to implementing a GopherJS frontend to a gRPC backend exposed over HTTP via the gRPC-gateway</h2>
-                  
+              <h1>thing</h1>
                 
                 
                   <span class="post-meta">
-  Posted on April 11, 2017
+  Posted on May 30, 2017
   
 </span>
 
@@ -146,94 +139,14 @@ ga('send', 'pageview');
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         
-
-<h2 id="create-the-protobuf-interface">Create the protobuf interface</h2>
-
-<p>We&rsquo;ll start by creating a folder for the package we want to create. Lets call it <code>server</code>.
-Next we type up a <code>.proto</code> file to define the interface between the server and the client.
-We&rsquo;ll have to include some extra
-<a href="https://github.com/googleapis/googleapis/blob/f83f68b532d7423f1713d8ec56b16badc0955b6a/google/api/http.proto#L37">proto annotations</a> in order to have the gRPC-gateway generate the translations methods we need. Lets define a simple service with a single <code>HTTP GET</code> endpoint:</p>
-
-<pre><code class="language-protobuf">service MyServer {
-    rpc Simple(google.protobuf.Empty) returns (MyMessage) {
-        option (google.api.http) = {
-            get: &quot;/api/v1/simple&quot;
-        };
-    }
-}
-
-message MyMessage {
-    string msg = 1;
-    uint32 num = 2;
-}
-</code></pre>
-
-<p>This creates a new endpoint, <code>Simple</code>, with takes a <code>google.protobuf.Empty</code> type as input
-(that is, no input), and returns a <code>MyMessage</code> type. From this, the gRPC-gateway will generate
-an endpoint that translates a <code>HTTP GET</code> on <code>/api/v1/simple</code> to a gRPC call to the <code>Simple</code>
-function, translating the returned data (or error) back to HTTP. If you&rsquo;re interested in how
-gRPC errors are translated to HTTP Status codes, you can take a look at
-<a href="https://github.com/grpc-ecosystem/grpc-gateway/blob/2ad234c172af14e85f3be9546f6c64c768d4eccd/runtime/errors.go">the grpc-gateway source</a>.</p>
-
-<p>Lets make things a bit more interesting and throw in a couple of streaming endpoints as well:</p>
-
-<pre><code class="language-protobuf">service MyServer {
-    ...
-    rpc Unary(google.protobuf.Empty) returns (stream MyMessage) {
-        option (google.api.http) = {
-            get: &quot;/api/v1/unary&quot;
-        };
-    }
-    rpc Bidi(stream MyMessage) returns (stream MyMessage) {
-        option (google.api.http) = {
-            get: &quot;/api/v1/bidi&quot;
-        };
-    }
-}
-</code></pre>
-
-<p>The streaming endpoints are a bit more complicated, as they don&rsquo;t readily translate to
-the simple HTTP methods. Unary streaming functions are supported by the gRPC-gateway,
-as we&rsquo;ll see when we implement the client. Bi-directional streaming is not (currently!)
-supported natively by the gRPC-gateway, but it can be remedied by wrapping the gRPC-gateway
-mux in the <a href="https://github.com/tmc/grpc-websocket-proxy">grpc-websocket-proxy</a>. This
-allows us to use websockets from the client in order to consume bidi endpoints.</p>
-
-<p>The complete protobuf file (with imports and options) can be viewed
-<a href="https://github.com/johanbrandhorst/gopherjs-grpc-websocket/blob/5aa1d17633c077a52a48393a4d8678a187e43a12/protos/server/server.proto">on github</a>.
-Now that we&rsquo;ve got the protobuf interface defined we&rsquo;ll just need to generate the
-files that we&rsquo;ll interface with in the Go code. We&rsquo;ll whip out our trusty <code>protoc</code> compiler
-and run it with the Go and gRPC-gateway plugins:</p>
-
-<pre><code class="language-bash">$ protoc protos/server/server.proto \
-    # Generate Go gRPC stubs.
-    # Output is relative to the go_package option,
-    # hence the reference to $GOPATH/src.
-    --go_out=plugins=grpc:$GOPATH/src \
-    # Generate Go gRPC-gateway proxy.
-    # Output is relative to file path.
-    --grpc-gateway_out=logtostderr=true:./ \
-    # Add include paths (in order of importance)
-    -I./ \
-    # For google/api/annotations.proto
-    -I./vendor/github.com/googleapis/googleapis/ \
-</code></pre>
-
-<p>We&rsquo;ll end up with the files <code>protos/server/server.pb.go</code> and <code>protos/server/server.pb.gw.go</code>.
-Now we&rsquo;re ready to implement the server.</p>
-
       </article>
 
       <ul class="pager blog-pager">
         
           <li class="previous">
-            <a href="https://jbrandhorst.com/post/gopherjs-client-grpc-server/" data-toggle="tooltip" data-placement="top" title="GopherJS Client and gRPC Server - Introduction">&larr; Previous Post</a>
+            <a href="https://jbrandhorst.com/post/go-protobuf-tips/" data-toggle="tooltip" data-placement="top" title="Go Protobuf Tips">&larr; Previous Post</a>
           </li>
         
-        
-          <li class="next">
-            <a href="https://jbrandhorst.com/post/gopherjs-client-grpc-server-2/" data-toggle="tooltip" data-placement="top" title="GopherJS Client and gRPC Server - Part 2">Next Post &rarr;</a>
-          </li>
         
       </ul>
 
