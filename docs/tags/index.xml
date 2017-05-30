@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on My Blog</title>
-    <link>https://jbrandhorst.com/tags/index.xml</link>
-    <description>Recent content in Tags on My Blog</description>
+    <title>Tags on Go ahead</title>
+    <link>https://jbrandhorst.com/tags/</link>
+    <description>Recent content in Tags on Go ahead</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-gb</language>
-    <copyright>Copyright (c) 2017, Johan Brandhorst; all rights reserved. Thanks to Netlify.com for hosting my blog!</copyright>
-    <lastBuildDate>Mon, 17 Apr 2017 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://jbrandhorst.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>Copyright 2017, Johan Brandhorst</copyright>
+    <lastBuildDate>Tue, 18 Apr 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://jbrandhorst.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Golang</title>
       <link>https://jbrandhorst.com/tags/golang/</link>
-      <pubDate>Mon, 17 Apr 2017 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 18 Apr 2017 00:00:00 +0000</pubDate>
       
       <guid>https://jbrandhorst.com/tags/golang/</guid>
       <description></description>
@@ -22,7 +23,7 @@
     <item>
       <title>Gopherjs</title>
       <link>https://jbrandhorst.com/tags/gopherjs/</link>
-      <pubDate>Mon, 17 Apr 2017 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 14 Apr 2017 00:00:00 +0000</pubDate>
       
       <guid>https://jbrandhorst.com/tags/gopherjs/</guid>
       <description></description>
@@ -31,7 +32,7 @@
     <item>
       <title>Grpc</title>
       <link>https://jbrandhorst.com/tags/grpc/</link>
-      <pubDate>Mon, 17 Apr 2017 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 18 Apr 2017 00:00:00 +0000</pubDate>
       
       <guid>https://jbrandhorst.com/tags/grpc/</guid>
       <description></description>
@@ -40,7 +41,7 @@
     <item>
       <title>Grpc Gateway</title>
       <link>https://jbrandhorst.com/tags/grpc-gateway/</link>
-      <pubDate>Mon, 17 Apr 2017 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 18 Apr 2017 00:00:00 +0000</pubDate>
       
       <guid>https://jbrandhorst.com/tags/grpc-gateway/</guid>
       <description></description>
@@ -49,7 +50,7 @@
     <item>
       <title>Protobuf</title>
       <link>https://jbrandhorst.com/tags/protobuf/</link>
-      <pubDate>Mon, 17 Apr 2017 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 18 Apr 2017 00:00:00 +0000</pubDate>
       
       <guid>https://jbrandhorst.com/tags/protobuf/</guid>
       <description></description>

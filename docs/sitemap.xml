@@ -1,38 +1,39 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://jbrandhorst.com/post/gopherjs-client-grpc-server/</loc>
-    <lastmod>2017-04-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jbrandhorst.com/post/gopherjs-client-grpc-server-1/</loc>
-    <lastmod>2017-04-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jbrandhorst.com/post/gopherjs-client-grpc-server-2/</loc>
-    <lastmod>2017-04-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jbrandhorst.com/post/gopherjs-client-grpc-server-3/</loc>
-    <lastmod>2017-04-17T00:00:00+00:00</lastmod>
+    <loc>https://jbrandhorst.com/post/go-protobuf-tips/</loc>
+    <lastmod>2017-04-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://jbrandhorst.com/post/gopherjs-client-grpc-server-4/</loc>
-    <lastmod>2017-04-17T00:00:00+00:00</lastmod>
+    <lastmod>2017-04-14T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://jbrandhorst.com/post/go-protobuf-tips/</loc>
-    <lastmod>2017-04-16T00:00:00+00:00</lastmod>
+    <loc>https://jbrandhorst.com/post/gopherjs-client-grpc-server-3/</loc>
+    <lastmod>2017-04-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://jbrandhorst.com/about/</loc>
+    <loc>https://jbrandhorst.com/post/gopherjs-client-grpc-server-2/</loc>
+    <lastmod>2017-04-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jbrandhorst.com/post/gopherjs-client-grpc-server-1/</loc>
+    <lastmod>2017-04-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jbrandhorst.com/post/gopherjs-client-grpc-server/</loc>
+    <lastmod>2017-04-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jbrandhorst.com/page/about/</loc>
     <lastmod>2017-03-23T22:25:56+00:00</lastmod>
   </url>
   
@@ -42,56 +43,62 @@
   </url>
   
   <url>
+    <loc>https://jbrandhorst.com/</loc>
+    <lastmod>2017-04-18T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://jbrandhorst.com/tags/golang/</loc>
-    <lastmod>2017-04-17T00:00:00+00:00</lastmod>
+    <lastmod>2017-04-18T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://jbrandhorst.com/tags/gopherjs/</loc>
-    <lastmod>2017-04-17T00:00:00+00:00</lastmod>
+    <lastmod>2017-04-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://jbrandhorst.com/tags/grpc/</loc>
-    <lastmod>2017-04-17T00:00:00+00:00</lastmod>
+    <lastmod>2017-04-18T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://jbrandhorst.com/tags/grpc-gateway/</loc>
-    <lastmod>2017-04-17T00:00:00+00:00</lastmod>
+    <lastmod>2017-04-18T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://jbrandhorst.com/</loc>
-    <lastmod>2017-04-17T00:00:00+00:00</lastmod>
+    <loc>https://jbrandhorst.com/page/</loc>
+    <lastmod>2017-03-23T22:25:56+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://jbrandhorst.com/post/</loc>
-    <lastmod>2017-04-17T00:00:00+00:00</lastmod>
+    <lastmod>2017-04-18T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://jbrandhorst.com/categories/programming/</loc>
-    <lastmod>2017-04-17T00:00:00+00:00</lastmod>
+    <lastmod>2017-04-18T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://jbrandhorst.com/tags/protobuf/</loc>
-    <lastmod>2017-04-17T00:00:00+00:00</lastmod>
+    <lastmod>2017-04-18T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://jbrandhorst.com/tags/</loc>
-    <lastmod>2017-04-17T00:00:00+00:00</lastmod>
+    <lastmod>2017-04-18T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
