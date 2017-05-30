@@ -1,24 +1,67 @@
 publishDir = "docs"
-title = "My Blog"
-baseURL = "https://jbrandhorst.com/"
-languageCode = "en-gb"
 canonifyURLs = true
-copyright = "Copyright (c) 2017, Johan Brandhorst; all rights reserved. Thanks to Netlify.com for hosting my blog!"
+baseurl = "https://jbrandhorst.com"
+DefaultContentLanguage = "en"
+title = "Go ahead"
+theme = "beautifulhugo"
+metaDataFormat = "yaml"
+pygmentsUseClasses = true
+pygmentCodeFences = true
+googleAnalytics = "UA-96154465-1"
 
-[params]
-	# See themes/nofancy/static/highlight/styles for available options
-	# i.e. "default", "github", "monokai".
-	highlight="default"
+[Params]
+  	subtitle = "Golang, gRPC and friends"
+	copyright = "Copyright 2017, Johan Brandhorst"
+	logo = "img/icon.jpg"
+  	favicon = "img/favicon.ico"
+  	dateFormat = "January 2, 2006"
+  	commit = false
+  	rss = true
+  	comments = true
 
-	# Controls what items are listed in the top nav menu
-	# "none", or "categories"
-	# If you have too many categories to fit in the top nav menu, set this to "none"
-	topmenu="categories"
-
-[author]
+[Author]
     name = "Johan Brandhorst"
-    github = "johanbrandhorst"
-    linkedin = "johan-brandhorst-satzkorn-aa318220"
     facebook = "johan.brandhorst"
-    gaID = "UA-96154465-1"
-    twitter = "JohanBrandhorst"
+	github = "johanbrandhorst"
+	twitter = "JohanBrandhorst"
+	linkedin = "johan-brandhorst-satzkorn-aa318220"
+
+[[menu.main]]
+    name = "Blog"
+    url = ""
+    weight = 1
+
+[[menu.main]]
+    name = "About"
+    url = "page/about/"
+    weight = 2
+
+[[menu.main]]
+    name = "Tags"
+    url = "tags"
+    weight = 3
+
+# [[menu.main]]
+#     identifier = "samples"
+#     name = "Samples"
+#     weight = 2
+
+# [[menu.main]]
+#     parent = "samples"
+#     name = "Big Image Sample"
+#     url = "post/2017-03-07-bigimg-sample"
+#     weight = 1
+
+# [[menu.main]]
+#     parent = "samples"
+#     name = "Math Sample"
+#     url = "post/2017-03-05-math-sample"
+#     weight = 2
+
+# [[menu.main]]
+#     parent = "samples"
+#     name = "Code Sample"
+#     url = "post/2016-03-08-code-sample"
+#     weight = 3
+
+
