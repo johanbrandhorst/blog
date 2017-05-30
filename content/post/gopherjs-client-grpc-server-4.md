@@ -1,14 +1,12 @@
 +++
-date = "2017-04-17"
+date = "2017-04-14"
 title = "GopherJS Client and gRPC Server - Part 4"
 description = "A guide to implementing a GopherJS frontend to a gRPC backend exposed over HTTP via the gRPC-gateway"
-tags = [ "golang", "protobuf", "gRPC", "gRPC-gateway", "GopherJS" ]
+tags = [ "golang", "protobuf", "grpc", "grpc-gateway", "gopherjs" ]
 categories = [
   "Programming",
 ]
 +++
-[go back](/post/gopherjs-client-grpc-server-3/)
-
 ## Putting it all together
 
 As we touched upon earlier, we generate a package from the generated JS
@@ -299,5 +297,3 @@ Again, to see the whole example in one place, please check out
 
 I hope you've enjoyed reading this, and if you have any feedback or questions,
 please contact me on gophers slack or via [my twitter](https://twitter.com/JohanBrandhorst).
-
-[Introduction](/post/gopherjs-client-grpc-server/)

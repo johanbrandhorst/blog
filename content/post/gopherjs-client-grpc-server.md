@@ -1,8 +1,8 @@
 +++
-date = "2017-04-17"
+date = "2017-04-10"
 title = "GopherJS Client and gRPC Server - Introduction"
 description = "A guide to implementing a GopherJS frontend to a gRPC backend exposed over HTTP via the gRPC-gateway"
-tags = [ "golang", "protobuf", "gRPC", "gRPC-gateway", "GopherJS" ]
+tags = [ "golang", "protobuf", "grpc", "grpc-gateway", "gopherjs" ]
 categories = [
   "Programming",
 ]
@@ -47,5 +47,3 @@ $ tree -L 1 -d
 ```
 
 Next up we'll create the proto interface.
-
-[Part 1](/post/gopherjs-client-grpc-server-1/)

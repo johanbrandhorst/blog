@@ -1,13 +1,12 @@
 +++
-date = "2017-04-17"
+date = "2017-04-11"
 title = "GopherJS Client and gRPC Server - Part 1"
 description = "A guide to implementing a GopherJS frontend to a gRPC backend exposed over HTTP via the gRPC-gateway"
-tags = [ "golang", "protobuf", "gRPC", "gRPC-gateway", "GopherJS" ]
+tags = [ "golang", "protobuf", "grpc", "grpc-gateway", "gopherjs" ]
 categories = [
   "Programming",
 ]
 +++
-[go back](/post/gopherjs-client-grpc-server/)
 ## Create the protobuf interface
 
 We'll start by creating a folder for the package we want to create. Lets call it `server`.
@@ -85,5 +84,3 @@ $ protoc protos/server/server.proto \
 
 We'll end up with the files `protos/server/server.pb.go` and `protos/server/server.pb.gw.go`.
 Now we're ready to implement the server.
-
-[Part 2](/post/gopherjs-client-grpc-server-2/)

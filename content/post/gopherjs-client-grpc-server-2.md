@@ -1,13 +1,12 @@
 +++
-date = "2017-04-17"
+date = "2017-04-12"
 title = "GopherJS Client and gRPC Server - Part 2"
 description = "A guide to implementing a GopherJS frontend to a gRPC backend exposed over HTTP via the gRPC-gateway"
-tags = [ "golang", "protobuf", "gRPC", "gRPC-gateway", "GopherJS" ]
+tags = [ "golang", "protobuf", "grpc", "grpc-gateway", "gopherjs" ]
 categories = [
   "Programming",
 ]
 +++
-[go back](/post/gopherjs-client-grpc-server-1/)
 ## Implement the server
 
 I like to start by creating a struct and write a simple definition that'll
@@ -92,5 +91,3 @@ incrementing the counter each time. This is a very simple use of the gRPC bidi s
 what we're really interested in here is the client implementation, it'll do.
 
 Now that we're done with the server, we can start looking at the client implementation.
-
-[Part 3](/post/gopherjs-client-grpc-server-3/)

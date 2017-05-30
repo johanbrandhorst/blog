@@ -1,14 +1,12 @@
 +++
-date = "2017-04-17"
+date = "2017-04-13"
 title = "GopherJS Client and gRPC Server - Part 3"
 description = "A guide to implementing a GopherJS frontend to a gRPC backend exposed over HTTP via the gRPC-gateway"
-tags = [ "golang", "protobuf", "gRPC", "gRPC-gateway", "GopherJS" ]
+tags = [ "golang", "protobuf", "grpc", "grpc-gateway", "gopherjs" ]
 categories = [
   "Programming",
 ]
 +++
-[go back](/post/gopherjs-client-grpc-server-2/)
-
 ## Implement the client
 GopherJS can be used in a couple of different ways, and there's a couple of different
 bindings to many popular JavaScript frameworks.
@@ -513,5 +511,3 @@ It then reads until it gets a reply. Obviously this can be designed differently
 if we need different behaviour.
 
 Now that we've finished the client, we need to put everything together.
-
-[Part 4](/post/gopherjs-client-grpc-server-4/)
