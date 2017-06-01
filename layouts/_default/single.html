@@ -6,7 +6,13 @@
         {{ .Content }}
       </article>
 
-      <div class="addthis_inline_share_toolbox"></div>
+      <div>
+        <amp-social-share type="email"></amp-social-share>
+        <amp-social-share type="twitter"></amp-social-share>
+        <amp-social-share type="facebook" data-param-app_id="314339282321151"></amp-social-share>
+        <amp-social-share type="linkedin"></amp-social-share>
+        <amp-social-share type="gplus"></amp-social-share>
+      </div>
 
       <ul class="pager blog-pager">
         {{ if .PrevInSection }}
