@@ -17,6 +17,7 @@ googleAnalytics = "UA-96154465-1"
   	commit = false
   	rss = true
   	comments = true
+    addThis = "ra-593054e035fc0c92"
 
 [Author]
     name = "Johan Brandhorst"
