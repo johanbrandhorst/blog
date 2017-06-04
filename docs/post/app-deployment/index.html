@@ -5,9 +5,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>Tags</title>
-  <meta property="og:title" content="Tags" />
-  <meta name="twitter:title" content="Tags" />
+  <title>Auto-deployment of your app from Github</title>
+  <meta property="og:title" content="Auto-deployment of your app from Github" />
+  <meta name="twitter:title" content="Auto-deployment of your app from Github" />
+  <meta name="description" content="Or how I learned to love Docker Cloud and Scaleway">
+  <meta property="og:description" content="Or how I learned to love Docker Cloud and Scaleway">
+  <meta name="twitter:description" content="Or how I learned to love Docker Cloud and Scaleway">
   <meta name="author" content="Johan Brandhorst"/>
   <link href='https://jbrandhorst.com/img/favicon.ico' rel='icon' type='image/x-icon'/>
   <meta property="og:image" content="https://jbrandhorst.com/img/icon.jpg" />
@@ -15,12 +18,12 @@
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@JohanBrandhorst" />
   <meta name="twitter:creator" content="@JohanBrandhorst" />
-  <meta property="og:url" content="https://jbrandhorst.com/tags/" />
+  <meta property="og:url" content="https://jbrandhorst.com/post/app-deployment/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Go Ahead" />
 
   <meta name="generator" content="Hugo 0.21" />
-  <link rel="canonical" href="https://jbrandhorst.com/tags/" />
+  <link rel="canonical" href="https://jbrandhorst.com/post/app-deployment/" />
   <link rel="alternate" href="https://jbrandhorst.com/index.xml" type="application/rss+xml" title="Go Ahead">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -114,9 +117,20 @@ ga('send', 'pageview');
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="page-heading">
-              <h1>Tags</h1>
+            <div class="post-heading">
+              <h1>Auto-deployment of your app from Github</h1>
                 
+                  
+                    <h2 class="post-subheading">Or how I learned to love Docker Cloud and Scaleway</h2>
+                  
+                
+                
+                  <span class="post-meta">
+  Posted on June 4, 2017
+  
+</span>
+
+
                 
             </div>
           </div>
@@ -127,41 +141,158 @@ ga('send', 'pageview');
 
 
     
-  
-  <div class="container" role="main">
-    <article class="post-preview">
-      <div class="list-group col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3">
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Yesterday (!) I asked in the Gophers slack for recommendations for deployment
+of static Go binaries, as I was in the process of deploying a demo for another
+blog post I&rsquo;m working on. I was told to check out <a href="https://www.scaleway.com/">Scaleway</a>
+among other things, and found it to be an excellent option for simple and cheap hosting.
+It currently provides data centres in Paris and Amsterdam, which is perfect for me. I then found I could automatically
+build and deploy docker images via
+<a href="https://cloud.docker.com/">Docker Cloud</a>,
+directly from GitHub. It was all so easy that I thought I&rsquo;d
+put together a quick walkthrough of the steps
+I followed to get everything up and running.</p>
+
+<h2 id="spin-up-the-server">Spin up the server</h2>
+
+<p>Register with Scaleway, add your SSH public key
+and start a <code>VC1S</code> server. We could
+get fancy here and use an <code>ARM</code> backed server,
+but I don&rsquo;t see the need so I
+opted for the <code>x86</code> machine. 2 threads, 2GB memory, 50GB SSD
+and it costs us <code>€2.99</code> per month <em>at most</em>,
+or as little as <code>€0.006</code> per hour. The fee also
+includes a public <code>IPv4</code> address. What a bargain!</p>
+
+<p>Go for the <code>Docker</code> image listed under the <code>ImageHub</code> section,
+as we&rsquo;ll need docker installed on the machine for later.</p>
+
+<p>While the machine is spinning up it&rsquo;s time to set up our
+Docker Cloud account.</p>
+
+<h2 id="docker-cloud">Docker Cloud</h2>
+
+<p>Register or login if you already have a Docker hub account, and
+navigate to <code>Cloud Settings</code>. You&rsquo;ll need to link your GitHub
+(or Bitbucket) account here to enable auto-build and auto-redeployment
+of images. The Docker side of this is entirely free of charge, you don&rsquo;t
+even have to enter a credit card into your account, for that
+ultimate peace of mind that there won&rsquo;t be any nasty surprises
+down the line.</p>
+
+<h2 id="register-the-scaleway-node-to-docker-cloud">Register the Scaleway node to Docker Cloud</h2>
+
+<p>Once registered, we need to add our Scaleway node as a Docker node.
+First things first, Docker Cloud requires us to open a
+couple of inbound ports, namely <code>2375/tcp</code>, <code>6783/tcp</code> and <code>6783/udp</code>.
+While we&rsquo;re here, you probably want to add an inbound rule
+for <code>443/tcp</code> (you do plan to serve your app over HTTPS, right?).</p>
+
+<p>Once the security group has been configured, go back to Docker
+Cloud and lick the <code>+</code> button in the top right and select
+<code>Bring Your Own Node</code>. It&rsquo;ll give you a command that we need
+to run on our Scaleway node, so now it&rsquo;s time to ssh onto
+the Scaleway node.</p>
+
+<pre><code>ssh root@your-scaleway-node-ip
+</code></pre>
+
+<p>Once you&rsquo;ve accepted the host key, proceed to run the snippet
+from the Docker Cloud page. If everything works, your Docker Cloud
+page should tell you that the node was successfully registered!</p>
+
+<h2 id="sidenote-multi-stage-docker-builds">Sidenote: Multi-stage Docker Builds</h2>
+
+<p>At this point I want to mention that this works particularly
+well if you utilize multi-stage docker builds. They&rsquo;re a new
+feature in Docker <code>17.05</code>, so ensure you&rsquo;ve selected <code>17.05</code>
+as the docker version in your Docker Cloud settings.
+See this <code>Dockerfile</code> for an example:</p>
+
+<pre><code class="language-Docker"># Build
+FROM golang AS build
+ADD . /go/src/github.com/myrepo/myapp
+ENV CGO_ENABLED=0
+RUN cd /go/src/github.com/myrepo/myapp &amp;&amp; go build -o /app
+
+# Production
+FROM scratch
+COPY --from=build /app /app
+EXPOSE 443
+ENTRYPOINT [&quot;/app&quot;]
+</code></pre>
+
+<p>We use the <a href="https://hub.docker.com/_/golang/">official golang image</a>
+to build the application, then we just take the static
+binary and stuff it into a minimal container environment.
+Amazingly simple and you end up with a container not much
+larger than the size of the binary itself. Truly we are
+living in the future.</p>
+
+<h2 id="setting-up-the-docker-cloud-repository">Setting up the Docker Cloud repository</h2>
+
+<p>We&rsquo;ve added Docker Cloud to our GitHub already, so now
+we can go ahead and create a repository from GitHub. I&rsquo;m assuming
+you&rsquo;ve already got your source repo on github so it should
+just be a matter of clicking <code>Create</code> and selecting
+the repository to link it to in the settings. It&rsquo;ll
+automatically detect if there is a <code>Dockerfile</code> in the root
+of your repository. Otherwise, just select the path to the
+<code>Dockerfile</code>. Your new Docker Cloud repository will automatically be configured to build on new merges to master.</p>
+
+<h2 id="deploying-the-app">Deploying the app</h2>
+
+<p>Go to the repository page we just created. See that alluring
+<code>Launch Service</code> button in the top right? It&rsquo;s time to launch
+our service! Click it and on the next page you&rsquo;ll get a new interface
+allowing you to customize the forwarded ports, volumes, commands
+and many other things. Most significantly, make sure to turn on
+<code>AUTOREDEPLOY</code>. This will automatically redeploy your service
+when a new one has been successfully built from your source.</p>
+
+<p>Once you&rsquo;ve tweaked the dials and dotted the i&rsquo;s, go ahead and
+click <code>Create &amp; Deploy</code>. It&rsquo;ll spin up your new container
+on the Scaleway node we registered earlier. Magic!</p>
+
+<h2 id="toc_7">🍾</h2>
+
+<p>Congratulations! You&rsquo;ve now got your demo app running in a
+Docker container on your Scaleway node, with automatic
+redeployment triggered straight from your GitHub pushes.
+Lean back in your chair and crack open a cold one, you deserve it!</p>
+
+<p>If you liked this article, or you have anything you&rsquo;d like to add
+or correct, don&rsquo;t hesitate to reach out to me on twitter
+@johanbrandhorst or on Gophers Slack under <code>jbrandhorst</code>.
+Thanks for reading!</p>
+
+      </article>
+
+      <div class="addthis_inline_share_toolbox"></div>
+
+      <ul class="pager blog-pager">
+        
+          <li class="previous">
+            <a href="https://jbrandhorst.com/post/go-protobuf-tips/" data-toggle="tooltip" data-placement="top" title="Go Protobuf Tips">&larr; Previous Post</a>
+          </li>
+        
+        
+      </ul>
+
       
-      <a href="https://jbrandhorst.com/tags/golang" class="list-group-item">
-          golang<span class="badge">6</span></a>
+        
       
-      <a href="https://jbrandhorst.com/tags/grpc" class="list-group-item">
-          grpc<span class="badge">6</span></a>
-      
-      <a href="https://jbrandhorst.com/tags/grpc-gateway" class="list-group-item">
-          grpc-gateway<span class="badge">6</span></a>
-      
-      <a href="https://jbrandhorst.com/tags/protobuf" class="list-group-item">
-          protobuf<span class="badge">6</span></a>
-      
-      <a href="https://jbrandhorst.com/tags/gopherjs" class="list-group-item">
-          gopherjs<span class="badge">5</span></a>
-      
-      <a href="https://jbrandhorst.com/tags/deployment" class="list-group-item">
-          deployment<span class="badge">1</span></a>
-      
-      <a href="https://jbrandhorst.com/tags/devops" class="list-group-item">
-          devops<span class="badge">1</span></a>
-      
-      <a href="https://jbrandhorst.com/tags/docker" class="list-group-item">
-          docker<span class="badge">1</span></a>
-      
-      <a href="https://jbrandhorst.com/tags/scaleway" class="list-group-item">
-          scaleway<span class="badge">1</span></a>
-      
-      </div>
-    </article>
+
+    </div>
   </div>
+</div>
 
     <footer>
   <div class="container">

@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://jbrandhorst.com/post/app-deployment/</loc>
+    <lastmod>2017-06-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://jbrandhorst.com/post/go-protobuf-tips/</loc>
     <lastmod>2017-04-18T00:00:00+00:00</lastmod>
   </url>
@@ -43,8 +48,26 @@
   </url>
   
   <url>
+    <loc>https://jbrandhorst.com/tags/deployment/</loc>
+    <lastmod>2017-06-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jbrandhorst.com/tags/devops/</loc>
+    <lastmod>2017-06-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jbrandhorst.com/tags/docker/</loc>
+    <lastmod>2017-06-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://jbrandhorst.com/</loc>
-    <lastmod>2017-04-18T00:00:00+00:00</lastmod>
+    <lastmod>2017-06-04T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -80,7 +103,7 @@
   
   <url>
     <loc>https://jbrandhorst.com/post/</loc>
-    <lastmod>2017-04-18T00:00:00+00:00</lastmod>
+    <lastmod>2017-06-04T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -91,8 +114,14 @@
   </url>
   
   <url>
+    <loc>https://jbrandhorst.com/tags/scaleway/</loc>
+    <lastmod>2017-06-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://jbrandhorst.com/tags/</loc>
-    <lastmod>2017-04-18T00:00:00+00:00</lastmod>
+    <lastmod>2017-06-04T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
