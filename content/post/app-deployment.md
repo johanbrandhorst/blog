@@ -34,7 +34,8 @@ While the machine is spinning up it's time to set up our
 Docker Cloud account.
 
 ## Docker Cloud
-Register or login if you already have a Docker hub account, and
+[Register or login](https://cloud.docker.com/) if
+you already have a Docker hub account, and
 navigate to `Cloud Settings`. You'll need to link your GitHub
 (or Bitbucket) account here to enable auto-build and auto-redeployment
 of images. The Docker side of this is entirely free of charge, you don't
@@ -123,5 +124,5 @@ Lean back in your chair and crack open a cold one, you deserve it!
 
 If you liked this article, or you have anything you'd like to add
 or correct, don't hesitate to reach out to me on twitter
-@johanbrandhorst or on Gophers Slack under `jbrandhorst`.
-Thanks for reading!
+[@johanbrandhorst](https://twitter.com/JohanBrandhorst) or on
+Gophers Slack under `jbrandhorst`. Thanks for reading!
