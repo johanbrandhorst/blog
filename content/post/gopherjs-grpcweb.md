@@ -1,9 +1,8 @@
 ---
-date: 2017-05-30
+date: 2017-06-20
 subtitle: Introducing the GopherJS gRPC-Web bindings
-tags: ["golang", "protobuf", "grpc", "gopherjs"]
-title: gRPC-Web in GopherJS
-draft: true
+tags: ["golang", "protobuf", "grpc", "gopherjs", "react"]
+title: gRPC-Web with GopherJS
 ---
 
 In a [previous blog series](/post/gopherjs-client-grpc-server/) I've talked about
@@ -28,29 +27,46 @@ deals with all the mentioned downsides of the gRPC-gateway;
 1. Messages are serialized to binary.
 1. There's no difference between exposing the gRPC server to the web client than any other client.
 
+The Improbable gRPC-Web README also has
+a [long list of benefits](https://github.com/improbable-eng/grpc-web#why).
+
+## gRPC-Web in GopherJS
+
 In the last couple of weeks I've been working on a GopherJS wrapper for gRPC-Web,
 and I'm pleased to say that it's ready for others to play around with. The wrapper is comprised of
 the [`grpcweb`](https://github.com/johanbrandhorst/grpcweb)
-GopherJS library, and the
+GopherJS library and the
 [`protoc-gen-gopherjs`](https://github.com/johanbrandhorst/protoc-gen-gopherjs) protoc plugin.
-Together, they make it possible to generate a GopherJS client interface from your proto file definitions. The `proto-gen-gopherjs` README contains a thorough guide
+Together, they make it possible to generate a GopherJS client
+interface from your proto file definitions. The
+[`protoc-gen-gopherjs`](https://github.com/johanbrandhorst/protoc-gen-gopherjs)
+README contains a thorough guide
 into how to generate the client interfaces.
 
-To give you an idea of the usage, me and Paul Jolly ([@_myitcv](https://twitter.com/_myitcv)) have created an example repo. If you want to skip ahead, the source is available on
-[my github](https://github.com/johanbrandhorst/grpcweb-example).
+To give an idea of the usage, I've put together an example
+using the [GopherJS React bindings](https://myitcv.io/react)
+created by Paul Jolly ([@_myitcv](https://twitter.com/_myitcv)).
+If you want to skip ahead, the source is available on
+[my github](https://github.com/johanbrandhorst/grpcweb-example), and a live
+example can be found on
+[my demo site](https://grpcweb.jbrandhorst.com).
+
 I'm going to assume that if you're reading this post you're already familiar with how to implement the Go backend part of this, so we'll jump right into the client. The only difference
 in the backend from a normal Go gRPC server is the use of the
-[Improbable gRPC-Web proxy](https://github.com/improbable-eng/grpc-web/tree/master/go/grpcweb).
+[Improbable gRPC-Web proxy](https://github.com/improbable-eng/grpc-web/tree/master/go/grpcweb)
+wrapper. This is necessary as a translation layer from the
+gRPC-Web requests to fully compliant gRPC requests. There
+also exists a
+[general-purpose proxy server](https://github.com/improbable-eng/grpc-web/tree/master/go/grpcwebproxy),
+which can be used with gRPC servers in other languages.
 
 ## The Client
 
-The client is implemented using
-[Paul Jolly's React Bindings](https://myitcv.io/react)
-and the interface generated using `protoc-gen-gopherjs`.
-With the generated file, we have access to the `BookType` enum
-and the `Publisher`, `Book`, `GetBookRequest` and
-`QueryBooksRequest` structs. More importantly, we get access
-to the gRPC-Web methods `GetBook` and `QueryBooks`.
+The interface is generated using `protoc-gen-gopherjs`.
+The source protofile can be found
+[in the repo](https://github.com/johanbrandhorst/grpcweb-example/blob/master/proto/library/book_service.proto).
+With the generated file we get access to the gRPC-Web
+methods `GetBook` and `QueryBooks`.
 
 First off we need to create a new client:
 
@@ -62,19 +78,83 @@ The parameter is the address of the gRPC server, in this case
 the same address as we're hosting the JS from, but it could
 be located on some external address. Note that gRPC-Web over HTTP2 requires TLS.
 
+## A simple request
+
 Once we have a client, we can make calls on it just like on
-a normal Go gRPC client.
+a normal Go gRPC client. The generated interfaces are
+designed to be as similar as possible to `protoc-gen-go`
+client interfaces.
 All RPC methods are blocking by default, though there are
-plans to expose an asynchronous API later on. Lets get
-the book with an `ISBN` of `140008381`:
+plans to expose an asynchronous API later on, if there
+is demand for it.
+
+Lets get the book with an `ISBN` of `140008381`:
 
 ```go
-book, err := client.GetBook(context.Background(), library.NewGetBookRequest(140008381))
+req := new(library.GetBookRequest).New(140008381)
+book, err := client.GetBook(context.Background(), req)
 if err != nil {
-    println("Got request error:", err.Error())
-    return
+    panic(status.FromErr(err))
+}
+println(book)
+```
+
+The context parameter can be used to control timeout,
+deadline and cancellation of requests. The second parameter
+is the request to the method. Unfortunately, because of the
+design of the ProtobufJS generated objects, it's not possible
+to use GopherJS struct mappings for the generated structs.
+The example above shows the typical way to create a new request.
+
+## Server side streaming
+
+It wouldn't be gRPC without streaming. Unfortunately,
+gRPC-Web does not currently support _client_-side streaming.
+We do have access to server side streaming though. This is
+a simple example of how to consume message from a streaming
+server side method:
+
+```go
+req := new(library.QueryBooksRequest).New("George")
+srv, err := client.QueryBooks(context.Background(), req)
+if err != nil {
+    panic(status.FromErr(err))
+}
+
+for {
+    // Blocks until new book is received
+    bk, err := srv.Recv()
+    if err != nil {
+        if err == io.EOF {
+            // Success! End of stream.
+            return
+        }
+        panic(status.FromErr(err))
+    }
+    println(bk)
 }
 ```
 
-The context parameter can be used to control timeout, deadline and cancellation of requests.
+Much like the Go client API, we get a streaming server
+which we call `Recv` on until we see an error. If the
+error is `io.EOF`, it means the server has closed the stream
+successfully.
 
+## Wrapping up
+With the release of an unofficial gRPC-Web client by Improbable,
+the frontend can finally start getting some of the benefits
+the backend has enjoyed for a couple of years now,
+courtesy of gRPC and Protobuffers. I'm personally extremely
+excited by the opportunities it affords frontend developers
+working with a simple frontend layer talking to a backend service. Navigate to
+[my demo site](https://grpcweb.jbrandhorst.com)
+for an example of how to develop gRPC-Web applications
+with GopherJS, and take a look at
+[the github repo](https://github.com/johanbrandhorst/grpcweb-example)
+afterwards.
+
+If you enjoyed this blog post, have any questions or input,
+don't hesitate to contact me on
+[@johanbrandhorst](https://twitter.com/JohanBrandhorst) or
+under `jbrandhorst` on the Gophers Slack. I'd love to hear
+your thoughts!

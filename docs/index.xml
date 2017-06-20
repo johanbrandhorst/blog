@@ -5,10 +5,20 @@
     <link>https://jbrandhorst.com/</link>
     <description>Recent content on Go Ahead</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 04 Jun 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 20 Jun 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://jbrandhorst.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>gRPC-Web with GopherJS</title>
+      <link>https://jbrandhorst.com/post/gopherjs-grpcweb/</link>
+      <pubDate>Tue, 20 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://jbrandhorst.com/post/gopherjs-grpcweb/</guid>
+      <description>In a previous blog series I&amp;rsquo;ve talked about how to work with a gRPC backend from the GopherJS world. It relies on the gRPC-gateway which is a great piece of tech, but unfortunately carries a couple of downsides:
+ Clients don&amp;rsquo;t know what types are used - the interface is HTTP JSON. This can be somewhat mitigated with the use of swagger generated interfaces, but it&amp;rsquo;s still not perfect. The interface being JSON means marshalling and unmarshalling can become a significant part of the latency between the client and the server.</description>
+    </item>
     
     <item>
       <title>Auto-deployment of your app from Github</title>

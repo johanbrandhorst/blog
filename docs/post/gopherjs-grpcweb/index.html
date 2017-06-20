@@ -5,12 +5,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>Auto-deployment of your app from Github</title>
-  <meta property="og:title" content="Auto-deployment of your app from Github" />
-  <meta name="twitter:title" content="Auto-deployment of your app from Github" />
-  <meta name="description" content="Or how I learned to love Docker Cloud and Scaleway">
-  <meta property="og:description" content="Or how I learned to love Docker Cloud and Scaleway">
-  <meta name="twitter:description" content="Or how I learned to love Docker Cloud and Scaleway">
+  <title>gRPC-Web with GopherJS</title>
+  <meta property="og:title" content="gRPC-Web with GopherJS" />
+  <meta name="twitter:title" content="gRPC-Web with GopherJS" />
+  <meta name="description" content="Introducing the GopherJS gRPC-Web bindings">
+  <meta property="og:description" content="Introducing the GopherJS gRPC-Web bindings">
+  <meta name="twitter:description" content="Introducing the GopherJS gRPC-Web bindings">
   <meta name="author" content="Johan Brandhorst"/>
   <link href='https://jbrandhorst.com/img/favicon.ico' rel='icon' type='image/x-icon'/>
   <meta property="og:image" content="https://jbrandhorst.com/img/icon.jpg" />
@@ -18,12 +18,12 @@
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@JohanBrandhorst" />
   <meta name="twitter:creator" content="@JohanBrandhorst" />
-  <meta property="og:url" content="https://jbrandhorst.com/post/app-deployment/" />
+  <meta property="og:url" content="https://jbrandhorst.com/post/gopherjs-grpcweb/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Go Ahead" />
 
   <meta name="generator" content="Hugo 0.21" />
-  <link rel="canonical" href="https://jbrandhorst.com/post/app-deployment/" />
+  <link rel="canonical" href="https://jbrandhorst.com/post/gopherjs-grpcweb/" />
   <link rel="alternate" href="https://jbrandhorst.com/index.xml" type="application/rss+xml" title="Go Ahead">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -118,15 +118,15 @@ ga('send', 'pageview');
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
-              <h1>Auto-deployment of your app from Github</h1>
+              <h1>gRPC-Web with GopherJS</h1>
                 
                   
-                    <h2 class="post-subheading">Or how I learned to love Docker Cloud and Scaleway</h2>
+                    <h2 class="post-subheading">Introducing the GopherJS gRPC-Web bindings</h2>
                   
                 
                 
                   <span class="post-meta">
-  Posted on June 4, 2017
+  Posted on June 20, 2017
   
 </span>
 
@@ -147,132 +147,161 @@ ga('send', 'pageview');
       <article role="main" class="blog-post">
         
 
-<h2 id="introduction">Introduction</h2>
+<p>In a <a href="https://jbrandhorst.com/post/gopherjs-client-grpc-server/">previous blog series</a> I&rsquo;ve talked about
+how to work with a gRPC backend from the GopherJS world. It relies on the
+<a href="https://github.com/grpc-ecosystem/grpc-gateway">gRPC-gateway</a> which is a great
+piece of tech, but unfortunately carries a couple of downsides:</p>
 
-<p>Yesterday (!) I asked in the Gophers slack for recommendations for deployment
-of static Go binaries, as I was in the process of deploying a demo for another
-blog post I&rsquo;m working on. I was told to check out <a href="https://www.scaleway.com/">Scaleway</a>
-among other things, and found it to be an excellent option for simple and cheap hosting.
-It currently provides data centres in Paris and Amsterdam, which is perfect for me. I then found I could automatically
-build and deploy docker images via
-<a href="https://cloud.docker.com/">Docker Cloud</a>,
-directly from GitHub. It was all so easy that I thought I&rsquo;d
-put together a quick walkthrough of the steps
-I followed to get everything up and running.</p>
+<ol>
+<li>Clients don&rsquo;t know what types are used - the interface is HTTP JSON.
+This can be somewhat mitigated with the use of swagger generated interfaces,
+but it&rsquo;s still not perfect.</li>
+<li>The interface being JSON means marshalling and unmarshalling can become a
+significant part of the latency between the client and the server.</li>
+<li>The gRPC-gateway requires specific changes to the proto
+definitions - it&rsquo;s not as straightforward as just defining your RPC methods.</li>
+</ol>
 
-<h2 id="spin-up-the-server">Spin up the server</h2>
+<p>Fortunately, with the release of a spec compliant
+<a href="https://spatialos.improbable.io/games/grpc-web-moving-past-restjson-towards-type-safe-web-apis">gRPC-Web implementation from Improbable</a>,
+we can finally start enjoying the benefits of a protobuf typed interface in the frontend. This
+deals with all the mentioned downsides of the gRPC-gateway;</p>
 
-<p>Register with Scaleway, add your SSH public key
-and start a <code>VC1S</code> server. We could
-get fancy here and use an <code>ARM</code> backed server,
-but I don&rsquo;t see the need so I
-opted for the <code>x86</code> machine. 2 threads, 2GB memory, 50GB SSD
-and it costs us <code>€2.99</code> per month <em>at most</em>,
-or as little as <code>€0.006</code> per hour. The fee also
-includes a public <code>IPv4</code> address. What a bargain!</p>
+<ol>
+<li>Interfaces are typed via protobuffers.</li>
+<li>Messages are serialized to binary.</li>
+<li>There&rsquo;s no difference between exposing the gRPC server to the web client than any other client.</li>
+</ol>
 
-<p>Go for the <code>Docker</code> image listed under the <code>ImageHub</code> section,
-as we&rsquo;ll need docker installed on the machine for later.</p>
+<p>The Improbable gRPC-Web README also has
+a <a href="https://github.com/improbable-eng/grpc-web#why">long list of benefits</a>.</p>
 
-<p>While the machine is spinning up it&rsquo;s time to set up our
-Docker Cloud account.</p>
+<h2 id="grpc-web-in-gopherjs">gRPC-Web in GopherJS</h2>
 
-<h2 id="docker-cloud">Docker Cloud</h2>
+<p>In the last couple of weeks I&rsquo;ve been working on a GopherJS wrapper for gRPC-Web,
+and I&rsquo;m pleased to say that it&rsquo;s ready for others to play around with. The wrapper is comprised of
+the <a href="https://github.com/johanbrandhorst/grpcweb"><code>grpcweb</code></a>
+GopherJS library and the
+<a href="https://github.com/johanbrandhorst/protoc-gen-gopherjs"><code>protoc-gen-gopherjs</code></a> protoc plugin.
+Together, they make it possible to generate a GopherJS client
+interface from your proto file definitions. The
+<a href="https://github.com/johanbrandhorst/protoc-gen-gopherjs"><code>protoc-gen-gopherjs</code></a>
+README contains a thorough guide
+into how to generate the client interfaces.</p>
 
-<p><a href="https://cloud.docker.com/">Register or login</a> if
-you already have a Docker hub account, and
-navigate to <code>Cloud Settings</code>. You&rsquo;ll need to link your GitHub
-(or Bitbucket) account here to enable auto-build and auto-redeployment
-of images. The Docker side of this is entirely free of charge, you don&rsquo;t
-even have to enter a credit card into your account, for that
-ultimate peace of mind that there won&rsquo;t be any nasty surprises
-down the line.</p>
+<p>To give an idea of the usage, I&rsquo;ve put together an example
+using the <a href="https://myitcv.io/react">GopherJS React bindings</a>
+created by Paul Jolly (<a href="https://twitter.com/_myitcv">@_myitcv</a>).
+If you want to skip ahead, the source is available on
+<a href="https://github.com/johanbrandhorst/grpcweb-example">my github</a>, and a live
+example can be found on
+<a href="https://grpcweb.jbrandhorst.com">my demo site</a>.</p>
 
-<h2 id="register-the-scaleway-node-to-docker-cloud">Register the Scaleway node to Docker Cloud</h2>
+<p>I&rsquo;m going to assume that if you&rsquo;re reading this post you&rsquo;re already familiar with how to implement the Go backend part of this, so we&rsquo;ll jump right into the client. The only difference
+in the backend from a normal Go gRPC server is the use of the
+<a href="https://github.com/improbable-eng/grpc-web/tree/master/go/grpcweb">Improbable gRPC-Web proxy</a>
+wrapper. This is necessary as a translation layer from the
+gRPC-Web requests to fully compliant gRPC requests. There
+also exists a
+<a href="https://github.com/improbable-eng/grpc-web/tree/master/go/grpcwebproxy">general-purpose proxy server</a>,
+which can be used with gRPC servers in other languages.</p>
 
-<p>Once registered, we need to add our Scaleway node as a Docker node.
-First things first, Docker Cloud requires us to open a
-couple of inbound ports, namely <code>2375/tcp</code>, <code>6783/tcp</code> and <code>6783/udp</code>.
-While we&rsquo;re here, you probably want to add an inbound rule
-for <code>443/tcp</code> (you do plan to serve your app over HTTPS, right?).</p>
+<h2 id="the-client">The Client</h2>
 
-<p>Once the security group has been configured, go back to Docker
-Cloud and lick the <code>+</code> button in the top right and select
-<code>Bring Your Own Node</code>. It&rsquo;ll give you a command that we need
-to run on our Scaleway node, so now it&rsquo;s time to ssh onto
-the Scaleway node.</p>
+<p>The interface is generated using <code>protoc-gen-gopherjs</code>.
+The source protofile can be found
+<a href="https://github.com/johanbrandhorst/grpcweb-example/blob/master/proto/library/book_service.proto">in the repo</a>.
+With the generated file we get access to the gRPC-Web
+methods <code>GetBook</code> and <code>QueryBooks</code>.</p>
 
-<pre><code>ssh root@your-scaleway-node-ip
+<p>First off we need to create a new client:</p>
+
+<pre><code class="language-go">client := library.NewBookServiceClient(baseURI)
 </code></pre>
 
-<p>Once you&rsquo;ve accepted the host key, proceed to run the snippet
-from the Docker Cloud page. If everything works, your Docker Cloud
-page should tell you that the node was successfully registered!</p>
+<p>The parameter is the address of the gRPC server, in this case
+the same address as we&rsquo;re hosting the JS from, but it could
+be located on some external address. Note that gRPC-Web over HTTP2 requires TLS.</p>
 
-<h2 id="sidenote-multi-stage-docker-builds">Sidenote: Multi-stage Docker Builds</h2>
+<h2 id="a-simple-request">A simple request</h2>
 
-<p>At this point I want to mention that this works particularly
-well if you utilize multi-stage docker builds. They&rsquo;re a new
-feature in Docker <code>17.05</code>, so ensure you&rsquo;ve selected <code>17.05</code>
-as the docker version in your Docker Cloud settings.
-See this <code>Dockerfile</code> for an example:</p>
+<p>Once we have a client, we can make calls on it just like on
+a normal Go gRPC client. The generated interfaces are
+designed to be as similar as possible to <code>protoc-gen-go</code>
+client interfaces.
+All RPC methods are blocking by default, though there are
+plans to expose an asynchronous API later on, if there
+is demand for it.</p>
 
-<pre><code class="language-Docker"># Build
-FROM golang AS build
-ADD . /go/src/github.com/myrepo/myapp
-ENV CGO_ENABLED=0
-RUN cd /go/src/github.com/myrepo/myapp &amp;&amp; go build -o /app
+<p>Lets get the book with an <code>ISBN</code> of <code>140008381</code>:</p>
 
-# Production
-FROM scratch
-COPY --from=build /app /app
-EXPOSE 443
-ENTRYPOINT [&quot;/app&quot;]
+<pre><code class="language-go">req := new(library.GetBookRequest).New(140008381)
+book, err := client.GetBook(context.Background(), req)
+if err != nil {
+    panic(status.FromErr(err))
+}
+println(book)
 </code></pre>
 
-<p>We use the <a href="https://hub.docker.com/_/golang/">official golang image</a>
-to build the application, then we just take the static
-binary and stuff it into a minimal container environment.
-Amazingly simple and you end up with a container not much
-larger than the size of the binary itself. Truly we are
-living in the future.</p>
+<p>The context parameter can be used to control timeout,
+deadline and cancellation of requests. The second parameter
+is the request to the method. Unfortunately, because of the
+design of the ProtobufJS generated objects, it&rsquo;s not possible
+to use GopherJS struct mappings for the generated structs.
+The example above shows the typical way to create a new request.</p>
 
-<h2 id="setting-up-the-docker-cloud-repository">Setting up the Docker Cloud repository</h2>
+<h2 id="server-side-streaming">Server side streaming</h2>
 
-<p>We&rsquo;ve added Docker Cloud to our GitHub already, so now
-we can go ahead and create a repository from GitHub. I&rsquo;m assuming
-you&rsquo;ve already got your source repo on github so it should
-just be a matter of clicking <code>Create</code> and selecting
-the repository to link it to in the settings. It&rsquo;ll
-automatically detect if there is a <code>Dockerfile</code> in the root
-of your repository. Otherwise, just select the path to the
-<code>Dockerfile</code>. Your new Docker Cloud repository will automatically be configured to build on new merges to master.</p>
+<p>It wouldn&rsquo;t be gRPC without streaming. Unfortunately,
+gRPC-Web does not currently support <em>client</em>-side streaming.
+We do have access to server side streaming though. This is
+a simple example of how to consume message from a streaming
+server side method:</p>
 
-<h2 id="deploying-the-app">Deploying the app</h2>
+<pre><code class="language-go">req := new(library.QueryBooksRequest).New(&quot;George&quot;)
+srv, err := client.QueryBooks(context.Background(), req)
+if err != nil {
+    panic(status.FromErr(err))
+}
 
-<p>Go to the repository page we just created. See that alluring
-<code>Launch Service</code> button in the top right? It&rsquo;s time to launch
-our service! Click it and on the next page you&rsquo;ll get a new interface
-allowing you to customize the forwarded ports, volumes, commands
-and many other things. Most significantly, make sure to turn on
-<code>AUTOREDEPLOY</code>. This will automatically redeploy your service
-when a new one has been successfully built from your source.</p>
+for {
+    // Blocks until new book is received
+    bk, err := srv.Recv()
+    if err != nil {
+        if err == io.EOF {
+            // Success! End of stream.
+            return
+        }
+        panic(status.FromErr(err))
+    }
+    println(bk)
+}
+</code></pre>
 
-<p>Once you&rsquo;ve tweaked the dials and dotted the i&rsquo;s, go ahead and
-click <code>Create &amp; Deploy</code>. It&rsquo;ll spin up your new container
-on the Scaleway node we registered earlier. Magic!</p>
+<p>Much like the Go client API, we get a streaming server
+which we call <code>Recv</code> on until we see an error. If the
+error is <code>io.EOF</code>, it means the server has closed the stream
+successfully.</p>
 
-<h2 id="toc_7">🍾</h2>
+<h2 id="wrapping-up">Wrapping up</h2>
 
-<p>Congratulations! You&rsquo;ve now got your demo app running in a
-Docker container on your Scaleway node, with automatic
-redeployment triggered straight from your GitHub pushes.
-Lean back in your chair and crack open a cold one, you deserve it!</p>
+<p>With the release of an unofficial gRPC-Web client by Improbable,
+the frontend can finally start getting some of the benefits
+the backend has enjoyed for a couple of years now,
+courtesy of gRPC and Protobuffers. I&rsquo;m personally extremely
+excited by the opportunities it affords frontend developers
+working with a simple frontend layer talking to a backend service. Navigate to
+<a href="https://grpcweb.jbrandhorst.com">my demo site</a>
+for an example of how to develop gRPC-Web applications
+with GopherJS, and take a look at
+<a href="https://github.com/johanbrandhorst/grpcweb-example">the github repo</a>
+afterwards.</p>
 
-<p>If you liked this article, or you have anything you&rsquo;d like to add
-or correct, don&rsquo;t hesitate to reach out to me on twitter
-<a href="https://twitter.com/JohanBrandhorst">@johanbrandhorst</a> or on
-Gophers Slack under <code>jbrandhorst</code>. Thanks for reading!</p>
+<p>If you enjoyed this blog post, have any questions or input,
+don&rsquo;t hesitate to contact me on
+<a href="https://twitter.com/JohanBrandhorst">@johanbrandhorst</a> or
+under <code>jbrandhorst</code> on the Gophers Slack. I&rsquo;d love to hear
+your thoughts!</p>
 
       </article>
 
@@ -281,13 +310,9 @@ Gophers Slack under <code>jbrandhorst</code>. Thanks for reading!</p>
       <ul class="pager blog-pager">
         
           <li class="previous">
-            <a href="https://jbrandhorst.com/post/go-protobuf-tips/" data-toggle="tooltip" data-placement="top" title="Go Protobuf Tips">&larr; Previous Post</a>
+            <a href="https://jbrandhorst.com/post/app-deployment/" data-toggle="tooltip" data-placement="top" title="Auto-deployment of your app from Github">&larr; Previous Post</a>
           </li>
         
-        
-          <li class="next">
-            <a href="https://jbrandhorst.com/post/gopherjs-grpcweb/" data-toggle="tooltip" data-placement="top" title="gRPC-Web with GopherJS">Next Post &rarr;</a>
-          </li>
         
       </ul>
 
