@@ -34,12 +34,12 @@ a [long list of benefits](https://github.com/improbable-eng/grpc-web#why).
 
 In the last couple of weeks I've been working on a GopherJS wrapper for gRPC-Web,
 and I'm pleased to say that it's ready for others to play around with. The wrapper is comprised of
-the [`grpcweb`](https://github.com/johanbrandhorst/grpcweb)
+the [`grpcweb`](https://github.com/johanbrandhorst/protobuf/grpcweb)
 GopherJS library and the
-[`protoc-gen-gopherjs`](https://github.com/johanbrandhorst/protoc-gen-gopherjs) protoc plugin.
+[`protoc-gen-gopherjs`](https://github.com/johanbrandhorst/protobuf/protoc-gen-gopherjs) protoc plugin.
 Together, they make it possible to generate a GopherJS client
 interface from your proto file definitions. The
-[`protoc-gen-gopherjs`](https://github.com/johanbrandhorst/protoc-gen-gopherjs)
+[`protoc-gen-gopherjs`](https://github.com/johanbrandhorst/protobuf/protoc-gen-gopherjs)
 README contains a thorough guide
 into how to generate the client interfaces.
 
