@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://jbrandhorst.com/post/gopherjs-integration-tests/</loc>
+    <lastmod>2017-07-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://jbrandhorst.com/post/gopherjs-grpcweb/</loc>
     <lastmod>2017-06-20T00:00:00+00:00</lastmod>
   </url>
@@ -48,6 +53,12 @@
   </url>
   
   <url>
+    <loc>https://jbrandhorst.com/tags/agouti/</loc>
+    <lastmod>2017-07-11T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://jbrandhorst.com/categories/</loc>
     <priority>0</priority>
   </url>
@@ -71,20 +82,26 @@
   </url>
   
   <url>
+    <loc>https://jbrandhorst.com/tags/ginkgo/</loc>
+    <lastmod>2017-07-11T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://jbrandhorst.com/</loc>
-    <lastmod>2017-06-20T00:00:00+00:00</lastmod>
+    <lastmod>2017-07-11T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://jbrandhorst.com/tags/golang/</loc>
-    <lastmod>2017-06-20T00:00:00+00:00</lastmod>
+    <lastmod>2017-07-11T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://jbrandhorst.com/tags/gopherjs/</loc>
-    <lastmod>2017-06-20T00:00:00+00:00</lastmod>
+    <lastmod>2017-07-11T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -114,13 +131,19 @@
   
   <url>
     <loc>https://jbrandhorst.com/post/</loc>
-    <lastmod>2017-06-20T00:00:00+00:00</lastmod>
+    <lastmod>2017-07-11T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://jbrandhorst.com/tags/protobuf/</loc>
     <lastmod>2017-06-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jbrandhorst.com/tags/qunit/</loc>
+    <lastmod>2017-07-11T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -138,7 +161,13 @@
   
   <url>
     <loc>https://jbrandhorst.com/tags/</loc>
-    <lastmod>2017-06-04T00:00:00+00:00</lastmod>
+    <lastmod>2017-07-11T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jbrandhorst.com/tags/testing/</loc>
+    <lastmod>2017-07-11T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

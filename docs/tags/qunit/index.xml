@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Qunit on Go Ahead</title>
+    <link>https://jbrandhorst.com/tags/qunit/</link>
+    <description>Recent content in Qunit on Go Ahead</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 11 Jul 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://jbrandhorst.com/tags/qunit/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>GopherJS Integration Tests</title>
+      <link>https://jbrandhorst.com/post/gopherjs-integration-tests/</link>
+      <pubDate>Tue, 11 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://jbrandhorst.com/post/gopherjs-integration-tests/</guid>
+      <description>Recently I found myself wondering how I was going to test my new GopherJS gRPC-Web bindings. Writing tests was something I had been waiting with until I had something working, mostly because I had no idea how I was going to meaningfully test GopherJS code that relies on interactions with JS and the reponses of a server.
+I have in the past made a small contribution to the GopherJS websocket repo, and found myself impressed with the extensive tests written for the repo.</description>
+    </item>
+    
+  </channel>
+</rss>
