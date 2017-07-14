@@ -126,7 +126,7 @@ ga('send', 'pageview');
     
                 
                   <h3 class="post-subtitle">
-                    Using gRPC server-side streaming with large messages
+                    Using gRPC server-side streaming with binary blobs
                   </h3>
                 
               </a>
@@ -149,6 +149,39 @@ ga('send', 'pageview');
                     #<a href="https://jbrandhorst.com/tags/grpc">gRPC</a>&nbsp;
                   
                     #<a href="https://jbrandhorst.com/tags/protobuf">protobuf</a>&nbsp;
+                  
+                </span>
+              
+    
+            </article>
+          
+            <article class="post-preview">
+              <a href="https://jbrandhorst.com/post/go-semaphore/">
+                <h2 class="post-title">Throttling resource intensive requests</h2>
+    
+                
+                  <h3 class="post-subtitle">
+                    OOM errors hate this one weird trick
+                  </h3>
+                
+              </a>
+    
+              <p class="post-meta">
+                Posted on July 14, 2017
+              </p>
+              <div class="post-entry">
+                
+                  Sometimes when you&rsquo;re writing a server, you&rsquo;ve got a function that consumes a lot of memory while running, or some other resource, and you might be worrying that a sudden burst of requests could crash the server, since gRPC by default will just spawn another goroutine to handle any incoming requests, oblivious to the danger. In these situations, it can be useful to implement some custom request throttling. Here I&rsquo;ll show an easy way to accomplish this with the use of a Go channel.
+                  <a href="https://jbrandhorst.com/post/go-semaphore/" class="post-read-more">[Read More]</a>
+                
+              </div>
+    
+              
+                <span class="post-meta">
+                  
+                    #<a href="https://jbrandhorst.com/tags/golang">golang</a>&nbsp;
+                  
+                    #<a href="https://jbrandhorst.com/tags/grpc">gRPC</a>&nbsp;
                   
                 </span>
               
@@ -475,47 +508,16 @@ func (s Server) Simple(ctx context.
     
             </article>
           
-            <article class="post-preview">
-              <a href="https://jbrandhorst.com/post/gopherjs-client-grpc-server/">
-                <h2 class="post-title">GopherJS Client and gRPC Server - Introduction</h2>
-    
-                
-                  <h3 class="post-subtitle">
-                    A guide to implementing a GopherJS frontend to a gRPC backend exposed over HTTP via the gRPC-gateway
-                  </h3>
-                
-              </a>
-    
-              <p class="post-meta">
-                Posted on April 10, 2017
-              </p>
-              <div class="post-entry">
-                
-                  I&rsquo;ve been using gRPC and Go a lot in the last year. At Cognitive Logic every one of our backend services is implemented with Go and gRPC, and it enables us to abstract away most of the complexities of networked micro services and keep interfaces typed and well defined using Google protobuffers.
-I really enjoy using both, but sometimes I need to write a frontend to a web server and I despise writing Javascript.
-                  <a href="https://jbrandhorst.com/post/gopherjs-client-grpc-server/" class="post-read-more">[Read More]</a>
-                
-              </div>
-    
-              
-                <span class="post-meta">
-                  
-                    #<a href="https://jbrandhorst.com/tags/golang">golang</a>&nbsp;
-                  
-                    #<a href="https://jbrandhorst.com/tags/protobuf">protobuf</a>&nbsp;
-                  
-                    #<a href="https://jbrandhorst.com/tags/grpc">grpc</a>&nbsp;
-                  
-                    #<a href="https://jbrandhorst.com/tags/grpc-gateway">grpc-gateway</a>&nbsp;
-                  
-                    #<a href="https://jbrandhorst.com/tags/gopherjs">gopherjs</a>&nbsp;
-                  
-                </span>
-              
-    
-            </article>
-          
         </div>
+        
+          <ul class="pager main-pager">
+            
+            
+              <li class="next">
+                <a href="https://jbrandhorst.com/post/page/2">Older Posts &rarr;</a>
+              </li>
+            
+          </ul>
         
       </div>
     </div>

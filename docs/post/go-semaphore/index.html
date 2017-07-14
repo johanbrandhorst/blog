@@ -5,12 +5,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>Chunking large messages with gRPC</title>
-  <meta property="og:title" content="Chunking large messages with gRPC" />
-  <meta name="twitter:title" content="Chunking large messages with gRPC" />
-  <meta name="description" content="Using gRPC server-side streaming with binary blobs">
-  <meta property="og:description" content="Using gRPC server-side streaming with binary blobs">
-  <meta name="twitter:description" content="Using gRPC server-side streaming with binary blobs">
+  <title>Throttling resource intensive requests</title>
+  <meta property="og:title" content="Throttling resource intensive requests" />
+  <meta name="twitter:title" content="Throttling resource intensive requests" />
+  <meta name="description" content="OOM errors hate this one weird trick">
+  <meta property="og:description" content="OOM errors hate this one weird trick">
+  <meta name="twitter:description" content="OOM errors hate this one weird trick">
   <meta name="author" content="Johan Brandhorst"/>
   <link href='https://jbrandhorst.com/img/favicon.ico' rel='icon' type='image/x-icon'/>
   <meta property="og:image" content="https://jbrandhorst.com/img/icon.jpg" />
@@ -18,12 +18,12 @@
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@JohanBrandhorst" />
   <meta name="twitter:creator" content="@JohanBrandhorst" />
-  <meta property="og:url" content="https://jbrandhorst.com/post/grpc-binary-blob-stream/" />
+  <meta property="og:url" content="https://jbrandhorst.com/post/go-semaphore/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Go Ahead" />
 
   <meta name="generator" content="Hugo 0.21" />
-  <link rel="canonical" href="https://jbrandhorst.com/post/grpc-binary-blob-stream/" />
+  <link rel="canonical" href="https://jbrandhorst.com/post/go-semaphore/" />
   <link rel="alternate" href="https://jbrandhorst.com/index.xml" type="application/rss+xml" title="Go Ahead">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -118,10 +118,10 @@ ga('send', 'pageview');
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
-              <h1>Chunking large messages with gRPC</h1>
+              <h1>Throttling resource intensive requests</h1>
                 
                   
-                    <h2 class="post-subheading">Using gRPC server-side streaming with binary blobs</h2>
+                    <h2 class="post-subheading">OOM errors hate this one weird trick</h2>
                   
                 
                 
@@ -147,116 +147,68 @@ ga('send', 'pageview');
       <article role="main" class="blog-post">
         
 
-<p>One of the gotchas of using gRPC is that it was not designed to transport
-large messages in one chunk. The default max message size is <a href="https://github.com/grpc/grpc-java/issues/1676#issuecomment-229809402">slightly arbitrarily
-set at 4MB</a>
-today, and while it is possible to configure, that kind of behaviour might lead
-to a slippery slope scenario of ever increasing max message sizes. So what do we
-do when the message size is too large? We chunk the data into smaller pieces and
-stream it, using the gRPC streaming methods, naturally.</p>
+<p>Sometimes when you&rsquo;re writing a server, you&rsquo;ve got a function
+that consumes a lot of memory while running, or some other resource, and
+you might be worrying that a sudden burst of requests could crash the server,
+since gRPC by default will just spawn another goroutine to handle any incoming
+requests, oblivious to the danger. In these situations, it can be useful to
+implement some custom request throttling. Here I&rsquo;ll show an easy way to accomplish
+this with the use of a Go channel.</p>
 
-<p>TL;DR? Code is <a href="https://github.com/johanbrandhorst/chunker">available on my github</a>.</p>
+<h2 id="the-semaphore">The Semaphore</h2>
 
-<h2 id="server-side-streaming">Server-side streaming</h2>
+<p>I&rsquo;m not going to introduce semaphores here, just show you how to implement one in Go
+and what they can be used for. Firstly, the implementation:</p>
 
-<p>We&rsquo;ll define a protofile with a single service exposing a single method returning
-a streamed message type.</p>
+<pre><code>type Semaphore chan struct{}
 
-<pre><code class="language-protobuf">syntax = &quot;proto3&quot;;
-
-package chunker;
-
-option go_package = &quot;github.com/johanbrandhorst/chunker/protos/chunker&quot;;
-
-import &quot;google/protobuf/empty.proto&quot;;
-
-service Chunker {
-    rpc Chunker(google.protobuf.Empty) returns (stream Chunk) {}
+func (s Semaphore) ReleaseSlot() {
+	// Read to release a slot
+	&lt;-s
 }
 
-message Chunk {
-    bytes chunk = 1;
-}
-</code></pre>
-
-<p>Then we implement the server. I thought I&rsquo;d be clever and show that you don&rsquo;t
-necessarily have to implement the gRPC interface on a struct.
-The recommended chunk size for streamed messages
-<a href="https://github.com/grpc/grpc.github.io/issues/371">appears to be 16-64KiB</a>.
-We&rsquo;ll go for 64KiB today.</p>
-
-<pre><code class="language-go">const chunkSize = 64 * 1024 // 64 KiB
-
-type chunkerSrv []byte
-
-func (c chunkerSrv) Chunker(_ *empty.Empty, srv chunker.Chunker_ChunkerServer) error {
-	chnk := &amp;chunker.Chunk{}
-	for currentByte := 0; currentByte &lt; len(c); currentByte += chunkSize {
-		if currentByte+chunkSize &gt; len(c) {
-			chnk.Chunk = c[currentByte:len(c)]
-		} else {
-			chnk.Chunk = c[currentByte : currentByte+chunkSize]
-		}
-		if err := srv.Send(chnk); err != nil {
-			return err
-		}
+func (s Semaphore) WaitForSlotAvailable(ctx context.Context) error {
+	select {
+	case &lt;-ctx.Done():
+		return ctx.Err()
+	// Blocks while channel is full
+	case s &lt;- struct{}{}:
 	}
 
 	return nil
 }
 </code></pre>
 
-<p>We wrap this in a gRPC server and host it:</p>
+<p>This makes quite elegant use of the blocking nature of Go channels. I particularly
+like how this is also <code>context</code> aware, making it suitable for gRPC purposes.</p>
 
-<pre><code class="language-go">func main() {
-	lis, err := net.Listen(&quot;tcp&quot;, &quot;:10000&quot;)
-	if err != nil {
-		panic(err)
-	}
+<p>Now lets say we have hungry method that we want to ensure doesn&rsquo;t run too often
+in parallel. Here&rsquo;s how we&rsquo;d do that:</p>
 
-	g := grpc.NewServer()
-	blob := make([]byte, 128*1024*1024) // 128MiB
-	rand.Read(blob)
-	chunker.RegisterChunkerServer(g, chunkerSrv(blob))
+<pre><code class="language-go">type MySrv struct {
+    sem Semaphore
+}
 
-	log.Println(&quot;Serving on :10000&quot;)
-	log.Fatalln(g.Serve(lis))
+// NewSrv creates a server with slots being the maximum
+// number of allowed parallel instances of HungryRPCMethod.
+func NewSrv(slots int) &amp;MySrv {
+    return &amp;MySrv{
+        sem: make(Semaphore, slots)
+    }
+}
+
+func (m *MySrv) HungrygRPCMethod(ctx context.Context, in *myproto.Request) (*myproto.Reply, error) {
+    if err := m.sem.WaitForSlotAvailable(ctx); err != nil {
+        return nil, err
+    }
+    defer m.sem.ReleaseSlot()
+
+    ... // Go and do resource intensive things
 }
 </code></pre>
 
-<p>This is all the server code. And this is how you would consume it:</p>
-
-<pre><code class="language-go">func main() {
-	conn, err := grpc.Dial(&quot;:10000&quot;, grpc.WithInsecure())
-	if err != nil {
-		panic(err)
-	}
-
-	cc := chunker.NewChunkerClient(conn)
-	client, err := cc.Chunker(context.Background(), &amp;empty.Empty{})
-	if err != nil {
-		panic(err)
-	}
-
-	var blob []byte
-	for {
-		c, err := client.Recv()
-		if err != nil {
-			if err == io.EOF {
-				log.Printf(&quot;Transfer of %d bytes successful&quot;, len(blob))
-				return
-			}
-
-			panic(err)
-		}
-
-		blob = append(blob, c.Chunk...)
-	}
-}
-</code></pre>
-
-<p>That&rsquo;s all there is to it. Obviously the chunking can be done on anything
-that can be marshalled to a byte slice, including other proto messages.</p>
+<p>That&rsquo;s it! The semaphore will ensure no more than <code>slots</code> number of instance of <code>HungryRPCMethod</code>
+are running at any one time.</p>
 
 <p>If you enjoyed this blog post, have any questions or input,
 don&rsquo;t hesitate to contact me on
@@ -271,9 +223,13 @@ your thoughts!</p>
       <ul class="pager blog-pager">
         
           <li class="previous">
-            <a href="https://jbrandhorst.com/post/go-semaphore/" data-toggle="tooltip" data-placement="top" title="Throttling resource intensive requests">&larr; Previous Post</a>
+            <a href="https://jbrandhorst.com/post/gopherjs-integration-tests/" data-toggle="tooltip" data-placement="top" title="GopherJS Integration Tests">&larr; Previous Post</a>
           </li>
         
+        
+          <li class="next">
+            <a href="https://jbrandhorst.com/post/grpc-binary-blob-stream/" data-toggle="tooltip" data-placement="top" title="Chunking large messages with gRPC">Next Post &rarr;</a>
+          </li>
         
       </ul>
 

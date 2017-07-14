@@ -20,6 +20,15 @@
     </item>
     
     <item>
+      <title>Throttling resource intensive requests</title>
+      <link>https://jbrandhorst.com/post/go-semaphore/</link>
+      <pubDate>Fri, 14 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://jbrandhorst.com/post/go-semaphore/</guid>
+      <description>Sometimes when you&amp;rsquo;re writing a server, you&amp;rsquo;ve got a function that consumes a lot of memory while running, or some other resource, and you might be worrying that a sudden burst of requests could crash the server, since gRPC by default will just spawn another goroutine to handle any incoming requests, oblivious to the danger. In these situations, it can be useful to implement some custom request throttling. Here I&amp;rsquo;ll show an easy way to accomplish this with the use of a Go channel.</description>
+    </item>
+    
+    <item>
       <title>GopherJS Integration Tests</title>
       <link>https://jbrandhorst.com/post/gopherjs-integration-tests/</link>
       <pubDate>Tue, 11 Jul 2017 00:00:00 +0000</pubDate>
