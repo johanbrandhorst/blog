@@ -5,9 +5,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>Tags</title>
-  <meta property="og:title" content="Tags" />
-  <meta name="twitter:title" content="Tags" />
+  <title>Chunking large messages with gRPC</title>
+  <meta property="og:title" content="Chunking large messages with gRPC" />
+  <meta name="twitter:title" content="Chunking large messages with gRPC" />
+  <meta name="description" content="Using gRPC server-side streaming with large messages">
+  <meta property="og:description" content="Using gRPC server-side streaming with large messages">
+  <meta name="twitter:description" content="Using gRPC server-side streaming with large messages">
   <meta name="author" content="Johan Brandhorst"/>
   <link href='https://jbrandhorst.com/img/favicon.ico' rel='icon' type='image/x-icon'/>
   <meta property="og:image" content="https://jbrandhorst.com/img/icon.jpg" />
@@ -15,12 +18,12 @@
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@JohanBrandhorst" />
   <meta name="twitter:creator" content="@JohanBrandhorst" />
-  <meta property="og:url" content="https://jbrandhorst.com/tags/" />
+  <meta property="og:url" content="https://jbrandhorst.com/post/grpc-binary-blob-stream/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Go Ahead" />
 
   <meta name="generator" content="Hugo 0.21" />
-  <link rel="canonical" href="https://jbrandhorst.com/tags/" />
+  <link rel="canonical" href="https://jbrandhorst.com/post/grpc-binary-blob-stream/" />
   <link rel="alternate" href="https://jbrandhorst.com/index.xml" type="application/rss+xml" title="Go Ahead">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -114,9 +117,20 @@ ga('send', 'pageview');
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="page-heading">
-              <h1>Tags</h1>
+            <div class="post-heading">
+              <h1>Chunking large messages with gRPC</h1>
                 
+                  
+                    <h2 class="post-subheading">Using gRPC server-side streaming with large messages</h2>
+                  
+                
+                
+                  <span class="post-meta">
+  Posted on July 14, 2017
+  
+</span>
+
+
                 
             </div>
           </div>
@@ -127,59 +141,149 @@ ga('send', 'pageview');
 
 
     
-  
-  <div class="container" role="main">
-    <article class="post-preview">
-      <div class="list-group col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3">
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+<p>One of the gotchas of using gRPC is that it was not designed to transport
+large messages in one chunk. The default max message size is <a href="https://github.com/grpc/grpc-java/issues/1676#issuecomment-229809402">slightly arbitrarily
+set at 4MB</a>
+today, and while it is possible to configure, that kind of behaviour might lead
+to a slippery slope scenario of ever increasing max message sizes. So what do we
+do when the message size is too large? We chunk the data into smaller pieces and
+stream it, using the gRPC streaming methods, naturally.</p>
+
+<p>TL;DR? Code is <a href="https://github.com/johanbrandhorst/chunker">available on my github</a>.</p>
+
+<h2 id="server-side-streaming">Server-side streaming</h2>
+
+<p>We&rsquo;ll define a protofile with a single service exposing a single method returning
+a streamed message type.</p>
+
+<pre><code class="language-protobuf">syntax = &quot;proto3&quot;;
+
+package chunker;
+
+option go_package = &quot;github.com/johanbrandhorst/chunker/protos/chunker&quot;;
+
+import &quot;google/protobuf/empty.proto&quot;;
+
+service Chunker {
+    rpc Chunker(google.protobuf.Empty) returns (stream Chunk) {}
+}
+
+message Chunk {
+    bytes chunk = 1;
+}
+</code></pre>
+
+<p>Then we implement the server. I thought I&rsquo;d be clever and show that you don&rsquo;t
+necessarily have to implement the gRPC interface on a struct.
+The recommended chunk size for streamed messages
+<a href="https://github.com/grpc/grpc.github.io/issues/371">appears to be 16-64KiB</a>.
+We&rsquo;ll go for 64KiB today.</p>
+
+<pre><code class="language-go">const chunkSize = 64 * 1024 // 64 KiB
+
+type chunkerSrv []byte
+
+func (c chunkerSrv) Chunker(_ *empty.Empty, srv chunker.Chunker_ChunkerServer) error {
+	chnk := &amp;chunker.Chunk{}
+	for currentByte := 0; currentByte &lt; len(c); currentByte += chunkSize {
+		if currentByte+chunkSize &gt; len(c) {
+			chnk.Chunk = c[currentByte:len(c)]
+		} else {
+			chnk.Chunk = c[currentByte : currentByte+chunkSize]
+		}
+		if err := srv.Send(chnk); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+</code></pre>
+
+<p>We wrap this in a gRPC server and host it:</p>
+
+<pre><code class="language-go">func main() {
+	lis, err := net.Listen(&quot;tcp&quot;, &quot;:10000&quot;)
+	if err != nil {
+		panic(err)
+	}
+
+	g := grpc.NewServer()
+	blob := make([]byte, 128*1024*1024) // 128MiB
+	rand.Read(blob)
+	chunker.RegisterChunkerServer(g, chunkerSrv(blob))
+
+	log.Println(&quot;Serving on :10000&quot;)
+	log.Fatalln(g.Serve(lis))
+}
+</code></pre>
+
+<p>This is all the server code. And this is how you would consume it:</p>
+
+<pre><code class="language-go">func main() {
+	conn, err := grpc.Dial(&quot;:10000&quot;, grpc.WithInsecure())
+	if err != nil {
+		panic(err)
+	}
+
+	cc := chunker.NewChunkerClient(conn)
+	client, err := cc.Chunker(context.Background(), &amp;empty.Empty{})
+	if err != nil {
+		panic(err)
+	}
+
+	var blob []byte
+	for {
+		c, err := client.Recv()
+		if err != nil {
+			if err == io.EOF {
+				log.Printf(&quot;Transfer of %d bytes successful&quot;, len(blob))
+				return
+			}
+
+			panic(err)
+		}
+
+		blob = append(blob, c.Chunk...)
+	}
+}
+</code></pre>
+
+<p>That&rsquo;s all there is to it. Obviously the chunking can be done on anything
+that can be marshalled to a byte slice, including other proto messages.</p>
+
+<p>If you enjoyed this blog post, have any questions or input,
+don&rsquo;t hesitate to contact me on
+<a href="https://twitter.com/JohanBrandhorst">@johanbrandhorst</a> or
+under <code>jbrandhorst</code> on the Gophers Slack. I&rsquo;d love to hear
+your thoughts!</p>
+
+      </article>
+
+      <div class="addthis_inline_share_toolbox"></div>
+
+      <ul class="pager blog-pager">
+        
+          <li class="previous">
+            <a href="https://jbrandhorst.com/post/gopherjs-integration-tests/" data-toggle="tooltip" data-placement="top" title="GopherJS Integration Tests">&larr; Previous Post</a>
+          </li>
+        
+        
+      </ul>
+
       
-      <a href="https://jbrandhorst.com/tags/golang" class="list-group-item">
-          golang<span class="badge">9</span></a>
+        
       
-      <a href="https://jbrandhorst.com/tags/grpc" class="list-group-item">
-          grpc<span class="badge">8</span></a>
-      
-      <a href="https://jbrandhorst.com/tags/protobuf" class="list-group-item">
-          protobuf<span class="badge">8</span></a>
-      
-      <a href="https://jbrandhorst.com/tags/gopherjs" class="list-group-item">
-          gopherjs<span class="badge">7</span></a>
-      
-      <a href="https://jbrandhorst.com/tags/grpc-gateway" class="list-group-item">
-          grpc-gateway<span class="badge">6</span></a>
-      
-      <a href="https://jbrandhorst.com/tags/agouti" class="list-group-item">
-          agouti<span class="badge">1</span></a>
-      
-      <a href="https://jbrandhorst.com/tags/deployment" class="list-group-item">
-          deployment<span class="badge">1</span></a>
-      
-      <a href="https://jbrandhorst.com/tags/devops" class="list-group-item">
-          devops<span class="badge">1</span></a>
-      
-      <a href="https://jbrandhorst.com/tags/docker" class="list-group-item">
-          docker<span class="badge">1</span></a>
-      
-      <a href="https://jbrandhorst.com/tags/ginkgo" class="list-group-item">
-          ginkgo<span class="badge">1</span></a>
-      
-      <a href="https://jbrandhorst.com/tags/grpc-web" class="list-group-item">
-          grpc-web<span class="badge">1</span></a>
-      
-      <a href="https://jbrandhorst.com/tags/qunit" class="list-group-item">
-          qunit<span class="badge">1</span></a>
-      
-      <a href="https://jbrandhorst.com/tags/react" class="list-group-item">
-          react<span class="badge">1</span></a>
-      
-      <a href="https://jbrandhorst.com/tags/scaleway" class="list-group-item">
-          scaleway<span class="badge">1</span></a>
-      
-      <a href="https://jbrandhorst.com/tags/testing" class="list-group-item">
-          testing<span class="badge">1</span></a>
-      
-      </div>
-    </article>
+
+    </div>
   </div>
+</div>
 
     <footer>
   <div class="container">

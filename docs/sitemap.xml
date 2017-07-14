@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://jbrandhorst.com/post/grpc-binary-blob-stream/</loc>
+    <lastmod>2017-07-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://jbrandhorst.com/post/gopherjs-integration-tests/</loc>
     <lastmod>2017-07-11T00:00:00+00:00</lastmod>
   </url>
@@ -89,13 +94,13 @@
   
   <url>
     <loc>https://jbrandhorst.com/</loc>
-    <lastmod>2017-07-11T00:00:00+00:00</lastmod>
+    <lastmod>2017-07-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://jbrandhorst.com/tags/golang/</loc>
-    <lastmod>2017-07-11T00:00:00+00:00</lastmod>
+    <lastmod>2017-07-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -107,7 +112,7 @@
   
   <url>
     <loc>https://jbrandhorst.com/tags/grpc/</loc>
-    <lastmod>2017-06-20T00:00:00+00:00</lastmod>
+    <lastmod>2017-07-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -131,13 +136,13 @@
   
   <url>
     <loc>https://jbrandhorst.com/post/</loc>
-    <lastmod>2017-07-11T00:00:00+00:00</lastmod>
+    <lastmod>2017-07-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://jbrandhorst.com/tags/protobuf/</loc>
-    <lastmod>2017-06-20T00:00:00+00:00</lastmod>
+    <lastmod>2017-07-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

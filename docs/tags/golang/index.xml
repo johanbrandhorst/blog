@@ -5,10 +5,19 @@
     <link>https://jbrandhorst.com/tags/golang/</link>
     <description>Recent content in Golang on Go Ahead</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 11 Jul 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 14 Jul 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://jbrandhorst.com/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Chunking large messages with gRPC</title>
+      <link>https://jbrandhorst.com/post/grpc-binary-blob-stream/</link>
+      <pubDate>Fri, 14 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://jbrandhorst.com/post/grpc-binary-blob-stream/</guid>
+      <description>One of the gotchas of using gRPC is that it was not designed to transport large messages in one chunk. The default max message size is slightly arbitrarily set at 4MB today, and while it is possible to configure, that kind of behaviour might lead to a slippery slope scenario of ever increasing max message sizes. So what do we do when the message size is too large? We chunk the data into smaller pieces and stream it, using the gRPC streaming methods, naturally.</description>
+    </item>
     
     <item>
       <title>GopherJS Integration Tests</title>
