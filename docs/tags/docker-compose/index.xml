@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Docker on Go Ahead</title>
-    <link>https://jbrandhorst.com/tags/docker/</link>
-    <description>Recent content in Docker on Go Ahead</description>
+    <title>Docker Compose on Go Ahead</title>
+    <link>https://jbrandhorst.com/tags/docker-compose/</link>
+    <description>Recent content in Docker Compose on Go Ahead</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Fri, 04 Aug 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://jbrandhorst.com/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://jbrandhorst.com/tags/docker-compose/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -17,15 +17,6 @@
       
       <guid>https://jbrandhorst.com/post/circleci-docker-compose/</guid>
       <description>In a recent blog post I talked about automating the testing of an advanced GopherJS library using a combination of QUnit, Ginkgo and Agouti. That allowed me to run a complete integration test suite against my library by automatically spinning up browsers and pointing them at my QUnit GopherJS page. This was a great start, but after running it a couple of times we find that there are several problems:</description>
-    </item>
-    
-    <item>
-      <title>Auto-deployment of your app from Github</title>
-      <link>https://jbrandhorst.com/post/app-deployment/</link>
-      <pubDate>Sun, 04 Jun 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://jbrandhorst.com/post/app-deployment/</guid>
-      <description>Introduction Yesterday (!) I asked in the Gophers slack for recommendations for deployment of static Go binaries, as I was in the process of deploying a demo for another blog post I&amp;rsquo;m working on. I was told to check out Scaleway among other things, and found it to be an excellent option for simple and cheap hosting. It currently provides data centres in Paris and Amsterdam, which is perfect for me.</description>
     </item>
     
   </channel>

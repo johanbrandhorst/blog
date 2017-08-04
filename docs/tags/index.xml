@@ -20,6 +20,15 @@
     </item>
     
     <item>
+      <title>Circleci</title>
+      <link>https://jbrandhorst.com/tags/circleci/</link>
+      <pubDate>Fri, 04 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://jbrandhorst.com/tags/circleci/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Deployment</title>
       <link>https://jbrandhorst.com/tags/deployment/</link>
       <pubDate>Sun, 04 Jun 2017 00:00:00 +0000</pubDate>
@@ -40,9 +49,18 @@
     <item>
       <title>Docker</title>
       <link>https://jbrandhorst.com/tags/docker/</link>
-      <pubDate>Sun, 04 Jun 2017 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 04 Aug 2017 00:00:00 +0000</pubDate>
       
       <guid>https://jbrandhorst.com/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Docker Compose</title>
+      <link>https://jbrandhorst.com/tags/docker-compose/</link>
+      <pubDate>Fri, 04 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://jbrandhorst.com/tags/docker-compose/</guid>
       <description></description>
     </item>
     
@@ -52,6 +70,15 @@
       <pubDate>Tue, 11 Jul 2017 00:00:00 +0000</pubDate>
       
       <guid>https://jbrandhorst.com/tags/ginkgo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Github</title>
+      <link>https://jbrandhorst.com/tags/github/</link>
+      <pubDate>Fri, 04 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://jbrandhorst.com/tags/github/</guid>
       <description></description>
     </item>
     

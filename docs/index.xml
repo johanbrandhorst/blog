@@ -5,10 +5,19 @@
     <link>https://jbrandhorst.com/</link>
     <description>Recent content on Go Ahead</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 14 Jul 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 04 Aug 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://jbrandhorst.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Advanced CircleCI docker testing</title>
+      <link>https://jbrandhorst.com/post/circleci-docker-compose/</link>
+      <pubDate>Fri, 04 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://jbrandhorst.com/post/circleci-docker-compose/</guid>
+      <description>In a recent blog post I talked about automating the testing of an advanced GopherJS library using a combination of QUnit, Ginkgo and Agouti. That allowed me to run a complete integration test suite against my library by automatically spinning up browsers and pointing them at my QUnit GopherJS page. This was a great start, but after running it a couple of times we find that there are several problems:</description>
+    </item>
     
     <item>
       <title>Chunking large messages with gRPC</title>

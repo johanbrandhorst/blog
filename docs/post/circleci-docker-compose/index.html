@@ -5,12 +5,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>Chunking large messages with gRPC</title>
-  <meta property="og:title" content="Chunking large messages with gRPC" />
-  <meta name="twitter:title" content="Chunking large messages with gRPC" />
-  <meta name="description" content="Using gRPC server-side streaming with binary blobs">
-  <meta property="og:description" content="Using gRPC server-side streaming with binary blobs">
-  <meta name="twitter:description" content="Using gRPC server-side streaming with binary blobs">
+  <title>Advanced CircleCI docker testing</title>
+  <meta property="og:title" content="Advanced CircleCI docker testing" />
+  <meta name="twitter:title" content="Advanced CircleCI docker testing" />
+  <meta name="description" content="Using docker-compose with CircleCI">
+  <meta property="og:description" content="Using docker-compose with CircleCI">
+  <meta name="twitter:description" content="Using docker-compose with CircleCI">
   <meta name="author" content="Johan Brandhorst"/>
   <link href='https://jbrandhorst.com/img/favicon.ico' rel='icon' type='image/x-icon'/>
   <meta property="og:image" content="https://jbrandhorst.com/img/icon.jpg" />
@@ -18,12 +18,12 @@
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@JohanBrandhorst" />
   <meta name="twitter:creator" content="@JohanBrandhorst" />
-  <meta property="og:url" content="https://jbrandhorst.com/post/grpc-binary-blob-stream/" />
+  <meta property="og:url" content="https://jbrandhorst.com/post/circleci-docker-compose/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Go Ahead" />
 
   <meta name="generator" content="Hugo 0.21" />
-  <link rel="canonical" href="https://jbrandhorst.com/post/grpc-binary-blob-stream/" />
+  <link rel="canonical" href="https://jbrandhorst.com/post/circleci-docker-compose/" />
   <link rel="alternate" href="https://jbrandhorst.com/index.xml" type="application/rss+xml" title="Go Ahead">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -118,15 +118,15 @@ ga('send', 'pageview');
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
-              <h1>Chunking large messages with gRPC</h1>
+              <h1>Advanced CircleCI docker testing</h1>
                 
                   
-                    <h2 class="post-subheading">Using gRPC server-side streaming with binary blobs</h2>
+                    <h2 class="post-subheading">Using docker-compose with CircleCI</h2>
                   
                 
                 
                   <span class="post-meta">
-  Posted on July 14, 2017
+  Posted on August 4, 2017
   
 </span>
 
@@ -147,116 +147,153 @@ ga('send', 'pageview');
       <article role="main" class="blog-post">
         
 
-<p>One of the gotchas of using gRPC is that it was not designed to transport
-large messages in one chunk. The default max message size is <a href="https://github.com/grpc/grpc-java/issues/1676#issuecomment-229809402">slightly arbitrarily
-set at 4MB</a>
-today, and while it is possible to configure, that kind of behaviour might lead
-to a slippery slope scenario of ever increasing max message sizes. So what do we
-do when the message size is too large? We chunk the data into smaller pieces and
-stream it, using the gRPC streaming methods, naturally.</p>
+<p>In a <a href="https://jbrandhorst.com/post/gopherjs-integration-tests">recent blog post</a> I talked about
+automating the testing of an advanced GopherJS library using a combination
+of QUnit, Ginkgo and Agouti. That allowed me to run a complete integration test
+suite against my library by automatically spinning up browsers and pointing
+them at my QUnit GopherJS page. This was a great start, but after running
+it a couple of times we find that there are several problems:</p>
 
-<p>TL;DR? Code is <a href="https://github.com/johanbrandhorst/chunker">available on my github</a>.</p>
+<ol>
+<li>It requires all browsers tested to be installed on the machine running the tests.
+This limits the scale of testing as no-one is going to be running around with Chrome,
+Firefox, Safari, Edge and whatever other browser we may want to test with. Especially
+not different versions of said browsers!</li>
+<li>It&rsquo;s <em>still</em> a manual step. Wouldn&rsquo;t it be great if these tests could be run on every
+pull request and every push to the master branch?</li>
+</ol>
 
-<h2 id="server-side-streaming">Server-side streaming</h2>
+<h2 id="enter-circleci">Enter CircleCI</h2>
 
-<p>We&rsquo;ll define a protofile with a single service exposing a single method returning
-a streamed message type.</p>
+<p>To solve these problems I spent some time figuring out how to use the
+<a href="https://circleci.com/">CircleCI platform</a> to automate my setup.
+I knew it wouldn&rsquo;t be trivial as there are many different dependencies
+in the different parts of the
+<a href="https://github.com/johanbrandhorst/protobuf">protobuf repository</a>.
+Building the GopherJS protoc plugin requires Go. Generating
+the well known types requires protoc and the GopherJS protoc plugin to both be installed.
+The integration tests require Firefox and Chrome to be installed on the machine running the tests.</p>
 
-<pre><code class="language-protobuf">syntax = &quot;proto3&quot;;
+<p>Fortunately <a href="https://circleci.com/docs/2.0/">CircleCI 2.0</a> embraces Docker
+as a testing sandbox. At work we use GitLab whose CI solution is similarly
+centered around docker (though not exclusively!), so I was reasonable well versed
+in the quirks around using Docker in CI. The layout of the CircleCI configuration is
+quite different from the one used by GitLab, so it took me a while to get up to speed.</p>
 
-package chunker;
+<h2 id="the-integration-test">The integration test</h2>
 
-option go_package = &quot;github.com/johanbrandhorst/chunker/protos/chunker&quot;;
+<p>In order to fix the issues I mentioned at the start of this post, I decided to rewrite
+my tests to be runnable in docker containers, with the browsers running in separate
+containers. As such, I wrote a <code>docker-compose</code> file to define the setup required.
+Here&rsquo;s the docker-compose file I used:</p>
 
-import &quot;google/protobuf/empty.proto&quot;;
-
-service Chunker {
-    rpc Chunker(google.protobuf.Empty) returns (stream Chunk) {}
-}
-
-message Chunk {
-    bytes chunk = 1;
-}
+<pre><code class="language-yaml">version: '2'
+networks:
+    internal:
+        driver: bridge
+services:
+    chromedriver:
+        environment:
+            CHROMEDRIVER_WHITELISTED_IPS: &quot;&quot;
+        expose:
+            - &quot;4444&quot;
+        image: robcherry/docker-chromedriver:latest
+        networks:
+            - internal
+        privileged: true
+    selenium:
+        expose:
+            - &quot;4444&quot;
+        image: selenium/standalone-firefox:latest
+        networks:
+            - internal
+    testrunner:
+        # This just sleeps, we execute the test command using docker-compose exec.
+        container_name: testrunner
+        command: sleep infinity
+        depends_on:
+            - chromedriver
+            - selenium
+        environment:
+            CHROMEDRIVER_ADDR: chromedriver:4444
+            SELENIUM_ADDR: selenium:4444
+            GOPHERJS_SERVER_ADDR: testrunner:8080
+        expose:
+            - &quot;8080&quot;
+            - &quot;9090&quot;
+            - &quot;9095&quot;
+            - &quot;9100&quot;
+            - &quot;9105&quot;
+        image: golang:latest
+        networks:
+            - internal
 </code></pre>
 
-<p>Then we implement the server. I thought I&rsquo;d be clever and show that you don&rsquo;t
-necessarily have to implement the gRPC interface on a struct.
-The recommended chunk size for streamed messages
-<a href="https://github.com/grpc/grpc.github.io/issues/371">appears to be 16-64KiB</a>.
-We&rsquo;ll go for 64KiB today.</p>
+<p>It starts a ChromeDriver, a Selenium and a standard Go container.
+This is easy enough to run on your own machine, with <code>docker-compose up</code>
+and <code>docker-compose exec</code>. I wish I could use <code>docker-compose run</code> here, but because of
+<a href="https://github.com/docker/compose/issues/4052">an old bug that seems to have been forgotten</a>,
+we&rsquo;re forced to use <code>up</code> and <code>exec</code>. This is how we run this:</p>
 
-<pre><code class="language-go">const chunkSize = 64 * 1024 // 64 KiB
-
-type chunkerSrv []byte
-
-func (c chunkerSrv) Chunker(_ *empty.Empty, srv chunker.Chunker_ChunkerServer) error {
-	chnk := &amp;chunker.Chunk{}
-	for currentByte := 0; currentByte &lt; len(c); currentByte += chunkSize {
-		if currentByte+chunkSize &gt; len(c) {
-			chnk.Chunk = c[currentByte:len(c)]
-		} else {
-			chnk.Chunk = c[currentByte : currentByte+chunkSize]
-		}
-		if err := srv.Send(chnk); err != nil {
-			return err
-		}
-	}
-
-	return nil
-}
+<pre><code class="language-bash">bash -c &quot;\
+    set -x \
+    trap '\
+        docker-compose logs selenium &amp;&amp; \
+        docker-compose logs chromedriver &amp;&amp; \
+        docker-compose down' EXIT; \
+    docker-compose up -d &amp;&amp; \
+    docker-compose exec -T testrunner bash -c '\
+        mkdir -p /go/src/github.com/johanbrandhorst/protobuf/' &amp;&amp; \
+    docker cp ./ testrunner:/go/src/github.com/johanbrandhorst/protobuf/ &amp;&amp; \
+    docker-compose exec -T testrunner bash -c '\
+        cd /go/src/github.com/johanbrandhorst/protobuf &amp;&amp; \
+        go install ./vendor/github.com/onsi/ginkgo/ginkgo &amp;&amp; \
+        cd test &amp;&amp; make test' \
+    &quot;
 </code></pre>
 
-<p>We wrap this in a gRPC server and host it:</p>
+<p>Let me preface this by saying that I know this looks absolutely rubbish, but I really
+wanted the trap and I also wanted this in a Makefile so I could run it easily
+from my terminal, and I also did <em>not</em> want to have to write a separate shell script for it.
+This works, and if you squint and ignore
+the backslashes and ampersands you can kind of see what I was going for.</p>
 
-<pre><code class="language-go">func main() {
-	lis, err := net.Listen(&quot;tcp&quot;, &quot;:10000&quot;)
-	if err != nil {
-		panic(err)
-	}
+<p>Something worth noting here is the use of <code>docker cp</code> to get the contents of the repository
+into the testrunner container. This is a workaround to a well known shortcoming of
+running docker containers from other docker containers, namely that
+<strong>you can&rsquo;t volume mount from one docker container to another one</strong>.</p>
 
-	g := grpc.NewServer()
-	blob := make([]byte, 128*1024*1024) // 128MiB
-	rand.Read(blob)
-	chunker.RegisterChunkerServer(g, chunkerSrv(blob))
+<p>So now that we&rsquo;ve got a docker-compose file and a hacky bash line to run it, what is
+required to get it running on CircleCI? Look no further:</p>
 
-	log.Println(&quot;Serving on :10000&quot;)
-	log.Fatalln(g.Serve(lis))
-}
+<pre><code class="language-yaml">tests:
+    docker:
+        - image: ypereirareis/docker-compose
+    working_directory: /go/src/github.com/johanbrandhorst/protobuf
+    steps:
+        - checkout
+        - setup_remote_docker
+        - run:
+            name: Browser Integration Tests
+            command: make integration
 </code></pre>
 
-<p>This is all the server code. And this is how you would consume it:</p>
+<p>We use <code>ypereirareis/docker-compose</code> which just comes with <code>docker-compose</code> pre-installed.
+The magic here is using <code>setup_remote_docker</code> to do just that. This is required to get
+access to docker powers from within your CircleCI containers.
+The <code>checkout</code> job tells CircleCI that we want the git repo cloned into the
+<code>working_directory</code>.</p>
 
-<pre><code class="language-go">func main() {
-	conn, err := grpc.Dial(&quot;:10000&quot;, grpc.WithInsecure())
-	if err != nil {
-		panic(err)
-	}
+<p>Bam! Just like that we&rsquo;ve got our GopherJS integration tests up and running on CircleCI!
+The coolest thing here is that now in the future if we want to test other versions of
+browsers, or other browsers altogether, we need only add another docker container to the
+fray.</p>
 
-	cc := chunker.NewChunkerClient(conn)
-	client, err := cc.Chunker(context.Background(), &amp;empty.Empty{})
-	if err != nil {
-		panic(err)
-	}
+<h2 id="summary">Summary</h2>
 
-	var blob []byte
-	for {
-		c, err := client.Recv()
-		if err != nil {
-			if err == io.EOF {
-				log.Printf(&quot;Transfer of %d bytes successful&quot;, len(blob))
-				return
-			}
-
-			panic(err)
-		}
-
-		blob = append(blob, c.Chunk...)
-	}
-}
-</code></pre>
-
-<p>That&rsquo;s all there is to it. Obviously the chunking can be done on anything
-that can be marshalled to a byte slice, including other proto messages.</p>
+<p>We&rsquo;ve shown that you can run complex testing scenarios involving several interdependent
+docker containers on CircleCI. These tests run automatically on PRs and commits made to the
+repository to preserve confidence in the functionality of the code.</p>
 
 <p>If you enjoyed this blog post, have any questions or input,
 don&rsquo;t hesitate to contact me on
@@ -271,13 +308,9 @@ your thoughts!</p>
       <ul class="pager blog-pager">
         
           <li class="previous">
-            <a href="https://jbrandhorst.com/post/go-semaphore/" data-toggle="tooltip" data-placement="top" title="Throttling resource intensive requests">&larr; Previous Post</a>
+            <a href="https://jbrandhorst.com/post/grpc-binary-blob-stream/" data-toggle="tooltip" data-placement="top" title="Chunking large messages with gRPC">&larr; Previous Post</a>
           </li>
         
-        
-          <li class="next">
-            <a href="https://jbrandhorst.com/post/circleci-docker-compose/" data-toggle="tooltip" data-placement="top" title="Advanced CircleCI docker testing">Next Post &rarr;</a>
-          </li>
         
       </ul>
 
