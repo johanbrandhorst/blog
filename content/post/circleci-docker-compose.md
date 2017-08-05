@@ -152,7 +152,8 @@ fray.
 
 We've shown that you can run complex testing scenarios involving several interdependent
 docker containers on CircleCI. These tests run automatically on PRs and commits made to the
-repository to preserve confidence in the functionality of the code.
+repository to preserve confidence in the functionality of the code. You can check out
+the CI in action on my [github repo](https://github.com/johanbrandhorst/protobuf).
 
 If you enjoyed this blog post, have any questions or input,
 don't hesitate to contact me on
