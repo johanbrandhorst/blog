@@ -235,7 +235,9 @@ is demand for it.</p>
 
 <p>Lets get the book with an <code>ISBN</code> of <code>140008381</code>:</p>
 
-<pre><code class="language-go">req := new(library.GetBookRequest).New(140008381)
+<pre><code class="language-go">req := &amp;library.GetBookRequest{
+    Isbn: 140008381,
+}
 book, err := client.GetBook(context.Background(), req)
 if err != nil {
     panic(status.FromErr(err))
@@ -245,10 +247,7 @@ println(book)
 
 <p>The context parameter can be used to control timeout,
 deadline and cancellation of requests. The second parameter
-is the request to the method. Unfortunately, because of the
-design of the ProtobufJS generated objects, it&rsquo;s not possible
-to use GopherJS struct mappings for the generated structs.
-The example above shows the typical way to create a new request.</p>
+is the request to the method. Looks just like the normal Go client API.</p>
 
 <h2 id="server-side-streaming">Server side streaming</h2>
 
@@ -258,7 +257,9 @@ We do have access to server side streaming though. This is
 a simple example of how to consume message from a streaming
 server side method:</p>
 
-<pre><code class="language-go">req := new(library.QueryBooksRequest).New(&quot;George&quot;)
+<pre><code class="language-go">req := &amp;library.QueryBooksRequest{
+    AuthorPrefix: &quot;George&quot;,
+}
 srv, err := client.QueryBooks(context.Background(), req)
 if err != nil {
     panic(status.FromErr(err))
