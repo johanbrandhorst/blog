@@ -7,7 +7,7 @@ title = "About me"
 
 I'm Johan, I like gaming, programming, floorball, skiing and many other things.
 I'm originally from Sweden but I live and work in the United Kingdom.
-I work at [Cognitive Logic](https://www.cognitivelogic.com), a data startup in
+I work at [InfoSum](https://www.infosum.com/), a data startup in
 Basingstoke, UK.
 
 My (current!) favourite programming languages are Go and Python. I also
