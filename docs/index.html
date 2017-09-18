@@ -141,6 +141,46 @@ ga('send', 'pageview');
           
           
             <article class="post-preview">
+              <a href="https://jbrandhorst.com/post/client-streaming/">
+                <h2 class="post-title">Client side streaming in gRPC-Web</h2>
+                
+                  <h3 class="post-subtitle">
+                  Enhancing the GopherJS gRPC-Web bindings with Websockets
+                  </h3>
+                
+              </a>
+
+              <span class="post-meta">
+  Posted on September 17, 2017
+  
+</span>
+
+
+              <div class="post-entry">
+                
+                  In a previous post I introduced my open source project to bring GopherJS bindings to Improbable&rsquo;s gRPC-Web client. I&rsquo;m happy to say that the initial goal of supporting all features of the gRPC-Web client has been completed. I was initially going to leave it at that and wait for client side streaming to land in the WHATWG Streams API Standard, and subsequently added to the official grpc-web spec and probably the gRPC-Web client, but then I was sitting at the GolangUK conference and I had a brain wave.
+                  <a href="https://jbrandhorst.com/post/client-streaming/" class="post-read-more">[Read More]</a>
+                
+              </div>
+
+              
+                <span class="post-meta">
+                
+                  #<a href="https://jbrandhorst.com/tags/golang">golang</a>&nbsp;
+                
+                  #<a href="https://jbrandhorst.com/tags/gopherjs">gopherjs</a>&nbsp;
+                
+                  #<a href="https://jbrandhorst.com/tags/websockets">websockets</a>&nbsp;
+                
+                  #<a href="https://jbrandhorst.com/tags/grpc-web">grpc-web</a>&nbsp;
+                
+                  #<a href="https://jbrandhorst.com/tags/grpc">grpc</a>&nbsp;
+                
+                </span>
+              
+            </article>
+          
+            <article class="post-preview">
               <a href="https://jbrandhorst.com/post/circleci-docker-compose/">
                 <h2 class="post-title">Advanced CircleCI docker testing</h2>
                 
@@ -474,48 +514,6 @@ Much of the logic in this file is inspired by the excellent blog post put togeth
                   Implement the client GopherJS can be used in a couple of different ways, and there&rsquo;s a couple of different bindings to many popular JavaScript frameworks. The GopherJS wiki has some great resources.
 I tried a couple of different ones and ended up using the VueJS bindings because it made it easy to prototype things quickly. I hear VueJS works well for many JS evangelisers out there, but I&rsquo;ve only used it with small projects.
                   <a href="https://jbrandhorst.com/post/gopherjs-client-grpc-server-3/" class="post-read-more">[Read More]</a>
-                
-              </div>
-
-              
-                <span class="post-meta">
-                
-                  #<a href="https://jbrandhorst.com/tags/golang">golang</a>&nbsp;
-                
-                  #<a href="https://jbrandhorst.com/tags/protobuf">protobuf</a>&nbsp;
-                
-                  #<a href="https://jbrandhorst.com/tags/grpc">grpc</a>&nbsp;
-                
-                  #<a href="https://jbrandhorst.com/tags/grpc-gateway">grpc-gateway</a>&nbsp;
-                
-                  #<a href="https://jbrandhorst.com/tags/gopherjs">gopherjs</a>&nbsp;
-                
-                </span>
-              
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://jbrandhorst.com/post/gopherjs-client-grpc-server-2/">
-                <h2 class="post-title">GopherJS Client and gRPC Server - Part 2</h2>
-                
-                  <h3 class="post-subtitle">
-                  A guide to implementing a GopherJS frontend to a gRPC backend exposed over HTTP via the gRPC-gateway
-                  </h3>
-                
-              </a>
-
-              <span class="post-meta">
-  Posted on April 12, 2017
-  
-</span>
-
-
-              <div class="post-entry">
-                
-                  Implement the server I like to start by creating a struct and write a simple definition that&rsquo;ll immediately fail to compile.
-package server import ( &quot;github.com/johanbrandhorst/gopherjs-grpc-websocket/protos/server&quot; ) type Server struct{} var _ server.MyServerServer = &amp;Server{}  This won&rsquo;t compile, because the Server struct does not implement the server.MyServerServer interface. But it&rsquo;ll also tell us what we&rsquo;ve got left to implement. So lets implement the server methods:
-func (s Server) Simple(ctx context.
-                  <a href="https://jbrandhorst.com/post/gopherjs-client-grpc-server-2/" class="post-read-more">[Read More]</a>
                 
               </div>
 

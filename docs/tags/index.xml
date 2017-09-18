@@ -85,7 +85,7 @@
     <item>
       <title>Golang</title>
       <link>https://jbrandhorst.com/tags/golang/</link>
-      <pubDate>Fri, 14 Jul 2017 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 17 Sep 2017 00:00:00 +0000</pubDate>
       
       <guid>https://jbrandhorst.com/tags/golang/</guid>
       <description></description>
@@ -94,7 +94,7 @@
     <item>
       <title>Gopherjs</title>
       <link>https://jbrandhorst.com/tags/gopherjs/</link>
-      <pubDate>Tue, 11 Jul 2017 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 17 Sep 2017 00:00:00 +0000</pubDate>
       
       <guid>https://jbrandhorst.com/tags/gopherjs/</guid>
       <description></description>
@@ -103,7 +103,7 @@
     <item>
       <title>Grpc</title>
       <link>https://jbrandhorst.com/tags/grpc/</link>
-      <pubDate>Fri, 14 Jul 2017 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 17 Sep 2017 00:00:00 +0000</pubDate>
       
       <guid>https://jbrandhorst.com/tags/grpc/</guid>
       <description></description>
@@ -121,7 +121,7 @@
     <item>
       <title>Grpc Web</title>
       <link>https://jbrandhorst.com/tags/grpc-web/</link>
-      <pubDate>Tue, 20 Jun 2017 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 17 Sep 2017 00:00:00 +0000</pubDate>
       
       <guid>https://jbrandhorst.com/tags/grpc-web/</guid>
       <description></description>
@@ -169,6 +169,15 @@
       <pubDate>Tue, 11 Jul 2017 00:00:00 +0000</pubDate>
       
       <guid>https://jbrandhorst.com/tags/testing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Websockets</title>
+      <link>https://jbrandhorst.com/tags/websockets/</link>
+      <pubDate>Sun, 17 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://jbrandhorst.com/tags/websockets/</guid>
       <description></description>
     </item>
     

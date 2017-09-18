@@ -5,10 +5,19 @@
     <link>https://jbrandhorst.com/tags/grpc/</link>
     <description>Recent content in Grpc on Go Ahead</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 14 Jul 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 17 Sep 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://jbrandhorst.com/tags/grpc/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Client side streaming in gRPC-Web</title>
+      <link>https://jbrandhorst.com/post/client-streaming/</link>
+      <pubDate>Sun, 17 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://jbrandhorst.com/post/client-streaming/</guid>
+      <description>In a previous post I introduced my open source project to bring GopherJS bindings to Improbable&amp;rsquo;s gRPC-Web client. I&amp;rsquo;m happy to say that the initial goal of supporting all features of the gRPC-Web client has been completed. I was initially going to leave it at that and wait for client side streaming to land in the WHATWG Streams API Standard, and subsequently added to the official grpc-web spec and probably the gRPC-Web client, but then I was sitting at the GolangUK conference and I had a brain wave.</description>
+    </item>
     
     <item>
       <title>Chunking large messages with gRPC</title>
