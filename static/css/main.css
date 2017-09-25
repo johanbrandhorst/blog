@@ -689,3 +689,26 @@ input.gsc-input, .gsc-input-box, .gsc-input-box-hover, .gsc-input-box-focus, .gs
   box-sizing: content-box;
   line-height: normal;
 }
+
+.wrap {
+  width: 750px;
+  height: 562px;
+  padding: 0;
+  overflow: hidden;
+}
+.frame {
+  width: 1280px;
+  height: 786px;
+  border: 0;
+  -ms-transform: scale(0.6);
+  -moz-transform: scale(0.6);
+  -o-transform: scale(0.6);
+  -webkit-transform: scale(0.6);
+  transform: scale(0.6);
+
+  -ms-transform-origin: 0 0;
+  -moz-transform-origin: 0 0;
+  -o-transform-origin: 0 0;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+}

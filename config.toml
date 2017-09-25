@@ -36,9 +36,14 @@ googleAnalytics = "UA-96154465-1"
     weight = 2
 
 [[menu.main]]
+    name = "Presentations"
+    url = "page/presentations/"
+    weight = 3
+
+[[menu.main]]
     name = "Tags"
     url = "tags"
-    weight = 3
+    weight = 4
 
 # [[menu.main]]
 #     identifier = "samples"
