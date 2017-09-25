@@ -5,8 +5,8 @@ DefaultContentLanguage = "en"
 title = "Go Ahead"
 theme = "beautifulhugo"
 metaDataFormat = "yaml"
-pygmentsUseClasses = true
-pygmentCodeFences = true
+pygmentsCodefences = true
+pygmentsStyle= "friendly"
 googleAnalytics = "UA-96154465-1"
 
 [Params]
