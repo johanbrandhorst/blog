@@ -147,5 +147,15 @@ My (current!) favourite programming languages are Go and Python. I also have a g
 You can find me on the Gophers Slack under the id jbrandhorst, where I like to hang around and discuss Go with fellow Gophers.</description>
     </item>
     
+    <item>
+      <title>Presentations</title>
+      <link>https://jbrandhorst.com/page/presentations/</link>
+      <pubDate>Thu, 23 Mar 2017 22:25:56 +0000</pubDate>
+      
+      <guid>https://jbrandhorst.com/page/presentations/</guid>
+      <description> Using gRPC-Web to connect GopherJS apps to gRPC backends Given at the Go London User Group meetup at Skillsmatter | CodeNode.
+  </description>
+    </item>
+    
   </channel>
 </rss>
