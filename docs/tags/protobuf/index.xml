@@ -67,7 +67,7 @@ I tried a couple of different ones and ended up using the VueJS bindings because
       
       <guid>https://jbrandhorst.com/post/gopherjs-client-grpc-server-2/</guid>
       <description>Implement the server I like to start by creating a struct and write a simple definition that&amp;rsquo;ll immediately fail to compile.
-package server import ( &amp;quot;github.com/johanbrandhorst/gopherjs-grpc-websocket/protos/server&amp;quot; ) type Server struct{} var _ server.MyServerServer = &amp;amp;Server{}  This won&amp;rsquo;t compile, because the Server struct does not implement the server.MyServerServer interface. But it&amp;rsquo;ll also tell us what we&amp;rsquo;ve got left to implement. So lets implement the server methods:
+package server import ( &amp;#34;github.com/johanbrandhorst/gopherjs-grpc-websocket/protos/server&amp;#34; ) type Server struct{} var _ server.MyServerServer = &amp;amp;Server{}  This won&amp;rsquo;t compile, because the Server struct does not implement the server.MyServerServer interface. But it&amp;rsquo;ll also tell us what we&amp;rsquo;ve got left to implement. So lets implement the server methods:
 func (s Server) Simple(ctx context.</description>
     </item>
     

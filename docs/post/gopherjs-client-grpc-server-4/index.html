@@ -1,39 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-  <title>GopherJS Client and gRPC Server - Part 4</title>
-  <meta property="og:title" content="GopherJS Client and gRPC Server - Part 4" />
-  <meta name="twitter:title" content="GopherJS Client and gRPC Server - Part 4" />
-  <meta name="description" content="A guide to implementing a GopherJS frontend to a gRPC backend exposed over HTTP via the gRPC-gateway">
-  <meta property="og:description" content="A guide to implementing a GopherJS frontend to a gRPC backend exposed over HTTP via the gRPC-gateway">
-  <meta name="twitter:description" content="A guide to implementing a GopherJS frontend to a gRPC backend exposed over HTTP via the gRPC-gateway">
-  <meta name="author" content="Johan Brandhorst"/>
-  <link href='https://jbrandhorst.com/img/favicon.ico' rel='icon' type='image/x-icon'/>
-  <meta property="og:image" content="https://jbrandhorst.com/img/icon.jpg" />
-  <meta name="twitter:image" content="https://jbrandhorst.com/img/icon.jpg" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:site" content="@JohanBrandhorst" />
-  <meta name="twitter:creator" content="@JohanBrandhorst" />
-  <meta property="og:url" content="https://jbrandhorst.com/post/gopherjs-client-grpc-server-4/" />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Go Ahead" />
-
-  <meta name="generator" content="Hugo 0.21" />
-  <link rel="canonical" href="https://jbrandhorst.com/post/gopherjs-client-grpc-server-4/" />
-  <link rel="alternate" href="https://jbrandhorst.com/index.xml" type="application/rss+xml" title="Go Ahead">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://jbrandhorst.com/css/main.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
-  <link rel="stylesheet" href="https://jbrandhorst.com/css/pygment_highlights.css" />
-  <link rel="stylesheet" href="https://jbrandhorst.com/css/highlight.min.css" />
-
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    
+    <title>GopherJS Client and gRPC Server - Part 4</title>
+    <meta property="og:title" content="GopherJS Client and gRPC Server - Part 4" />
+    <meta name="twitter:title" content="GopherJS Client and gRPC Server - Part 4" />
+    <meta name="description" content="A guide to implementing a GopherJS frontend to a gRPC backend exposed over HTTP via the gRPC-gateway">
+    <meta property="og:description" content="A guide to implementing a GopherJS frontend to a gRPC backend exposed over HTTP via the gRPC-gateway">
+    <meta name="twitter:description" content="A guide to implementing a GopherJS frontend to a gRPC backend exposed over HTTP via the gRPC-gateway">
+    <meta name="author" content="Johan Brandhorst" />
+    <link href='https://jbrandhorst.com/img/favicon.ico' rel='icon' type='image/x-icon' />
+    <meta property="og:image" content="https://jbrandhorst.com/img/icon.jpg" />
+    <meta name="twitter:image" content="https://jbrandhorst.com/img/icon.jpg" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@JohanBrandhorst" />
+    <meta name="twitter:creator" content="@JohanBrandhorst" />
+    <meta property="og:url" content="https://jbrandhorst.com/post/gopherjs-client-grpc-server-4/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Go Ahead" />
+    
+    <meta name="generator" content="Hugo 0.28" />
+    <link rel="canonical" href="https://jbrandhorst.com/post/gopherjs-client-grpc-server-4/" />
+    <link rel="alternate" href="https://jbrandhorst.com/%20index.xml%20" type="application/rss+xml" title="Go Ahead">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://jbrandhorst.com/%20css/main.css%20" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+    /> 
 <script>
 window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 ga('create', 'UA-96154465-1', 'auto');
@@ -158,264 +158,252 @@ and the gRPC backend.</p>
 <a href="https://coreos.com/blog/grpc-protobufs-swagger.html">excellent blog post put together by Brandon Philips</a>
 over at CoreOS. We&rsquo;re using his elegant solution to serve
 both the HTTP API and the gRPC API on the same port.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#007020;font-weight:bold">package</span> main
 
-<pre><code class="language-go">package main
+<span style="color:#007020;font-weight:bold">import</span> (
+	<span style="color:#4070a0">&#34;context&#34;</span>
+	<span style="color:#4070a0">&#34;crypto/tls&#34;</span>
+	<span style="color:#4070a0">&#34;net&#34;</span>
+	<span style="color:#4070a0">&#34;net/http&#34;</span>
+	<span style="color:#4070a0">&#34;os&#34;</span>
+	<span style="color:#4070a0">&#34;os/signal&#34;</span>
+	<span style="color:#4070a0">&#34;strings&#34;</span>
+	<span style="color:#4070a0">&#34;syscall&#34;</span>
+	<span style="color:#4070a0">&#34;time&#34;</span>
 
-import (
-	&quot;context&quot;
-	&quot;crypto/tls&quot;
-	&quot;net&quot;
-	&quot;net/http&quot;
-	&quot;os&quot;
-	&quot;os/signal&quot;
-	&quot;strings&quot;
-	&quot;syscall&quot;
-	&quot;time&quot;
+	<span style="color:#4070a0">&#34;github.com/Sirupsen/logrus&#34;</span>
+	assetfs <span style="color:#4070a0">&#34;github.com/elazarl/go-bindata-assetfs&#34;</span>
+	<span style="color:#4070a0">&#34;github.com/grpc-ecosystem/grpc-gateway/runtime&#34;</span>
+	<span style="color:#4070a0">&#34;github.com/tmc/grpc-websocket-proxy/wsproxy&#34;</span>
+	<span style="color:#4070a0">&#34;google.golang.org/grpc&#34;</span>
+	<span style="color:#4070a0">&#34;google.golang.org/grpc/credentials&#34;</span>
+	<span style="color:#4070a0">&#34;google.golang.org/grpc/grpclog&#34;</span>
 
-	&quot;github.com/Sirupsen/logrus&quot;
-	assetfs &quot;github.com/elazarl/go-bindata-assetfs&quot;
-	&quot;github.com/grpc-ecosystem/grpc-gateway/runtime&quot;
-	&quot;github.com/tmc/grpc-websocket-proxy/wsproxy&quot;
-	&quot;google.golang.org/grpc&quot;
-	&quot;google.golang.org/grpc/credentials&quot;
-	&quot;google.golang.org/grpc/grpclog&quot;
-
-	&quot;github.com/johanbrandhorst/gopherjs-grpc-websocket/client/compiled&quot;
-	pserver &quot;github.com/johanbrandhorst/gopherjs-grpc-websocket/protos/server&quot;
-	&quot;github.com/johanbrandhorst/gopherjs-grpc-websocket/server&quot;
-	&quot;github.com/johanbrandhorst/gopherjs-grpc-websocket/server/insecure&quot;
+	<span style="color:#4070a0">&#34;github.com/johanbrandhorst/gopherjs-grpc-websocket/client/compiled&#34;</span>
+	pserver <span style="color:#4070a0">&#34;github.com/johanbrandhorst/gopherjs-grpc-websocket/protos/server&#34;</span>
+	<span style="color:#4070a0">&#34;github.com/johanbrandhorst/gopherjs-grpc-websocket/server&#34;</span>
+	<span style="color:#4070a0">&#34;github.com/johanbrandhorst/gopherjs-grpc-websocket/server/insecure&#34;</span>
 )
 
-// If you change this, you'll need to change the cert as well
-const addr = &quot;localhost:10000&quot;
+<span style="color:#60a0b0;font-style:italic">// If you change this, you&#39;ll need to change the cert as well
+</span><span style="color:#60a0b0;font-style:italic"></span><span style="color:#007020;font-weight:bold">const</span> addr = <span style="color:#4070a0">&#34;localhost:10000&#34;</span>
 
-// Cert and Key should be replaced if you're going to use this
-// Copied from
-// https://github.com/philips/grpc-gateway-example/blob/0412e3928cb7d47e68b91971a8e79f93d92361ee/insecure/certs.go
-const (
-	key = `-----BEGIN RSA PRIVATE KEY-----
-MIIEogIBAAKCAQEA2KEH2CLMVmPLGwuExXDUk4TdQInkD0AAe22a1ixKxmRdSXkf
-lDKu4cHL0N5ohJBonL/udGWkI6AI51lvJ54zl9SxPoZdWzkdca5H9Cw/7Es3SYyd
-eVBkEo341D4hZqpFJM+vPReCQyTCHKGR6XnmN8E9V2RhTKpiagqfSpNmj08Rg3o3
-Ap7IzaRRnqmGyKLgJEC2hEXj7nIvHtpm4SCjm2px4bRKQRxREuujOGfqBDh6uYQF
-L46PI+QKWDN5J9+fROU9Y0HRFy7JnTkNyTuUxhjB5r2KReQ7cGGpUJzRIyyUDp/u
-3+N58AoyQHf/bXpWE0oSfOhwNABVaRWWgxOP2wIDAQABAoIBAEyvtLcummd6rEvG
-qBm894PBZRGTvsgnQARxqH5o74+Lt/pqhmNQDdidYiluklFbTa0vxJov4Qs7e+tq
-HY9I0brN8HDR3/qLHYFA0Pf/MiHT/p5qyNRJQSPQXmXEGM7fN9rwKnjV+acLPCwm
-hiDApl7WaYCmaEtbhbtER19/Dq9sB2vwF2hWvaS8TkpMe6otPVO+3h8MZfrCEQCY
-sKpZRJEGaHGX+Oe14NlmO+WhpCR9YXftq5En//zZie5TXiSM596IDriUYf9pWr99
-Xeo1JggyrGkQvmGfi5u5qpieX4QBjBKdSqOhiaUKaLQ9T6+mnijp3Cfl/HAkhS5d
-RQcmJwECgYEA6+gAvAvPaWxeTY2hiyZfL7trbwJAjrNPxCim6eJJZbhByXnG7oVT
-JZQo0pNaE/Exszv0BoaxURKNHM5mU6dEZRgwaiY4UUuKyK2OkSHEu8sOwpXcGI7k
-udjEbRaeYBcNAmB25qgisubjbveDJiwK1hbG9T+pSn3E+VotRU2Vk3UCgYEA6xSu
-wxSq79llO25O5BQ39DHKfTPeb6KBRdtCIM1L9FQH5CswVQcv1BwqvtvP724cQLkR
-5fSQyG5G9qHXmh2dj9pB65h05wlO+F03DP1pQB25QyiogyrWwNmWGnrdsJRo1lAh
-pbEWFP+/26n+VtFBcbDcClQsvPL0gOz7hiAuvA8CgYB9SYwKUuNnBAzZd1zSQCDR
-guI95J5Qq16zuTtcf7endEJMNIa4asqL7LH5lBSE/tX8cNzbEnHdstKK9/tUdkNW
-xZAA8Cd81XfxuGs9HQgVDHTcVya7TDihk0RPA3I9akCYgI7lVWqIRSOI7Z8TiNSA
-ezxTR+orC7yvCXt9kQTdeQKBgF2z+dFCzLwcMJDW8FVThdYtfqQXZ8Ohx9ubgSlo
-C62RTS/y0yohWjw3GgbHwYOTpWlbG7pImOl7o4etjS4ePe7YNcx+EaMB/9tZ9JaV
-8D0hW/ZcH4dhLQbj9EQL05AOKBe9CxxrkPy/0K7zfLEIagiyUZNAaDDMuw8k50FY
-VKibAoGAMLZlWDtCHA4J5GhLqRFzOzt2I650EOu/kNhGtJ/8YybgtMVaoN50PGfk
-Dr7+TS/DxJzY7h0yNakDg6KZKT4U4qLh74VFaHCnADyQfQnJK+1ffhNhdeoSzp+L
-zpDUVEXH6eEeRWmyxoWjWnsquube0gRKf2BQ+yYjk+CUwL/Aqk4=
------END RSA PRIVATE KEY-----`
-	cert = `-----BEGIN CERTIFICATE-----
-MIIEBjCCAu6gAwIBAgIJALzaDcEdLBD7MA0GCSqGSIb3DQEBBQUAMF8xCzAJBgNV
-BAYTAkFVMRMwEQYDVQQIEwpTb21lLVN0YXRlMSEwHwYDVQQKExhJbnRlcm5ldCBX
-aWRnaXRzIFB0eSBMdGQxGDAWBgNVBAMTD2xvY2FsaG9zdDoxMDAwMDAeFw0xNjAy
-MTgwMzU5NDJaFw0yNjAyMTUwMzU5NDJaMF8xCzAJBgNVBAYTAkFVMRMwEQYDVQQI
-EwpTb21lLVN0YXRlMSEwHwYDVQQKExhJbnRlcm5ldCBXaWRnaXRzIFB0eSBMdGQx
-GDAWBgNVBAMTD2xvY2FsaG9zdDoxMDAwMDCCASIwDQYJKoZIhvcNAQEBBQADggEP
-ADCCAQoCggEBANihB9gizFZjyxsLhMVw1JOE3UCJ5A9AAHttmtYsSsZkXUl5H5Qy
-ruHBy9DeaISQaJy/7nRlpCOgCOdZbyeeM5fUsT6GXVs5HXGuR/QsP+xLN0mMnXlQ
-ZBKN+NQ+IWaqRSTPrz0XgkMkwhyhkel55jfBPVdkYUyqYmoKn0qTZo9PEYN6NwKe
-yM2kUZ6phsii4CRAtoRF4+5yLx7aZuEgo5tqceG0SkEcURLrozhn6gQ4ermEBS+O
-jyPkClgzeSffn0TlPWNB0RcuyZ05Dck7lMYYwea9ikXkO3BhqVCc0SMslA6f7t/j
-efAKMkB3/216VhNKEnzocDQAVWkVloMTj9sCAwEAAaOBxDCBwTAdBgNVHQ4EFgQU
-7JqKxmk2/4aClcix32bvTr0MUkQwgZEGA1UdIwSBiTCBhoAU7JqKxmk2/4aClcix
-32bvTr0MUkShY6RhMF8xCzAJBgNVBAYTAkFVMRMwEQYDVQQIEwpTb21lLVN0YXRl
-MSEwHwYDVQQKExhJbnRlcm5ldCBXaWRnaXRzIFB0eSBMdGQxGDAWBgNVBAMTD2xv
-Y2FsaG9zdDoxMDAwMIIJALzaDcEdLBD7MAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcN
-AQEFBQADggEBAGo0MdEPAV6EH2mhIXBJb6qjg7X0kGqmh10UzmNc/r4N0lcfoPc3
-q91N3tAk2zxASW16FPumd3eRtn5FdEWLTK2SAJkP24g6199pUbcEvzHas5/awRI3
-PFwNJ+cqsYkXxsW09/cvRBFqMqrkavvoMfCwQhMJwGnql+BeN4mBS00JglHWSfDT
-e8T2yhkPc0+FuAH4ZfmdZUb+yPAv+liT+lCw+vUEsN8mnam8lZKCzhROVfmgKEHM
-Ze0aj9tzK3Su1tjAEzN4arrajCopkJA2aDI2i8EZ+2Zx1qbhNXwJd3E9MYs9WmLf
-RX7r0aSW3Y9r+/SmjYJLXB36CwbcjLHmQN0=
------END CERTIFICATE-----`
+<span style="color:#60a0b0;font-style:italic">// Cert and Key should be replaced if you&#39;re going to use this
+</span><span style="color:#60a0b0;font-style:italic">// Copied from
+</span><span style="color:#60a0b0;font-style:italic">// https://github.com/philips/grpc-gateway-example/blob/0412e3928cb7d47e68b91971a8e79f93d92361ee/insecure/certs.go
+</span><span style="color:#60a0b0;font-style:italic"></span><span style="color:#007020;font-weight:bold">const</span> (
+	key = <span style="color:#4070a0">`-----BEGIN RSA PRIVATE KEY-----
+</span><span style="color:#4070a0">MIIEogIBAAKCAQEA2KEH2CLMVmPLGwuExXDUk4TdQInkD0AAe22a1ixKxmRdSXkf
+</span><span style="color:#4070a0">lDKu4cHL0N5ohJBonL/udGWkI6AI51lvJ54zl9SxPoZdWzkdca5H9Cw/7Es3SYyd
+</span><span style="color:#4070a0">eVBkEo341D4hZqpFJM+vPReCQyTCHKGR6XnmN8E9V2RhTKpiagqfSpNmj08Rg3o3
+</span><span style="color:#4070a0">Ap7IzaRRnqmGyKLgJEC2hEXj7nIvHtpm4SCjm2px4bRKQRxREuujOGfqBDh6uYQF
+</span><span style="color:#4070a0">L46PI+QKWDN5J9+fROU9Y0HRFy7JnTkNyTuUxhjB5r2KReQ7cGGpUJzRIyyUDp/u
+</span><span style="color:#4070a0">3+N58AoyQHf/bXpWE0oSfOhwNABVaRWWgxOP2wIDAQABAoIBAEyvtLcummd6rEvG
+</span><span style="color:#4070a0">qBm894PBZRGTvsgnQARxqH5o74+Lt/pqhmNQDdidYiluklFbTa0vxJov4Qs7e+tq
+</span><span style="color:#4070a0">HY9I0brN8HDR3/qLHYFA0Pf/MiHT/p5qyNRJQSPQXmXEGM7fN9rwKnjV+acLPCwm
+</span><span style="color:#4070a0">hiDApl7WaYCmaEtbhbtER19/Dq9sB2vwF2hWvaS8TkpMe6otPVO+3h8MZfrCEQCY
+</span><span style="color:#4070a0">sKpZRJEGaHGX+Oe14NlmO+WhpCR9YXftq5En//zZie5TXiSM596IDriUYf9pWr99
+</span><span style="color:#4070a0">Xeo1JggyrGkQvmGfi5u5qpieX4QBjBKdSqOhiaUKaLQ9T6+mnijp3Cfl/HAkhS5d
+</span><span style="color:#4070a0">RQcmJwECgYEA6+gAvAvPaWxeTY2hiyZfL7trbwJAjrNPxCim6eJJZbhByXnG7oVT
+</span><span style="color:#4070a0">JZQo0pNaE/Exszv0BoaxURKNHM5mU6dEZRgwaiY4UUuKyK2OkSHEu8sOwpXcGI7k
+</span><span style="color:#4070a0">udjEbRaeYBcNAmB25qgisubjbveDJiwK1hbG9T+pSn3E+VotRU2Vk3UCgYEA6xSu
+</span><span style="color:#4070a0">wxSq79llO25O5BQ39DHKfTPeb6KBRdtCIM1L9FQH5CswVQcv1BwqvtvP724cQLkR
+</span><span style="color:#4070a0">5fSQyG5G9qHXmh2dj9pB65h05wlO+F03DP1pQB25QyiogyrWwNmWGnrdsJRo1lAh
+</span><span style="color:#4070a0">pbEWFP+/26n+VtFBcbDcClQsvPL0gOz7hiAuvA8CgYB9SYwKUuNnBAzZd1zSQCDR
+</span><span style="color:#4070a0">guI95J5Qq16zuTtcf7endEJMNIa4asqL7LH5lBSE/tX8cNzbEnHdstKK9/tUdkNW
+</span><span style="color:#4070a0">xZAA8Cd81XfxuGs9HQgVDHTcVya7TDihk0RPA3I9akCYgI7lVWqIRSOI7Z8TiNSA
+</span><span style="color:#4070a0">ezxTR+orC7yvCXt9kQTdeQKBgF2z+dFCzLwcMJDW8FVThdYtfqQXZ8Ohx9ubgSlo
+</span><span style="color:#4070a0">C62RTS/y0yohWjw3GgbHwYOTpWlbG7pImOl7o4etjS4ePe7YNcx+EaMB/9tZ9JaV
+</span><span style="color:#4070a0">8D0hW/ZcH4dhLQbj9EQL05AOKBe9CxxrkPy/0K7zfLEIagiyUZNAaDDMuw8k50FY
+</span><span style="color:#4070a0">VKibAoGAMLZlWDtCHA4J5GhLqRFzOzt2I650EOu/kNhGtJ/8YybgtMVaoN50PGfk
+</span><span style="color:#4070a0">Dr7+TS/DxJzY7h0yNakDg6KZKT4U4qLh74VFaHCnADyQfQnJK+1ffhNhdeoSzp+L
+</span><span style="color:#4070a0">zpDUVEXH6eEeRWmyxoWjWnsquube0gRKf2BQ+yYjk+CUwL/Aqk4=
+</span><span style="color:#4070a0">-----END RSA PRIVATE KEY-----`</span>
+	cert = <span style="color:#4070a0">`-----BEGIN CERTIFICATE-----
+</span><span style="color:#4070a0">MIIEBjCCAu6gAwIBAgIJALzaDcEdLBD7MA0GCSqGSIb3DQEBBQUAMF8xCzAJBgNV
+</span><span style="color:#4070a0">BAYTAkFVMRMwEQYDVQQIEwpTb21lLVN0YXRlMSEwHwYDVQQKExhJbnRlcm5ldCBX
+</span><span style="color:#4070a0">aWRnaXRzIFB0eSBMdGQxGDAWBgNVBAMTD2xvY2FsaG9zdDoxMDAwMDAeFw0xNjAy
+</span><span style="color:#4070a0">MTgwMzU5NDJaFw0yNjAyMTUwMzU5NDJaMF8xCzAJBgNVBAYTAkFVMRMwEQYDVQQI
+</span><span style="color:#4070a0">EwpTb21lLVN0YXRlMSEwHwYDVQQKExhJbnRlcm5ldCBXaWRnaXRzIFB0eSBMdGQx
+</span><span style="color:#4070a0">GDAWBgNVBAMTD2xvY2FsaG9zdDoxMDAwMDCCASIwDQYJKoZIhvcNAQEBBQADggEP
+</span><span style="color:#4070a0">ADCCAQoCggEBANihB9gizFZjyxsLhMVw1JOE3UCJ5A9AAHttmtYsSsZkXUl5H5Qy
+</span><span style="color:#4070a0">ruHBy9DeaISQaJy/7nRlpCOgCOdZbyeeM5fUsT6GXVs5HXGuR/QsP+xLN0mMnXlQ
+</span><span style="color:#4070a0">ZBKN+NQ+IWaqRSTPrz0XgkMkwhyhkel55jfBPVdkYUyqYmoKn0qTZo9PEYN6NwKe
+</span><span style="color:#4070a0">yM2kUZ6phsii4CRAtoRF4+5yLx7aZuEgo5tqceG0SkEcURLrozhn6gQ4ermEBS+O
+</span><span style="color:#4070a0">jyPkClgzeSffn0TlPWNB0RcuyZ05Dck7lMYYwea9ikXkO3BhqVCc0SMslA6f7t/j
+</span><span style="color:#4070a0">efAKMkB3/216VhNKEnzocDQAVWkVloMTj9sCAwEAAaOBxDCBwTAdBgNVHQ4EFgQU
+</span><span style="color:#4070a0">7JqKxmk2/4aClcix32bvTr0MUkQwgZEGA1UdIwSBiTCBhoAU7JqKxmk2/4aClcix
+</span><span style="color:#4070a0">32bvTr0MUkShY6RhMF8xCzAJBgNVBAYTAkFVMRMwEQYDVQQIEwpTb21lLVN0YXRl
+</span><span style="color:#4070a0">MSEwHwYDVQQKExhJbnRlcm5ldCBXaWRnaXRzIFB0eSBMdGQxGDAWBgNVBAMTD2xv
+</span><span style="color:#4070a0">Y2FsaG9zdDoxMDAwMIIJALzaDcEdLBD7MAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcN
+</span><span style="color:#4070a0">AQEFBQADggEBAGo0MdEPAV6EH2mhIXBJb6qjg7X0kGqmh10UzmNc/r4N0lcfoPc3
+</span><span style="color:#4070a0">q91N3tAk2zxASW16FPumd3eRtn5FdEWLTK2SAJkP24g6199pUbcEvzHas5/awRI3
+</span><span style="color:#4070a0">PFwNJ+cqsYkXxsW09/cvRBFqMqrkavvoMfCwQhMJwGnql+BeN4mBS00JglHWSfDT
+</span><span style="color:#4070a0">e8T2yhkPc0+FuAH4ZfmdZUb+yPAv+liT+lCw+vUEsN8mnam8lZKCzhROVfmgKEHM
+</span><span style="color:#4070a0">Ze0aj9tzK3Su1tjAEzN4arrajCopkJA2aDI2i8EZ+2Zx1qbhNXwJd3E9MYs9WmLf
+</span><span style="color:#4070a0">RX7r0aSW3Y9r+/SmjYJLXB36CwbcjLHmQN0=
+</span><span style="color:#4070a0">-----END CERTIFICATE-----`</span>
 )
 
-var (
-	KeyPair  *tls.Certificate
-	CertPool *x509.CertPool
-	logger *logrus.Logger
+<span style="color:#007020;font-weight:bold">var</span> (
+	KeyPair  <span style="color:#666">*</span>tls.Certificate
+	CertPool <span style="color:#666">*</span>x509.CertPool
+	logger <span style="color:#666">*</span>logrus.Logger
 )
 
-func init() {
-	var err error
-	pair, err := tls.X509KeyPair([]byte(cert), []byte(key))
-	if err != nil {
-		panic(err)
+<span style="color:#007020;font-weight:bold">func</span> init() {
+	<span style="color:#007020;font-weight:bold">var</span> err <span style="color:#902000">error</span>
+	pair, err <span style="color:#666">:=</span> tls.X509KeyPair([]<span style="color:#007020">byte</span>(cert), []<span style="color:#007020">byte</span>(key))
+	<span style="color:#007020;font-weight:bold">if</span> err <span style="color:#666">!=</span> <span style="color:#007020;font-weight:bold">nil</span> {
+		<span style="color:#007020">panic</span>(err)
 	}
-	KeyPair = &amp;pair
+	KeyPair = <span style="color:#666">&amp;</span>pair
 	CertPool = x509.NewCertPool()
-	ok := CertPool.AppendCertsFromPEM([]byte(cert))
-	if !ok {
-		panic(&quot;bad certs&quot;)
+	ok <span style="color:#666">:=</span> CertPool.AppendCertsFromPEM([]<span style="color:#007020">byte</span>(cert))
+	<span style="color:#007020;font-weight:bold">if</span> !ok {
+		<span style="color:#007020">panic</span>(<span style="color:#4070a0">&#34;bad certs&#34;</span>)
 	}
 	logger = logrus.StandardLogger()
 	logrus.SetLevel(logrus.InfoLevel)
-	logrus.SetFormatter(&amp;logrus.TextFormatter{
-		ForceColors:     true,
-		FullTimestamp:   true,
+	logrus.SetFormatter(<span style="color:#666">&amp;</span>logrus.TextFormatter{
+		ForceColors:     <span style="color:#007020;font-weight:bold">true</span>,
+		FullTimestamp:   <span style="color:#007020;font-weight:bold">true</span>,
 		TimestampFormat: time.Kitchen,
-		DisableSorting:  true,
+		DisableSorting:  <span style="color:#007020;font-weight:bold">true</span>,
 	})
 	grpclog.SetLogger(logger)
 }
 
-func main() {
-	s := &amp;server.Server{}
+<span style="color:#007020;font-weight:bold">func</span> main() {
+	s <span style="color:#666">:=</span> <span style="color:#666">&amp;</span>server.Server{}
 
-	gs := grpc.NewServer(grpc.Creds(credentials.NewServerTLSFromCert(KeyPair)))
+	gs <span style="color:#666">:=</span> grpc.NewServer(grpc.Creds(credentials.NewServerTLSFromCert(KeyPair)))
 	pserver.RegisterMyServerServer(gs, s)
-	conn, err := net.Listen(&quot;tcp&quot;, addr)
-	if err != nil {
-		logger.WithError(err).Fatal(&quot;Failed to start listener&quot;)
+	conn, err <span style="color:#666">:=</span> net.Listen(<span style="color:#4070a0">&#34;tcp&#34;</span>, addr)
+	<span style="color:#007020;font-weight:bold">if</span> err <span style="color:#666">!=</span> <span style="color:#007020;font-weight:bold">nil</span> {
+		logger.WithError(err).Fatal(<span style="color:#4070a0">&#34;Failed to start listener&#34;</span>)
 	}
 
-	// Create a context for easy cancellation
-	ctx, cancelFunc := context.WithCancel(context.Background())
-	defer cancelFunc()
+	<span style="color:#60a0b0;font-style:italic">// Create a context for easy cancellation
+</span><span style="color:#60a0b0;font-style:italic"></span>	ctx, cancelFunc <span style="color:#666">:=</span> context.WithCancel(context.Background())
+	<span style="color:#007020;font-weight:bold">defer</span> cancelFunc()
 
-	// Gracefully shut down on ctrl-c
-	c := make(chan os.Signal, 1)
+	<span style="color:#60a0b0;font-style:italic">// Gracefully shut down on ctrl-c
+</span><span style="color:#60a0b0;font-style:italic"></span>	c <span style="color:#666">:=</span> <span style="color:#007020">make</span>(<span style="color:#007020;font-weight:bold">chan</span> os.Signal, <span style="color:#40a070">1</span>)
 	signal.Notify(c, syscall.SIGINT, syscall.SIGTERM)
-	go func() {
-		&lt;-c
-		go cancelFunc()
-		go gs.GracefulStop()
-		go conn.Close()
+	<span style="color:#007020;font-weight:bold">go</span> <span style="color:#007020;font-weight:bold">func</span>() {
+		<span style="color:#666">&lt;-</span>c
+		<span style="color:#007020;font-weight:bold">go</span> cancelFunc()
+		<span style="color:#007020;font-weight:bold">go</span> gs.GracefulStop()
+		<span style="color:#007020;font-weight:bold">go</span> conn.Close()
 	}()
 
-	mux := http.NewServeMux()
+	mux <span style="color:#666">:=</span> http.NewServeMux()
 
-	// Serve the gopherjs client
-	mux.Handle(&quot;/&quot;, http.FileServer(&amp;assetfs.AssetFS{
+	<span style="color:#60a0b0;font-style:italic">// Serve the gopherjs client
+</span><span style="color:#60a0b0;font-style:italic"></span>	mux.Handle(<span style="color:#4070a0">&#34;/&#34;</span>, http.FileServer(<span style="color:#666">&amp;</span>assetfs.AssetFS{
 		Asset:     compiled.Asset,
 		AssetDir:  compiled.AssetDir,
 		AssetInfo: compiled.AssetInfo,
 	}))
 
-	gwMux := runtime.NewServeMux(
-		runtime.WithMarshalerOption(runtime.MIMEWildcard, &amp;runtime.JSONPb{
-			EmitDefaults: true,
-			OrigName:     true,
+	gwMux <span style="color:#666">:=</span> runtime.NewServeMux(
+		runtime.WithMarshalerOption(runtime.MIMEWildcard, <span style="color:#666">&amp;</span>runtime.JSONPb{
+			EmitDefaults: <span style="color:#007020;font-weight:bold">true</span>,
+			OrigName:     <span style="color:#007020;font-weight:bold">true</span>,
 		}),
 	)
-	// Wrap the gateway in the websocket proxy for bidi streams!
-	mux.Handle(&quot;/api/&quot;, wsproxy.WebsocketProxy(gwMux))
+	<span style="color:#60a0b0;font-style:italic">// Wrap the gateway in the websocket proxy for bidi streams!
+</span><span style="color:#60a0b0;font-style:italic"></span>	mux.Handle(<span style="color:#4070a0">&#34;/api/&#34;</span>, wsproxy.WebsocketProxy(gwMux))
 
-	dcreds := credentials.NewTLS(&amp;tls.Config{
+	dcreds <span style="color:#666">:=</span> credentials.NewTLS(<span style="color:#666">&amp;</span>tls.Config{
 		ServerName: addr,
 		RootCAs:    CertPool,
 	})
-	dopts := []grpc.DialOption{grpc.WithTransportCredentials(dcreds)}
+	dopts <span style="color:#666">:=</span> []grpc.DialOption{grpc.WithTransportCredentials(dcreds)}
 	err = pserver.RegisterMyServerHandlerFromEndpoint(ctx, gwMux, addr, dopts)
-	if err != nil {
-		logger.WithError(err).Fatal(&quot;Failed to dial server&quot;)
+	<span style="color:#007020;font-weight:bold">if</span> err <span style="color:#666">!=</span> <span style="color:#007020;font-weight:bold">nil</span> {
+		logger.WithError(err).Fatal(<span style="color:#4070a0">&#34;Failed to dial server&#34;</span>)
 	}
 
-	srv := &amp;http.Server{
+	srv <span style="color:#666">:=</span> <span style="color:#666">&amp;</span>http.Server{
 		Addr:    addr,
 		Handler: grpcHandlerFunc(gs, mux),
-		TLSConfig: &amp;tls.Config{
-			NextProtos:   []string{&quot;h2&quot;},
-			Certificates: []tls.Certificate{*KeyPair},
+		TLSConfig: <span style="color:#666">&amp;</span>tls.Config{
+			NextProtos:   []<span style="color:#902000">string</span>{<span style="color:#4070a0">&#34;h2&#34;</span>},
+			Certificates: []tls.Certificate{<span style="color:#666">*</span>KeyPair},
 		},
 	}
 
-	logger.Warn(&quot;Serving on &quot;, addr)
+	logger.Warn(<span style="color:#4070a0">&#34;Serving on &#34;</span>, addr)
 	logger.Fatal(srv.Serve(tls.NewListener(conn, srv.TLSConfig)))
 }
 
-// GrpcHandlerFunc returns an http.Handler that delegates to grpcServer on incoming gRPC
-// connections or otherHandler otherwise. Copied from cockroachdb.
-func grpcHandlerFunc(grpcServer http.Handler, otherHandler http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// This is a partial recreation of gRPC's internal checks https://github.com/grpc/grpc-go/pull/514/files#diff-95e9a25b738459a2d3030e1e6fa2a718R61
-		if r.ProtoMajor == 2 &amp;&amp; strings.Contains(r.Header.Get(&quot;Content-Type&quot;), &quot;application/grpc&quot;) {
+<span style="color:#60a0b0;font-style:italic">// GrpcHandlerFunc returns an http.Handler that delegates to grpcServer on incoming gRPC
+</span><span style="color:#60a0b0;font-style:italic">// connections or otherHandler otherwise. Copied from cockroachdb.
+</span><span style="color:#60a0b0;font-style:italic"></span><span style="color:#007020;font-weight:bold">func</span> grpcHandlerFunc(grpcServer http.Handler, otherHandler http.Handler) http.Handler {
+	<span style="color:#007020;font-weight:bold">return</span> http.HandlerFunc(<span style="color:#007020;font-weight:bold">func</span>(w http.ResponseWriter, r <span style="color:#666">*</span>http.Request) {
+		<span style="color:#60a0b0;font-style:italic">// This is a partial recreation of gRPC&#39;s internal checks https://github.com/grpc/grpc-go/pull/514/files#diff-95e9a25b738459a2d3030e1e6fa2a718R61
+</span><span style="color:#60a0b0;font-style:italic"></span>		<span style="color:#007020;font-weight:bold">if</span> r.ProtoMajor <span style="color:#666">==</span> <span style="color:#40a070">2</span> <span style="color:#666">&amp;&amp;</span> strings.Contains(r.Header.Get(<span style="color:#4070a0">&#34;Content-Type&#34;</span>), <span style="color:#4070a0">&#34;application/grpc&#34;</span>) {
 			grpcServer.ServeHTTP(w, r)
-		} else {
+		} <span style="color:#007020;font-weight:bold">else</span> {
 			otherHandler.ServeHTTP(w, r)
 		}
 	})
-}
-</code></pre>
-
+}</code></pre>
+</div>
 <p>Most of this is basic boilerplate when setting up a Go gRPC server, but there&rsquo;s a couple of
 things I want to draw attention to.</p>
-
-<pre><code class="language-go">// Serve the gopherjs client
-mux.Handle(&quot;/&quot;, http.FileServer(&amp;assetfs.AssetFS{
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#60a0b0;font-style:italic">// Serve the gopherjs client
+</span><span style="color:#60a0b0;font-style:italic"></span>mux.Handle(<span style="color:#4070a0">&#34;/&#34;</span>, http.FileServer(<span style="color:#666">&amp;</span>assetfs.AssetFS{
 	Asset:     compiled.Asset,
 	AssetDir:  compiled.AssetDir,
 	AssetInfo: compiled.AssetInfo,
-}))
-</code></pre>
-
+}))</code></pre>
+</div>
 <p>This is the magic that serves the GopherJS generated JS (and the <code>HTML</code>). Thanks to
 <code>go-bindata</code> we can just import the package and register it as a file server.</p>
-
-<pre><code class="language-go">gwMux := runtime.NewServeMux(
-	runtime.WithMarshalerOption(runtime.MIMEWildcard, &amp;runtime.JSONPb{
-		EmitDefaults: true,
-		OrigName:     true,
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">gwMux <span style="color:#666">:=</span> runtime.NewServeMux(
+	runtime.WithMarshalerOption(runtime.MIMEWildcard, <span style="color:#666">&amp;</span>runtime.JSONPb{
+		EmitDefaults: <span style="color:#007020;font-weight:bold">true</span>,
+		OrigName:     <span style="color:#007020;font-weight:bold">true</span>,
 	}),
-)
-</code></pre>
-
+)</code></pre>
+</div>
 <p>This creates a new <code>gRPC-gateway</code> mux, but with a custom JSON marshaler which always
 marshals all values of the struct into the <code>JSON</code>. This is not default behaviour, because
 it means the client (frontend) can&rsquo;t tell the difference between when a value was not set
 and when it was set to the zero value of that type. We add it because I think it&rsquo;s mostly
 expected of real REST APIs to always return all fields.</p>
-
-<pre><code class="language-go">// Wrap the gateway in the websocket proxy for bidi streams!
-mux.Handle(&quot;/api/&quot;, wsproxy.WebsocketProxy(gwMux))
-</code></pre>
-
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#60a0b0;font-style:italic">// Wrap the gateway in the websocket proxy for bidi streams!
+</span><span style="color:#60a0b0;font-style:italic"></span>mux.Handle(<span style="color:#4070a0">&#34;/api/&#34;</span>, wsproxy.WebsocketProxy(gwMux))</code></pre>
+</div>
 <p>This magic is what makes it possible for our <code>grpc-gateway</code> to handle bidi streams
 through websockets, thanks to the work of <a href="https://github.com/tmc">tmc</a> and his library
 <a href="https://github.com/tmc/grpc-websocket-proxy">grpc-websocket-proxy</a>. It&rsquo;s a lovely
 little wrapper and I encourage you to take a look at it to understand how it works.</p>
-
-<pre><code class="language-go">// GrpcHandlerFunc returns an http.Handler that delegates to grpcServer on incoming gRPC
-// connections or otherHandler otherwise. Copied from cockroachdb.
-func grpcHandlerFunc(grpcServer http.Handler, otherHandler http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// This is a partial recreation of gRPC's internal checks https://github.com/grpc/grpc-go/pull/514/files#diff-95e9a25b738459a2d3030e1e6fa2a718R61
-		if r.ProtoMajor == 2 &amp;&amp; strings.Contains(r.Header.Get(&quot;Content-Type&quot;), &quot;application/grpc&quot;) {
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#60a0b0;font-style:italic">// GrpcHandlerFunc returns an http.Handler that delegates to grpcServer on incoming gRPC
+</span><span style="color:#60a0b0;font-style:italic">// connections or otherHandler otherwise. Copied from cockroachdb.
+</span><span style="color:#60a0b0;font-style:italic"></span><span style="color:#007020;font-weight:bold">func</span> grpcHandlerFunc(grpcServer http.Handler, otherHandler http.Handler) http.Handler {
+	<span style="color:#007020;font-weight:bold">return</span> http.HandlerFunc(<span style="color:#007020;font-weight:bold">func</span>(w http.ResponseWriter, r <span style="color:#666">*</span>http.Request) {
+		<span style="color:#60a0b0;font-style:italic">// This is a partial recreation of gRPC&#39;s internal checks https://github.com/grpc/grpc-go/pull/514/files#diff-95e9a25b738459a2d3030e1e6fa2a718R61
+</span><span style="color:#60a0b0;font-style:italic"></span>		<span style="color:#007020;font-weight:bold">if</span> r.ProtoMajor <span style="color:#666">==</span> <span style="color:#40a070">2</span> <span style="color:#666">&amp;&amp;</span> strings.Contains(r.Header.Get(<span style="color:#4070a0">&#34;Content-Type&#34;</span>), <span style="color:#4070a0">&#34;application/grpc&#34;</span>) {
 			grpcServer.ServeHTTP(w, r)
-		} else {
+		} <span style="color:#007020;font-weight:bold">else</span> {
 			otherHandler.ServeHTTP(w, r)
 		}
 	})
-}
-</code></pre>
-
+}</code></pre>
+</div>
 <p>This is what allows us to serve the gRPC and HTTP API on the same port. A simple
 handler for splitting the gRPC requests from the rest. Pretty cool!</p>
 
 <p>Now with all the puzzle pieces together we should be able to just generate the JS once
 and run the server!</p>
-
-<pre><code class="language-bash">$ go generate ./client/...
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ go generate ./client/...
 $ go run main.go
-WARN[7:31PM] Serving on https://localhost:10000
-</code></pre>
-
+WARN<span style="color:#666">[</span><span style="color:#40a070">7</span>:31PM<span style="color:#666">]</span> Serving on https://localhost:10000</code></pre>
+</div>
 <p>Now hopefully if we navigate to <a href="https://localhost:10000">https://localhost:10000</a> in
 a browser we&rsquo;ll be greeted by our website. And that&rsquo;s it!</p>
 
@@ -511,7 +499,7 @@ please contact me on gophers slack or via <a href="https://twitter.com/JohanBran
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.21</a> powered &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> &nbsp;&bull;&nbsp; Thanks to <a href="https://netlify.com">Netlify.com</a> for hosting my blog!
+          <a href="http://gohugo.io">Hugo v0.28</a> powered &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> &nbsp;&bull;&nbsp; Thanks to <a href="https://netlify.com">Netlify.com</a> for hosting my blog!
           
         </p>
       </div>
@@ -524,8 +512,6 @@ please contact me on gophers slack or via <a href="https://twitter.com/JohanBran
 <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="https://jbrandhorst.com/js/main.js"></script>
-<script src="https://jbrandhorst.com/js/highlight.min.js"></script>
-<script> hljs.initHighlightingOnLoad(); </script>
 <script> renderMathInElement(document.body); </script>
 
 

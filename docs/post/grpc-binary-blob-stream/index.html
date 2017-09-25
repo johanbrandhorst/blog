@@ -1,39 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-  <title>Chunking large messages with gRPC</title>
-  <meta property="og:title" content="Chunking large messages with gRPC" />
-  <meta name="twitter:title" content="Chunking large messages with gRPC" />
-  <meta name="description" content="Using gRPC server-side streaming with binary blobs">
-  <meta property="og:description" content="Using gRPC server-side streaming with binary blobs">
-  <meta name="twitter:description" content="Using gRPC server-side streaming with binary blobs">
-  <meta name="author" content="Johan Brandhorst"/>
-  <link href='https://jbrandhorst.com/img/favicon.ico' rel='icon' type='image/x-icon'/>
-  <meta property="og:image" content="https://jbrandhorst.com/img/icon.jpg" />
-  <meta name="twitter:image" content="https://jbrandhorst.com/img/icon.jpg" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:site" content="@JohanBrandhorst" />
-  <meta name="twitter:creator" content="@JohanBrandhorst" />
-  <meta property="og:url" content="https://jbrandhorst.com/post/grpc-binary-blob-stream/" />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Go Ahead" />
-
-  <meta name="generator" content="Hugo 0.21" />
-  <link rel="canonical" href="https://jbrandhorst.com/post/grpc-binary-blob-stream/" />
-  <link rel="alternate" href="https://jbrandhorst.com/index.xml" type="application/rss+xml" title="Go Ahead">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://jbrandhorst.com/css/main.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
-  <link rel="stylesheet" href="https://jbrandhorst.com/css/pygment_highlights.css" />
-  <link rel="stylesheet" href="https://jbrandhorst.com/css/highlight.min.css" />
-
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    
+    <title>Chunking large messages with gRPC</title>
+    <meta property="og:title" content="Chunking large messages with gRPC" />
+    <meta name="twitter:title" content="Chunking large messages with gRPC" />
+    <meta name="description" content="Using gRPC server-side streaming with binary blobs">
+    <meta property="og:description" content="Using gRPC server-side streaming with binary blobs">
+    <meta name="twitter:description" content="Using gRPC server-side streaming with binary blobs">
+    <meta name="author" content="Johan Brandhorst" />
+    <link href='https://jbrandhorst.com/img/favicon.ico' rel='icon' type='image/x-icon' />
+    <meta property="og:image" content="https://jbrandhorst.com/img/icon.jpg" />
+    <meta name="twitter:image" content="https://jbrandhorst.com/img/icon.jpg" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@JohanBrandhorst" />
+    <meta name="twitter:creator" content="@JohanBrandhorst" />
+    <meta property="og:url" content="https://jbrandhorst.com/post/grpc-binary-blob-stream/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Go Ahead" />
+    
+    <meta name="generator" content="Hugo 0.28" />
+    <link rel="canonical" href="https://jbrandhorst.com/post/grpc-binary-blob-stream/" />
+    <link rel="alternate" href="https://jbrandhorst.com/%20index.xml%20" type="application/rss+xml" title="Go Ahead">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://jbrandhorst.com/%20css/main.css%20" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+    /> 
 <script>
 window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 ga('create', 'UA-96154465-1', 'auto');
@@ -161,100 +161,92 @@ stream it, using the gRPC streaming methods, naturally.</p>
 
 <p>We&rsquo;ll define a protofile with a single service exposing a single method returning
 a streamed message type.</p>
-
-<pre><code class="language-protobuf">syntax = &quot;proto3&quot;;
-
-package chunker;
-
-option go_package = &quot;github.com/johanbrandhorst/chunker/protos/chunker&quot;;
-
-import &quot;google/protobuf/empty.proto&quot;;
-
-service Chunker {
-    rpc Chunker(google.protobuf.Empty) returns (stream Chunk) {}
-}
-
-message Chunk {
-    bytes chunk = 1;
-}
-</code></pre>
-
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-protobuf" data-lang="protobuf"><span style="color:#4070a0">syntax</span> <span style="color:#666">=</span> <span style="color:#4070a0">&#34;proto3&#34;</span>;<span style="">
+</span><span style="">
+</span><span style=""></span><span style="color:#007020;font-weight:bold">package</span> <span style="color:#0e84b5;font-weight:bold">chunker</span>;<span style="">
+</span><span style="">
+</span><span style=""></span><span style="color:#007020;font-weight:bold">option</span> <span style="color:#4070a0">go_package</span> <span style="color:#666">=</span> <span style="color:#4070a0">&#34;github.com/johanbrandhorst/chunker/protos/chunker&#34;</span>;<span style="">
+</span><span style="">
+</span><span style=""></span><span style="color:#007020;font-weight:bold">import</span> <span style="color:#4070a0">&#34;google/protobuf/empty.proto&#34;</span>;<span style="">
+</span><span style="">
+</span><span style=""></span><span style="color:#007020;font-weight:bold">service</span> Chunker {<span style="">
+</span><span style=""></span>    <span style="color:#007020;font-weight:bold">rpc</span> Chunker(google.protobuf.Empty) <span style="color:#007020;font-weight:bold">returns</span> (stream Chunk) {}<span style="">
+</span><span style=""></span>}<span style="">
+</span><span style="">
+</span><span style=""></span><span style="color:#007020;font-weight:bold">message</span> <span style="color:#0e84b5;font-weight:bold">Chunk</span> {<span style="">
+</span><span style=""></span>    <span style="color:#902000">bytes</span> <span style="color:#4070a0">chunk</span> <span style="color:#666">=</span> <span style="color:#40a070">1</span>;<span style="">
+</span><span style=""></span>}</code></pre>
+</div>
 <p>Then we implement the server. I thought I&rsquo;d be clever and show that you don&rsquo;t
 necessarily have to implement the gRPC interface on a struct.
 The recommended chunk size for streamed messages
 <a href="https://github.com/grpc/grpc.github.io/issues/371">appears to be 16-64KiB</a>.
 We&rsquo;ll go for 64KiB today.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#007020;font-weight:bold">const</span> chunkSize = <span style="color:#40a070">64</span> <span style="color:#666">*</span> <span style="color:#40a070">1024</span> <span style="color:#60a0b0;font-style:italic">// 64 KiB
+</span><span style="color:#60a0b0;font-style:italic"></span>
+<span style="color:#007020;font-weight:bold">type</span> chunkerSrv []<span style="color:#902000">byte</span>
 
-<pre><code class="language-go">const chunkSize = 64 * 1024 // 64 KiB
-
-type chunkerSrv []byte
-
-func (c chunkerSrv) Chunker(_ *empty.Empty, srv chunker.Chunker_ChunkerServer) error {
-	chnk := &amp;chunker.Chunk{}
-	for currentByte := 0; currentByte &lt; len(c); currentByte += chunkSize {
-		if currentByte+chunkSize &gt; len(c) {
-			chnk.Chunk = c[currentByte:len(c)]
-		} else {
-			chnk.Chunk = c[currentByte : currentByte+chunkSize]
+<span style="color:#007020;font-weight:bold">func</span> (c chunkerSrv) Chunker(_ <span style="color:#666">*</span>empty.Empty, srv chunker.Chunker_ChunkerServer) <span style="color:#902000">error</span> {
+	chnk <span style="color:#666">:=</span> <span style="color:#666">&amp;</span>chunker.Chunk{}
+	<span style="color:#007020;font-weight:bold">for</span> currentByte <span style="color:#666">:=</span> <span style="color:#40a070">0</span>; currentByte &lt; <span style="color:#007020">len</span>(c); currentByte <span style="color:#666">+=</span> chunkSize {
+		<span style="color:#007020;font-weight:bold">if</span> currentByte<span style="color:#666">+</span>chunkSize &gt; <span style="color:#007020">len</span>(c) {
+			chnk.Chunk = c[currentByte:<span style="color:#007020">len</span>(c)]
+		} <span style="color:#007020;font-weight:bold">else</span> {
+			chnk.Chunk = c[currentByte : currentByte<span style="color:#666">+</span>chunkSize]
 		}
-		if err := srv.Send(chnk); err != nil {
-			return err
+		<span style="color:#007020;font-weight:bold">if</span> err <span style="color:#666">:=</span> srv.Send(chnk); err <span style="color:#666">!=</span> <span style="color:#007020;font-weight:bold">nil</span> {
+			<span style="color:#007020;font-weight:bold">return</span> err
 		}
 	}
 
-	return nil
-}
-</code></pre>
-
+	<span style="color:#007020;font-weight:bold">return</span> <span style="color:#007020;font-weight:bold">nil</span>
+}</code></pre>
+</div>
 <p>We wrap this in a gRPC server and host it:</p>
-
-<pre><code class="language-go">func main() {
-	lis, err := net.Listen(&quot;tcp&quot;, &quot;:10000&quot;)
-	if err != nil {
-		panic(err)
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#007020;font-weight:bold">func</span> main() {
+	lis, err <span style="color:#666">:=</span> net.Listen(<span style="color:#4070a0">&#34;tcp&#34;</span>, <span style="color:#4070a0">&#34;:10000&#34;</span>)
+	<span style="color:#007020;font-weight:bold">if</span> err <span style="color:#666">!=</span> <span style="color:#007020;font-weight:bold">nil</span> {
+		<span style="color:#007020">panic</span>(err)
 	}
 
-	g := grpc.NewServer()
-	blob := make([]byte, 128*1024*1024) // 128MiB
-	rand.Read(blob)
+	g <span style="color:#666">:=</span> grpc.NewServer()
+	blob <span style="color:#666">:=</span> <span style="color:#007020">make</span>([]<span style="color:#902000">byte</span>, <span style="color:#40a070">128</span><span style="color:#666">*</span><span style="color:#40a070">1024</span><span style="color:#666">*</span><span style="color:#40a070">1024</span>) <span style="color:#60a0b0;font-style:italic">// 128MiB
+</span><span style="color:#60a0b0;font-style:italic"></span>	rand.Read(blob)
 	chunker.RegisterChunkerServer(g, chunkerSrv(blob))
 
-	log.Println(&quot;Serving on :10000&quot;)
+	log.Println(<span style="color:#4070a0">&#34;Serving on :10000&#34;</span>)
 	log.Fatalln(g.Serve(lis))
-}
-</code></pre>
-
+}</code></pre>
+</div>
 <p>This is all the server code. And this is how you would consume it:</p>
-
-<pre><code class="language-go">func main() {
-	conn, err := grpc.Dial(&quot;:10000&quot;, grpc.WithInsecure())
-	if err != nil {
-		panic(err)
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#007020;font-weight:bold">func</span> main() {
+	conn, err <span style="color:#666">:=</span> grpc.Dial(<span style="color:#4070a0">&#34;:10000&#34;</span>, grpc.WithInsecure())
+	<span style="color:#007020;font-weight:bold">if</span> err <span style="color:#666">!=</span> <span style="color:#007020;font-weight:bold">nil</span> {
+		<span style="color:#007020">panic</span>(err)
 	}
 
-	cc := chunker.NewChunkerClient(conn)
-	client, err := cc.Chunker(context.Background(), &amp;empty.Empty{})
-	if err != nil {
-		panic(err)
+	cc <span style="color:#666">:=</span> chunker.NewChunkerClient(conn)
+	client, err <span style="color:#666">:=</span> cc.Chunker(context.Background(), <span style="color:#666">&amp;</span>empty.Empty{})
+	<span style="color:#007020;font-weight:bold">if</span> err <span style="color:#666">!=</span> <span style="color:#007020;font-weight:bold">nil</span> {
+		<span style="color:#007020">panic</span>(err)
 	}
 
-	var blob []byte
-	for {
-		c, err := client.Recv()
-		if err != nil {
-			if err == io.EOF {
-				log.Printf(&quot;Transfer of %d bytes successful&quot;, len(blob))
-				return
+	<span style="color:#007020;font-weight:bold">var</span> blob []<span style="color:#902000">byte</span>
+	<span style="color:#007020;font-weight:bold">for</span> {
+		c, err <span style="color:#666">:=</span> client.Recv()
+		<span style="color:#007020;font-weight:bold">if</span> err <span style="color:#666">!=</span> <span style="color:#007020;font-weight:bold">nil</span> {
+			<span style="color:#007020;font-weight:bold">if</span> err <span style="color:#666">==</span> io.EOF {
+				log.Printf(<span style="color:#4070a0">&#34;Transfer of %d bytes successful&#34;</span>, <span style="color:#007020">len</span>(blob))
+				<span style="color:#007020;font-weight:bold">return</span>
 			}
 
-			panic(err)
+			<span style="color:#007020">panic</span>(err)
 		}
 
-		blob = append(blob, c.Chunk...)
+		blob = <span style="color:#007020">append</span>(blob, c.Chunk<span style="color:#666">...</span>)
 	}
-}
-</code></pre>
-
+}</code></pre>
+</div>
 <p>That&rsquo;s all there is to it. Obviously the chunking can be done on anything
 that can be marshalled to a byte slice, including other proto messages.</p>
 
@@ -342,7 +334,7 @@ your thoughts!</p>
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.21</a> powered &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> &nbsp;&bull;&nbsp; Thanks to <a href="https://netlify.com">Netlify.com</a> for hosting my blog!
+          <a href="http://gohugo.io">Hugo v0.28</a> powered &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> &nbsp;&bull;&nbsp; Thanks to <a href="https://netlify.com">Netlify.com</a> for hosting my blog!
           
         </p>
       </div>
@@ -355,8 +347,6 @@ your thoughts!</p>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="https://jbrandhorst.com/js/main.js"></script>
-<script src="https://jbrandhorst.com/js/highlight.min.js"></script>
-<script> hljs.initHighlightingOnLoad(); </script>
 <script> renderMathInElement(document.body); </script>
 
 

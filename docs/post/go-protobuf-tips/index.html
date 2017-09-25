@@ -1,39 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-  <title>Go Protobuf Tips</title>
-  <meta property="og:title" content="Go Protobuf Tips" />
-  <meta name="twitter:title" content="Go Protobuf Tips" />
-  <meta name="description" content="A couple of tips for working with proto files in golang">
-  <meta property="og:description" content="A couple of tips for working with proto files in golang">
-  <meta name="twitter:description" content="A couple of tips for working with proto files in golang">
-  <meta name="author" content="Johan Brandhorst"/>
-  <link href='https://jbrandhorst.com/img/favicon.ico' rel='icon' type='image/x-icon'/>
-  <meta property="og:image" content="https://jbrandhorst.com/img/icon.jpg" />
-  <meta name="twitter:image" content="https://jbrandhorst.com/img/icon.jpg" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:site" content="@JohanBrandhorst" />
-  <meta name="twitter:creator" content="@JohanBrandhorst" />
-  <meta property="og:url" content="https://jbrandhorst.com/post/go-protobuf-tips/" />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Go Ahead" />
-
-  <meta name="generator" content="Hugo 0.21" />
-  <link rel="canonical" href="https://jbrandhorst.com/post/go-protobuf-tips/" />
-  <link rel="alternate" href="https://jbrandhorst.com/index.xml" type="application/rss+xml" title="Go Ahead">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://jbrandhorst.com/css/main.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
-  <link rel="stylesheet" href="https://jbrandhorst.com/css/pygment_highlights.css" />
-  <link rel="stylesheet" href="https://jbrandhorst.com/css/highlight.min.css" />
-
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    
+    <title>Go Protobuf Tips</title>
+    <meta property="og:title" content="Go Protobuf Tips" />
+    <meta name="twitter:title" content="Go Protobuf Tips" />
+    <meta name="description" content="A couple of tips for working with proto files in golang">
+    <meta property="og:description" content="A couple of tips for working with proto files in golang">
+    <meta name="twitter:description" content="A couple of tips for working with proto files in golang">
+    <meta name="author" content="Johan Brandhorst" />
+    <link href='https://jbrandhorst.com/img/favicon.ico' rel='icon' type='image/x-icon' />
+    <meta property="og:image" content="https://jbrandhorst.com/img/icon.jpg" />
+    <meta name="twitter:image" content="https://jbrandhorst.com/img/icon.jpg" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@JohanBrandhorst" />
+    <meta name="twitter:creator" content="@JohanBrandhorst" />
+    <meta property="og:url" content="https://jbrandhorst.com/post/go-protobuf-tips/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Go Ahead" />
+    
+    <meta name="generator" content="Hugo 0.28" />
+    <link rel="canonical" href="https://jbrandhorst.com/post/go-protobuf-tips/" />
+    <link rel="alternate" href="https://jbrandhorst.com/%20index.xml%20" type="application/rss+xml" title="Go Ahead">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://jbrandhorst.com/%20css/main.css%20" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+    /> 
 <script>
 window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 ga('create', 'UA-96154465-1', 'auto');
@@ -162,10 +162,8 @@ of how to use it properly.</p>
 referencing files relative to the current directory, you&rsquo;ll need to specify <code>-I.</code>,
 which also means the <code>protoc</code> will resolve
 all proto import paths relative to the current directory.</p>
-
-<pre><code class="language-bash">$ protoc myproto/myproto.proto -I. --go_out=:.
-</code></pre>
-
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ protoc myproto/myproto.proto -I. --go_out<span style="color:#666">=</span>:.</code></pre>
+</div>
 <p>As long as your proto file imports are all relative to the current directory, this will work.</p>
 
 <h4 id="several-include-paths">Several include paths</h4>
@@ -174,10 +172,8 @@ all proto import paths relative to the current directory.</p>
 you&rsquo;ll have to include the <code>google/api/annotations.proto</code> proto file.
 The way I&rsquo;ve always done that is by vendoring the proto files and adding the vendor path
 as an include path:</p>
-
-<pre><code class="language-bash">$ protoc myproto/myproto.proto -I. -I./vendor/github.com/googleapis/googleapis/ --go_out=:.
-</code></pre>
-
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ protoc myproto/myproto.proto -I. -I./vendor/github.com/googleapis/googleapis/ --go_out<span style="color:#666">=</span>:.</code></pre>
+</div>
 <p>Includes are specified in order of priority, so <code>protoc</code> will first see if
 <code>./google/api/annotations.proto</code> exists, and if it doesn&rsquo;t, it&rsquo;ll check
 <code>./vendor/github.com/googleapis/googleapis/google/api/annotations.proto</code>.</p>
@@ -198,35 +194,31 @@ is essential if you ever want to import proto definitions from one proto file to
 
 <p>For example, lets say we have <code>person.proto</code> in <code>person/person.proto</code>. It defines the
 proto package <code>person</code> and the message <code>Person</code>.</p>
-
-<pre><code class="language-protobuf">syntax = &quot;proto3&quot;;
-
-package person;
-
-message Person {
-  string Name = 1;
-  uint32 Age = 2;
-}
-</code></pre>
-
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-protobuf" data-lang="protobuf"><span style="color:#4070a0">syntax</span> <span style="color:#666">=</span> <span style="color:#4070a0">&#34;proto3&#34;</span>;<span style="">
+</span><span style="">
+</span><span style=""></span><span style="color:#007020;font-weight:bold">package</span> <span style="color:#0e84b5;font-weight:bold">person</span>;<span style="">
+</span><span style="">
+</span><span style=""></span><span style="color:#007020;font-weight:bold">message</span> <span style="color:#0e84b5;font-weight:bold">Person</span> {<span style="">
+</span><span style=""></span>  <span style="color:#902000">string</span> <span style="color:#4070a0">Name</span> <span style="color:#666">=</span> <span style="color:#40a070">1</span>;<span style="">
+</span><span style=""></span>  <span style="color:#902000">uint32</span> <span style="color:#4070a0">Age</span> <span style="color:#666">=</span> <span style="color:#40a070">2</span>;<span style="">
+</span><span style=""></span>}</code></pre>
+</div>
 <p>We also have <code>team.proto</code> in <code>team/team.proto</code>, defining the proto package
 <code>team</code> and the message <code>Team</code>. A <code>Team</code> consists of a sorted list of <code>Person</code>s,
 so <code>team.proto</code> will need to import that definition from <code>person.proto</code>.</p>
 
 <p>No problem, just add an <code>import person/person.proto</code> to <code>team.proto</code> and reference it
 using the namespace specified by the <code>person.proto</code> package name:</p>
-
-<pre><code class="language-protobuf">syntax = &quot;proto3&quot;;
-
-package team;
-
-import &quot;person/person.proto&quot;
-
-message Team {
-  repeated person.Person people = 1;
-}
-</code></pre>
-
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-protobuf" data-lang="protobuf"><span style="color:#4070a0">syntax</span> <span style="color:#666">=</span> <span style="color:#4070a0">&#34;proto3&#34;</span>;<span style="">
+</span><span style="">
+</span><span style=""></span><span style="color:#007020;font-weight:bold">package</span> <span style="color:#0e84b5;font-weight:bold">team</span>;<span style="">
+</span><span style="">
+</span><span style=""></span><span style="color:#007020;font-weight:bold">import</span> <span style="color:#4070a0">&#34;person/person.proto&#34;</span><span style="">
+</span><span style="">
+</span><span style=""></span><span style="color:#007020;font-weight:bold">message</span> <span style="color:#0e84b5;font-weight:bold">Team</span> {<span style="">
+</span><span style=""></span>  <span style="color:#007020;font-weight:bold">repeated</span> person.Person <span style="color:#4070a0">people</span> <span style="color:#666">=</span> <span style="color:#40a070">1</span>;<span style="">
+</span><span style=""></span>}</code></pre>
+</div>
 <p>When we generate a go file from this definition using <code>protoc</code>, we&rsquo;ll end up with a Go file
 that imports <code>person/person.pb.go</code>. That&rsquo;s no good!</p>
 
@@ -241,32 +233,28 @@ This means that the <code>protoc</code> compiler can generate a go file that wil
 on <code>myproto/myproto.proto</code>.</p>
 
 <p>So let&rsquo;s fix the <code>person.proto</code> and <code>team.proto</code> proto files.</p>
-
-<pre><code class="language-protobuf">syntax = &quot;proto3&quot;;
-
-option go_package = &quot;github.com/myuser/myprotos/person&quot;;
-
-package person;
-
-message Person {
-  string Name = 1;
-  uint32 Age = 2;
-}
-</code></pre>
-
-<pre><code class="language-protobuf">syntax = &quot;proto3&quot;;
-
-option go_package = &quot;github.com/myuser/myprotos/team&quot;;
-
-package team;
-
-import &quot;person/person.proto&quot;
-
-message Team {
-  repeated person.Person members = 1;
-}
-</code></pre>
-
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-protobuf" data-lang="protobuf"><span style="color:#4070a0">syntax</span> <span style="color:#666">=</span> <span style="color:#4070a0">&#34;proto3&#34;</span>;<span style="">
+</span><span style="">
+</span><span style=""></span><span style="color:#007020;font-weight:bold">option</span> <span style="color:#4070a0">go_package</span> <span style="color:#666">=</span> <span style="color:#4070a0">&#34;github.com/myuser/myprotos/person&#34;</span>;<span style="">
+</span><span style="">
+</span><span style=""></span><span style="color:#007020;font-weight:bold">package</span> <span style="color:#0e84b5;font-weight:bold">person</span>;<span style="">
+</span><span style="">
+</span><span style=""></span><span style="color:#007020;font-weight:bold">message</span> <span style="color:#0e84b5;font-weight:bold">Person</span> {<span style="">
+</span><span style=""></span>  <span style="color:#902000">string</span> <span style="color:#4070a0">Name</span> <span style="color:#666">=</span> <span style="color:#40a070">1</span>;<span style="">
+</span><span style=""></span>  <span style="color:#902000">uint32</span> <span style="color:#4070a0">Age</span> <span style="color:#666">=</span> <span style="color:#40a070">2</span>;<span style="">
+</span><span style=""></span>}</code></pre>
+</div><div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-protobuf" data-lang="protobuf"><span style="color:#4070a0">syntax</span> <span style="color:#666">=</span> <span style="color:#4070a0">&#34;proto3&#34;</span>;<span style="">
+</span><span style="">
+</span><span style=""></span><span style="color:#007020;font-weight:bold">option</span> <span style="color:#4070a0">go_package</span> <span style="color:#666">=</span> <span style="color:#4070a0">&#34;github.com/myuser/myprotos/team&#34;</span>;<span style="">
+</span><span style="">
+</span><span style=""></span><span style="color:#007020;font-weight:bold">package</span> <span style="color:#0e84b5;font-weight:bold">team</span>;<span style="">
+</span><span style="">
+</span><span style=""></span><span style="color:#007020;font-weight:bold">import</span> <span style="color:#4070a0">&#34;person/person.proto&#34;</span><span style="">
+</span><span style="">
+</span><span style=""></span><span style="color:#007020;font-weight:bold">message</span> <span style="color:#0e84b5;font-weight:bold">Team</span> {<span style="">
+</span><span style=""></span>  <span style="color:#007020;font-weight:bold">repeated</span> person.Person <span style="color:#4070a0">members</span> <span style="color:#666">=</span> <span style="color:#40a070">1</span>;<span style="">
+</span><span style=""></span>}</code></pre>
+</div>
 <p>Now, you might say we don&rsquo;t strictly <em>need</em> to specify the <code>go_package</code> for <code>team.proto</code>,
 since nothing imports it at the minute. I&rsquo;d still suggest adding it to all the proto files
 that you&rsquo;ll generate go code from so that in the future when a dependency might arise, you&rsquo;ve
@@ -276,10 +264,8 @@ saved yourself, or even better, someone else, a whole lot of head scratching.</p
 
 <p>One final note on the <code>go_package</code> option. Specifying it in your proto file means the
 <code>protoc-gen-go</code> <code>protoc</code> plugin outputs your generated files as if the specified output directory is at the root of the <code>go_package</code> path. So&hellip; you&rsquo;ll probably want to slightly modify your <code>protoc</code> line:</p>
-
-<pre><code class="language-bash">protoc person/person.proto team/team.proto -I. --go_out=:$GOPATH/src
-</code></pre>
-
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">protoc person/person.proto team/team.proto -I. --go_out<span style="color:#666">=</span>:<span style="color:#bb60d5">$GOPATH</span>/src</code></pre>
+</div>
 <p>This should mean the files appear where you expect them to appear. Mind you make sure there
 are no typos in the <code>go_package</code> option as it means the files will be generated in wrong place.</p>
 
@@ -293,11 +279,9 @@ to change the import path of a specific import as defined in a proto file. Param
 comma (<code>,</code>) separated. Parameter specification is delimited by the colon (<code>:</code>) character,
 after which comes the desired output path.
 The following are all valid <code>protoc</code> commands illustrating this:</p>
-
-<pre><code class="language-bash">$ protoc myproto/myproto.proto -I. --go_out=plugin=grpc:.
-$ protoc myproto/myproto.proto -I. --grpc-gateway_out=logtostderr=true,Mgoogle/api/annotations.proto=myrepo/api/annotations.proto:.
-</code></pre>
-
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ protoc myproto/myproto.proto -I. --go_out<span style="color:#666">=</span><span style="color:#bb60d5">plugin</span><span style="color:#666">=</span>grpc:.
+$ protoc myproto/myproto.proto -I. --grpc-gateway_out<span style="color:#666">=</span><span style="color:#bb60d5">logtostderr</span><span style="color:#666">=</span>true,Mgoogle/api/annotations.proto<span style="color:#666">=</span>myrepo/api/annotations.proto:.</code></pre>
+</div>
 <h2 id="more">More</h2>
 
 <p>Feel free to reach out to me on gophers slack or on
@@ -382,7 +366,7 @@ any more tips I should include in this list.</p>
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.21</a> powered &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> &nbsp;&bull;&nbsp; Thanks to <a href="https://netlify.com">Netlify.com</a> for hosting my blog!
+          <a href="http://gohugo.io">Hugo v0.28</a> powered &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> &nbsp;&bull;&nbsp; Thanks to <a href="https://netlify.com">Netlify.com</a> for hosting my blog!
           
         </p>
       </div>
@@ -395,8 +379,6 @@ any more tips I should include in this list.</p>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="https://jbrandhorst.com/js/main.js"></script>
-<script src="https://jbrandhorst.com/js/highlight.min.js"></script>
-<script> hljs.initHighlightingOnLoad(); </script>
 <script> renderMathInElement(document.body); </script>
 
 

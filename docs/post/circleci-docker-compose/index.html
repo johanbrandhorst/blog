@@ -1,39 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-  <title>Advanced CircleCI docker testing</title>
-  <meta property="og:title" content="Advanced CircleCI docker testing" />
-  <meta name="twitter:title" content="Advanced CircleCI docker testing" />
-  <meta name="description" content="Using docker-compose with CircleCI">
-  <meta property="og:description" content="Using docker-compose with CircleCI">
-  <meta name="twitter:description" content="Using docker-compose with CircleCI">
-  <meta name="author" content="Johan Brandhorst"/>
-  <link href='https://jbrandhorst.com/img/favicon.ico' rel='icon' type='image/x-icon'/>
-  <meta property="og:image" content="https://jbrandhorst.com/img/icon.jpg" />
-  <meta name="twitter:image" content="https://jbrandhorst.com/img/icon.jpg" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:site" content="@JohanBrandhorst" />
-  <meta name="twitter:creator" content="@JohanBrandhorst" />
-  <meta property="og:url" content="https://jbrandhorst.com/post/circleci-docker-compose/" />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Go Ahead" />
-
-  <meta name="generator" content="Hugo 0.21" />
-  <link rel="canonical" href="https://jbrandhorst.com/post/circleci-docker-compose/" />
-  <link rel="alternate" href="https://jbrandhorst.com/index.xml" type="application/rss+xml" title="Go Ahead">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://jbrandhorst.com/css/main.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
-  <link rel="stylesheet" href="https://jbrandhorst.com/css/pygment_highlights.css" />
-  <link rel="stylesheet" href="https://jbrandhorst.com/css/highlight.min.css" />
-
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    
+    <title>Advanced CircleCI docker testing</title>
+    <meta property="og:title" content="Advanced CircleCI docker testing" />
+    <meta name="twitter:title" content="Advanced CircleCI docker testing" />
+    <meta name="description" content="Using docker-compose with CircleCI">
+    <meta property="og:description" content="Using docker-compose with CircleCI">
+    <meta name="twitter:description" content="Using docker-compose with CircleCI">
+    <meta name="author" content="Johan Brandhorst" />
+    <link href='https://jbrandhorst.com/img/favicon.ico' rel='icon' type='image/x-icon' />
+    <meta property="og:image" content="https://jbrandhorst.com/img/icon.jpg" />
+    <meta name="twitter:image" content="https://jbrandhorst.com/img/icon.jpg" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@JohanBrandhorst" />
+    <meta name="twitter:creator" content="@JohanBrandhorst" />
+    <meta property="og:url" content="https://jbrandhorst.com/post/circleci-docker-compose/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Go Ahead" />
+    
+    <meta name="generator" content="Hugo 0.28" />
+    <link rel="canonical" href="https://jbrandhorst.com/post/circleci-docker-compose/" />
+    <link rel="alternate" href="https://jbrandhorst.com/%20index.xml%20" type="application/rss+xml" title="Go Ahead">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://jbrandhorst.com/%20css/main.css%20" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+    /> 
 <script>
 window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 ga('create', 'UA-96154465-1', 'auto');
@@ -186,24 +186,23 @@ quite different from the one used by GitLab, so it took me a while to get up to 
 my tests to be runnable in docker containers, with the browsers running in separate
 containers. As such, I wrote a <code>docker-compose</code> file to define the setup required.
 Here&rsquo;s the docker-compose file I used:</p>
-
-<pre><code class="language-yaml">version: '2'
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">version: &#39;2&#39;
 networks:
     internal:
         driver: bridge
 services:
     chromedriver:
         environment:
-            CHROMEDRIVER_WHITELISTED_IPS: &quot;&quot;
+            CHROMEDRIVER_WHITELISTED_IPS: &#34;&#34;
         expose:
-            - &quot;4444&quot;
+            - &#34;4444&#34;
         image: robcherry/docker-chromedriver:latest
         networks:
             - internal
         privileged: true
     selenium:
         expose:
-            - &quot;4444&quot;
+            - &#34;4444&#34;
         image: selenium/standalone-firefox:latest
         networks:
             - internal
@@ -219,39 +218,36 @@ services:
             SELENIUM_ADDR: selenium:4444
             GOPHERJS_SERVER_ADDR: testrunner:8080
         expose:
-            - &quot;8080&quot;
-            - &quot;9090&quot;
-            - &quot;9095&quot;
-            - &quot;9100&quot;
-            - &quot;9105&quot;
+            - &#34;8080&#34;
+            - &#34;9090&#34;
+            - &#34;9095&#34;
+            - &#34;9100&#34;
+            - &#34;9105&#34;
         image: golang:latest
         networks:
-            - internal
-</code></pre>
-
+            - internal</code></pre>
+</div>
 <p>It starts a ChromeDriver, a Selenium and a standard Go container.
 This is easy enough to run on your own machine, with <code>docker-compose up</code>
 and <code>docker-compose exec</code>. I wish I could use <code>docker-compose run</code> here, but because of
 <a href="https://github.com/docker/compose/issues/4052">an old bug that seems to have been forgotten</a>,
 we&rsquo;re forced to use <code>up</code> and <code>exec</code>. This is how we run this:</p>
-
-<pre><code class="language-bash">bash -c &quot;\
-    set -x \
-    trap '\
-        docker-compose logs selenium &amp;&amp; \
-        docker-compose logs chromedriver &amp;&amp; \
-        docker-compose down' EXIT; \
-    docker-compose up -d &amp;&amp; \
-    docker-compose exec -T testrunner bash -c '\
-        mkdir -p /go/src/github.com/johanbrandhorst/protobuf/' &amp;&amp; \
-    docker cp ./ testrunner:/go/src/github.com/johanbrandhorst/protobuf/ &amp;&amp; \
-    docker-compose exec -T testrunner bash -c '\
-        cd /go/src/github.com/johanbrandhorst/protobuf &amp;&amp; \
-        go install ./vendor/github.com/onsi/ginkgo/ginkgo &amp;&amp; \
-        cd test &amp;&amp; make test' \
-    &quot;
-</code></pre>
-
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">bash -c <span style="color:#4070a0">&#34;\
+</span><span style="color:#4070a0">    set -x \
+</span><span style="color:#4070a0">    trap &#39;\
+</span><span style="color:#4070a0">        docker-compose logs selenium &amp;&amp; \
+</span><span style="color:#4070a0">        docker-compose logs chromedriver &amp;&amp; \
+</span><span style="color:#4070a0">        docker-compose down&#39; EXIT; \
+</span><span style="color:#4070a0">    docker-compose up -d &amp;&amp; \
+</span><span style="color:#4070a0">    docker-compose exec -T testrunner bash -c &#39;\
+</span><span style="color:#4070a0">        mkdir -p /go/src/github.com/johanbrandhorst/protobuf/&#39; &amp;&amp; \
+</span><span style="color:#4070a0">    docker cp ./ testrunner:/go/src/github.com/johanbrandhorst/protobuf/ &amp;&amp; \
+</span><span style="color:#4070a0">    docker-compose exec -T testrunner bash -c &#39;\
+</span><span style="color:#4070a0">        cd /go/src/github.com/johanbrandhorst/protobuf &amp;&amp; \
+</span><span style="color:#4070a0">        go install ./vendor/github.com/onsi/ginkgo/ginkgo &amp;&amp; \
+</span><span style="color:#4070a0">        cd test &amp;&amp; make test&#39; \
+</span><span style="color:#4070a0">    &#34;</span></code></pre>
+</div>
 <p>Let me preface this by saying that I know this looks absolutely rubbish, but I really
 wanted the trap and I also wanted this in a Makefile so I could run it easily
 from my terminal, and I also did <em>not</em> want to have to write a separate shell script for it.
@@ -265,8 +261,7 @@ running docker containers from other docker containers, namely that
 
 <p>So now that we&rsquo;ve got a docker-compose file and a hacky bash line to run it, what is
 required to get it running on CircleCI? Look no further:</p>
-
-<pre><code class="language-yaml">tests:
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">tests:
     docker:
         - image: ypereirareis/docker-compose
     working_directory: /go/src/github.com/johanbrandhorst/protobuf
@@ -275,9 +270,8 @@ required to get it running on CircleCI? Look no further:</p>
         - setup_remote_docker
         - run:
             name: Browser Integration Tests
-            command: make integration
-</code></pre>
-
+            command: make integration</code></pre>
+</div>
 <p>We use <code>ypereirareis/docker-compose</code> which just comes with <code>docker-compose</code> pre-installed.
 The magic here is using <code>setup_remote_docker</code> to do just that. This is required to get
 access to docker powers from within your CircleCI containers.
@@ -380,7 +374,7 @@ your thoughts!</p>
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.21</a> powered &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> &nbsp;&bull;&nbsp; Thanks to <a href="https://netlify.com">Netlify.com</a> for hosting my blog!
+          <a href="http://gohugo.io">Hugo v0.28</a> powered &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> &nbsp;&bull;&nbsp; Thanks to <a href="https://netlify.com">Netlify.com</a> for hosting my blog!
           
         </p>
       </div>
@@ -393,8 +387,6 @@ your thoughts!</p>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="https://jbrandhorst.com/js/main.js"></script>
-<script src="https://jbrandhorst.com/js/highlight.min.js"></script>
-<script> hljs.initHighlightingOnLoad(); </script>
 <script> renderMathInElement(document.body); </script>
 
 

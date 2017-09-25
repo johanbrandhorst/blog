@@ -1,39 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-  <title>Client side streaming in gRPC-Web</title>
-  <meta property="og:title" content="Client side streaming in gRPC-Web" />
-  <meta name="twitter:title" content="Client side streaming in gRPC-Web" />
-  <meta name="description" content="Enhancing the GopherJS gRPC-Web bindings with Websockets">
-  <meta property="og:description" content="Enhancing the GopherJS gRPC-Web bindings with Websockets">
-  <meta name="twitter:description" content="Enhancing the GopherJS gRPC-Web bindings with Websockets">
-  <meta name="author" content="Johan Brandhorst"/>
-  <link href='https://jbrandhorst.com/img/favicon.ico' rel='icon' type='image/x-icon'/>
-  <meta property="og:image" content="https://jbrandhorst.com/img/icon.jpg" />
-  <meta name="twitter:image" content="https://jbrandhorst.com/img/icon.jpg" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:site" content="@JohanBrandhorst" />
-  <meta name="twitter:creator" content="@JohanBrandhorst" />
-  <meta property="og:url" content="https://jbrandhorst.com/post/client-streaming/" />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Go Ahead" />
-
-  <meta name="generator" content="Hugo 0.21" />
-  <link rel="canonical" href="https://jbrandhorst.com/post/client-streaming/" />
-  <link rel="alternate" href="https://jbrandhorst.com/index.xml" type="application/rss+xml" title="Go Ahead">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://jbrandhorst.com/css/main.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
-  <link rel="stylesheet" href="https://jbrandhorst.com/css/pygment_highlights.css" />
-  <link rel="stylesheet" href="https://jbrandhorst.com/css/highlight.min.css" />
-
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    
+    <title>Client side streaming in gRPC-Web</title>
+    <meta property="og:title" content="Client side streaming in gRPC-Web" />
+    <meta name="twitter:title" content="Client side streaming in gRPC-Web" />
+    <meta name="description" content="Enhancing the GopherJS gRPC-Web bindings with Websockets">
+    <meta property="og:description" content="Enhancing the GopherJS gRPC-Web bindings with Websockets">
+    <meta name="twitter:description" content="Enhancing the GopherJS gRPC-Web bindings with Websockets">
+    <meta name="author" content="Johan Brandhorst" />
+    <link href='https://jbrandhorst.com/img/favicon.ico' rel='icon' type='image/x-icon' />
+    <meta property="og:image" content="https://jbrandhorst.com/img/icon.jpg" />
+    <meta name="twitter:image" content="https://jbrandhorst.com/img/icon.jpg" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@JohanBrandhorst" />
+    <meta name="twitter:creator" content="@JohanBrandhorst" />
+    <meta property="og:url" content="https://jbrandhorst.com/post/client-streaming/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Go Ahead" />
+    
+    <meta name="generator" content="Hugo 0.28" />
+    <link rel="canonical" href="https://jbrandhorst.com/post/client-streaming/" />
+    <link rel="alternate" href="https://jbrandhorst.com/%20index.xml%20" type="application/rss+xml" title="Go Ahead">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://jbrandhorst.com/%20css/main.css%20" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+    /> 
 <script>
 window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 ga('create', 'UA-96154465-1', 'auto');
@@ -175,50 +175,46 @@ a client side streaming and a bidi streaming example to the
 <a href="https://grpcweb.jbrandhorst.com">grpcweb-example page</a> to show off the capabilities.
 I&rsquo;m particularly happy with how the client chat example turned out, both in the frontend and the logic
 for distributing the messages in the backend. Here&rsquo;s an excerpt:</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#60a0b0;font-style:italic">// Send join message before user joins
+</span><span style="color:#60a0b0;font-style:italic"></span>s.b.Broadcast(srv.Context(), name<span style="color:#666">+</span><span style="color:#4070a0">&#34; has joined the chat&#34;</span>)
 
-<pre><code class="language-go">// Send join message before user joins
-s.b.Broadcast(srv.Context(), name+&quot; has joined the chat&quot;)
-
-listener := make(chan string)
+listener <span style="color:#666">:=</span> <span style="color:#007020">make</span>(<span style="color:#007020;font-weight:bold">chan</span> <span style="color:#902000">string</span>)
 err = s.b.Add(name, listener)
-if err != nil {
-    return err
+<span style="color:#007020;font-weight:bold">if</span> err <span style="color:#666">!=</span> <span style="color:#007020;font-weight:bold">nil</span> {
+    <span style="color:#007020;font-weight:bold">return</span> err
 }
-defer func() {
+<span style="color:#007020;font-weight:bold">defer</span> <span style="color:#007020;font-weight:bold">func</span>() {
     s.b.Remove(name)
-    s.b.Broadcast(context.Background(), name+&quot; has left the chat&quot;)
-}()
-</code></pre>
-
+    s.b.Broadcast(context.Background(), name<span style="color:#666">+</span><span style="color:#4070a0">&#34; has left the chat&#34;</span>)
+}()</code></pre>
+</div>
 <p>Check out the full source
 <a href="https://github.com/johanbrandhorst/grpcweb-example/blob/master/server/server.go#L170">on my github</a>.</p>
 
 <p>Adding the proxy to your gRPC server looks a little like this:</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">gs <span style="color:#666">:=</span> grpc.NewServer()
+wrappedServer <span style="color:#666">:=</span> grpcweb.WrapServer(gs)
 
-<pre><code class="language-go">gs := grpc.NewServer()
-wrappedServer := grpcweb.WrapServer(gs)
-
-var clientCreds credentials.TransportCredentials
-if *host == &quot;&quot; {
-    var err error
-    clientCreds, err = credentials.NewClientTLSFromFile(&quot;./insecure/localhost.crt&quot;, &quot;localhost:10000&quot;)
-    if err != nil {
-        logger.Fatalln(&quot;Failed to get local server client credentials:&quot;, err)
+<span style="color:#007020;font-weight:bold">var</span> clientCreds credentials.TransportCredentials
+<span style="color:#007020;font-weight:bold">if</span> <span style="color:#666">*</span>host <span style="color:#666">==</span> <span style="color:#4070a0">&#34;&#34;</span> {
+    <span style="color:#007020;font-weight:bold">var</span> err <span style="color:#902000">error</span>
+    clientCreds, err = credentials.NewClientTLSFromFile(<span style="color:#4070a0">&#34;./insecure/localhost.crt&#34;</span>, <span style="color:#4070a0">&#34;localhost:10000&#34;</span>)
+    <span style="color:#007020;font-weight:bold">if</span> err <span style="color:#666">!=</span> <span style="color:#007020;font-weight:bold">nil</span> {
+        logger.Fatalln(<span style="color:#4070a0">&#34;Failed to get local server client credentials:&#34;</span>, err)
     }
-} else {
-    cp, err := x509.SystemCertPool()
-    if err != nil {
-        logger.Fatalln(&quot;Failed to get local system certpool:&quot;, err)
+} <span style="color:#007020;font-weight:bold">else</span> {
+    cp, err <span style="color:#666">:=</span> x509.SystemCertPool()
+    <span style="color:#007020;font-weight:bold">if</span> err <span style="color:#666">!=</span> <span style="color:#007020;font-weight:bold">nil</span> {
+        logger.Fatalln(<span style="color:#4070a0">&#34;Failed to get local system certpool:&#34;</span>, err)
     }
-    clientCreds = credentials.NewTLS(&amp;tls.Config{RootCAs: cp})
+    clientCreds = credentials.NewTLS(<span style="color:#666">&amp;</span>tls.Config{RootCAs: cp})
 }
 
-wsproxy := wsproxy.WrapServer(
+wsproxy <span style="color:#666">:=</span> wsproxy.WrapServer(
     http.HandlerFunc(wrappedServer.ServeHTTP),
     wsproxy.WithLogger(logger),
-    wsproxy.WithTransportCredentials(clientCreds))
-</code></pre>
-
+    wsproxy.WithTransportCredentials(clientCreds))</code></pre>
+</div>
 <p>Cribbed straight from my <a href="https://github.com/johanbrandhorst/grpcweb-example/blob/master/main.go">grpcweb-example repo</a>.
 This nicely shows how to work with both local certificates and with on signed by a trusted CA. Also note the use of
 the Improbable <code>grpcweb.WrapServer</code> in order to support gRPC-Web as well.</p>
@@ -306,7 +302,7 @@ your thoughts!</p>
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.21</a> powered &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> &nbsp;&bull;&nbsp; Thanks to <a href="https://netlify.com">Netlify.com</a> for hosting my blog!
+          <a href="http://gohugo.io">Hugo v0.28</a> powered &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> &nbsp;&bull;&nbsp; Thanks to <a href="https://netlify.com">Netlify.com</a> for hosting my blog!
           
         </p>
       </div>
@@ -319,8 +315,6 @@ your thoughts!</p>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="https://jbrandhorst.com/js/main.js"></script>
-<script src="https://jbrandhorst.com/js/highlight.min.js"></script>
-<script> hljs.initHighlightingOnLoad(); </script>
 <script> renderMathInElement(document.body); </script>
 
 
