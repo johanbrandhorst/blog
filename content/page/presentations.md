@@ -6,7 +6,7 @@ title = "Presentations"
 
 ### Using gRPC-Web to connect GopherJS apps to gRPC backends
 
-[Recording](https://skillsmatter.com/skillscasts/10924-using-grpc-web-to-connect-gopherjs-apps-to-grpc-backends").
+[Recording](https://skillsmatter.com/skillscasts/10924-using-grpc-web-to-connect-gopherjs-apps-to-grpc-backends).
 Given at the [Go London User Group meetup](https://www.meetup.com/Go-London-User-Group/events/243176499/)
 at [Skillsmatter | CodeNode](https://skillsmatter.com/contact-us).
 
