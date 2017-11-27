@@ -18,12 +18,20 @@ googleAnalytics = "UA-96154465-1"
   	rss = true
   	comments = true
     addThis = "ra-593054e035fc0c92"
+    [Params.staticman]
+    api = "https://api.staticman.net/v2/entry/johanbrandhorst/blog/master/comments"
+    pulls = "https://github.com/johanbrandhorst/blog/pulls"
+    [Params.staticman.recaptcha]
+      sitekey = "6LeZpToUAAAAAIVoByULm4eunmCL76Arn0dH-q8z"
+      secret = "akUFoQUbDksw1BVWS162FgkLB65EwI85zeOQcPEmzXPULmhiE+d/LU/FKfnbeUjetjVeZmIDmEGNCKQc+8Er7rH1nAOJP6bN3oJvi/YtbSKEZfUdXAKvECyPfjl7J0rQ3YvtvEQX4VnyKqnAMottOaIZ3CXRI9TwbFFgYjSSJwQ="
+
 
 [Author]
     name = "Johan Brandhorst"
 	github = "johanbrandhorst"
 	twitter = "JohanBrandhorst"
 	linkedin = "johan-brandhorst-satzkorn-aa318220"
+    website = "https://jbrandhorst.com"
 
 [[menu.main]]
     name = "Blog"
@@ -44,28 +52,4 @@ googleAnalytics = "UA-96154465-1"
     name = "Tags"
     url = "tags"
     weight = 4
-
-# [[menu.main]]
-#     identifier = "samples"
-#     name = "Samples"
-#     weight = 2
-
-# [[menu.main]]
-#     parent = "samples"
-#     name = "Big Image Sample"
-#     url = "post/2017-03-07-bigimg-sample"
-#     weight = 1
-
-# [[menu.main]]
-#     parent = "samples"
-#     name = "Math Sample"
-#     url = "post/2017-03-05-math-sample"
-#     weight = 2
-
-# [[menu.main]]
-#     parent = "samples"
-#     name = "Code Sample"
-#     url = "post/2016-03-08-code-sample"
-#     weight = 3
-
 
