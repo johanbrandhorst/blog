@@ -1,39 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  
+  <title>Advanced CircleCI docker testing</title>
+  <meta property="og:title" content="Advanced CircleCI docker testing" />
+  <meta name="twitter:title" content="Advanced CircleCI docker testing" />
+  <meta name="description" content="Using docker-compose with CircleCI">
+  <meta property="og:description" content="Using docker-compose with CircleCI">
+  <meta name="twitter:description" content="Using docker-compose with CircleCI">
+  <meta name="author" content="Johan Brandhorst"/>
+  <link href='https://jbrandhorst.com/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="https://jbrandhorst.com/img/icon.jpg" />
+  <meta name="twitter:image" content="https://jbrandhorst.com/img/icon.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@JohanBrandhorst" />
+  <meta name="twitter:creator" content="@JohanBrandhorst" />
+  <meta property="og:url" content="https://jbrandhorst.com/post/circleci-docker-compose/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Go Ahead" />
+  
+  <meta name="generator" content="Hugo 0.28" />
+  <link rel="canonical" href="https://jbrandhorst.com/post/circleci-docker-compose/" />
+  <link rel="alternate" href="" type="application/rss+xml" title="Go Ahead">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://jbrandhorst.com/css/main.css" /><link rel="stylesheet" href="https://jbrandhorst.com/css/staticman.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://jbrandhorst.com/css/highlighting.css" />
+  <link rel="stylesheet" href="https://jbrandhorst.com/css/pygment_highlights.css" />
+  <link rel="stylesheet" href="https://jbrandhorst.com/css/highlight.min.css" /><script src='https://www.google.com/recaptcha/api.js'></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.css" integrity="sha256-sCl5PUOGMLfFYctzDW3MtRib0ctyUvI9Qsmq2wXOeBY=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/default-skin/default-skin.min.css" integrity="sha256-BFeI1V+Vh1Rk37wswuOYn5lsTcaU96hGaI7OUVCLjPc=" crossorigin="anonymous" />
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
     
-    <title>Advanced CircleCI docker testing</title>
-    <meta property="og:title" content="Advanced CircleCI docker testing" />
-    <meta name="twitter:title" content="Advanced CircleCI docker testing" />
-    <meta name="description" content="Using docker-compose with CircleCI">
-    <meta property="og:description" content="Using docker-compose with CircleCI">
-    <meta name="twitter:description" content="Using docker-compose with CircleCI">
-    <meta name="author" content="Johan Brandhorst" />
-    <link href='https://jbrandhorst.com/img/favicon.ico' rel='icon' type='image/x-icon' />
-    <meta property="og:image" content="https://jbrandhorst.com/img/icon.jpg" />
-    <meta name="twitter:image" content="https://jbrandhorst.com/img/icon.jpg" />
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@JohanBrandhorst" />
-    <meta name="twitter:creator" content="@JohanBrandhorst" />
-    <meta property="og:url" content="https://jbrandhorst.com/post/circleci-docker-compose/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Go Ahead" />
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
     
-    <meta name="generator" content="Hugo 0.28" />
-    <link rel="canonical" href="https://jbrandhorst.com/post/circleci-docker-compose/" />
-    <link rel="alternate" href="https://jbrandhorst.com/%20index.xml%20" type="application/rss+xml" title="Go Ahead">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0"
-        crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-        crossorigin="anonymous">
-    <link rel="stylesheet" href="https://jbrandhorst.com/css/main.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
-    /> 
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+  
 <script>
 window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 ga('create', 'UA-96154465-1', 'auto');
@@ -41,7 +91,7 @@ ga('send', 'pageview');
 </script>
 <script async src='//www.google-analytics.com/analytics.js'></script>
 
-</head>
+  </head>
 
   <body>
     <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
@@ -132,9 +182,15 @@ ga('send', 'pageview');
                 
                 
                   <span class="post-meta">
-  Posted on August 4, 2017
-  
-</span>
+    <i class="fa fa-calendar-o"></i>&nbsp;Posted on August 4, 2017
+    &nbsp;|&nbsp; <i class="fa fa-clock-o"></i> 5 min (901 words)&nbsp;|&nbsp;  <i class="fa fa-comment-o"></i>
+      
+      
+        0 comments
+      
+    
+    
+  </span>
 
 
                 
@@ -147,7 +203,7 @@ ga('send', 'pageview');
 
 
     
-<div class="container">
+<div class="container" role="main">
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
@@ -306,20 +362,85 @@ your thoughts!</p>
 
       <div class="addthis_inline_share_toolbox"></div>
 
-      <ul class="pager blog-pager">
-        
-          <li class="previous">
-            <a href="https://jbrandhorst.com/post/grpc-binary-blob-stream/" data-toggle="tooltip" data-placement="top" title="Chunking large messages with gRPC">&larr; Previous Post</a>
-          </li>
-        
-        
-          <li class="next">
-            <a href="https://jbrandhorst.com/post/client-streaming/" data-toggle="tooltip" data-placement="top" title="Client side streaming in gRPC-Web">Next Post &rarr;</a>
-          </li>
-        
-      </ul>
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://jbrandhorst.com/post/grpc-binary-blob-stream/" data-toggle="tooltip" data-placement="top" title="Chunking large messages with gRPC">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://jbrandhorst.com/post/client-streaming/" data-toggle="tooltip" data-placement="top" title="Client side streaming in gRPC-Web">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
 
       
+        
+        
+          <div class="staticman-comments">
+            <section class="js-comments staticman-comments">
+
+      
+
+      
+
+
+
+    <form class="js-form form" method="post" action="https://api.staticman.net/v2/entry/johanbrandhorst/blog/master/comments">
+      <input type="hidden" name="options[slug]" value="postcircleci-docker-compose">
+      <input type="hidden" name="options[parent]" value="">
+
+      
+      <input type="hidden" name="options[reCaptcha][siteKey]" value="6LeZpToUAAAAAIVoByULm4eunmCL76Arn0dH-q8z">
+      <input type="hidden" name="options[reCaptcha][secret]"  value="akUFoQUbDksw1BVWS162FgkLB65EwI85zeOQcPEmzXPULmhiE&#43;d/LU/FKfnbeUjetjVeZmIDmEGNCKQc&#43;8Er7rH1nAOJP6bN3oJvi/YtbSKEZfUdXAKvECyPfjl7J0rQ3YvtvEQX4VnyKqnAMottOaIZ3CXRI9TwbFFgYjSSJwQ=">
+      
+
+      <fieldset>
+      <div class="textfield">
+        <textarea name="fields[comment]" type="text" placeholder="Markdown syntax is supported"></textarea>
+      </div>
+      </fieldset>
+
+      <fieldset>
+        <div class="textfield">
+          <input name="fields[name]" type="text" placeholder="Your name"/>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <div class="textfield">
+          <input type="email" name="fields[email]"  placeholder="Your email address"/>
+        </div>
+      </fieldset>
+
+      
+      <fieldset>
+        <div class="g-recaptcha" data-sitekey="6LeZpToUAAAAAIVoByULm4eunmCL76Arn0dH-q8z"></div>
+      </fieldset>
+      
+
+      <fieldset>
+        <button class="button">
+          Submit
+        </button>
+      </fieldset>
+    </form>
+    </section>
+
+    <article class="modal">
+      <div class="title">
+        <h2 class="js-modal-title"></h2>
+      </div>
+      <div class="js-modal-text"></div>
+      <div>
+        <button class="js-close-modal">Close</button>
+      </div>
+    </article>
+
+          </div>
         
       
 
@@ -359,7 +480,7 @@ your thoughts!</p>
               </li>
           
           <li>
-            <a href="https://jbrandhorst.com/index.xml" title="RSS">
+            <a href="" title="RSS">
               <span class="fa-stack fa-lg">
                 <i class="fa fa-circle fa-stack-2x"></i>
                 <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
@@ -369,7 +490,12 @@ your thoughts!</p>
           
         </ul>
         <p class="credits copyright text-muted">
-          Johan Brandhorst
+          
+            
+              <a href="https://jbrandhorst.com">Johan Brandhorst</a>
+            
+          
+
           &nbsp;&bull;&nbsp;
           2017
 
@@ -380,7 +506,7 @@ your thoughts!</p>
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.28</a> powered &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> &nbsp;&bull;&nbsp; Thanks to <a href="https://netlify.com">Netlify.com</a> for hosting my blog!
+          <a href="http://gohugo.io">Hugo v0.28</a> powered &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> &nbsp;&bull;&nbsp; Thanks to <a href="https://netlify.com">netlify.com</a> for hosting my blog!
           
         </p>
       </div>
@@ -393,9 +519,12 @@ your thoughts!</p>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="https://jbrandhorst.com/js/main.js"></script>
-<script> renderMathInElement(document.body); </script>
-
-
+<script src="https://jbrandhorst.com/js/staticman.js"></script>
+<script src="https://jbrandhorst.com/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script><script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.js" integrity="sha256-UplRCs9v4KXVJvVY+p+RSo5Q4ilAUXh7kpjyIP5odyc=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe-ui-default.min.js" integrity="sha256-PWHOlUzc96pMc8ThwRIXPn8yH4NOLu42RQ0b9SpnpFk=" crossorigin="anonymous"></script>
+<script src="https://jbrandhorst.com/js/load-photoswipe.js"></script>
 
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-593054e035fc0c92" async></script>
 
