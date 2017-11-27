@@ -2,7 +2,7 @@
 date = "2017-03-23T22:25:56Z"
 draft = false
 title = "About me"
-
+paginate = false
 +++
 
 I'm Johan, I like gaming, programming, floorball, skiing and many other things.

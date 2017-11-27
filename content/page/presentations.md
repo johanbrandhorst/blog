@@ -2,6 +2,7 @@
 date = "2017-03-23T22:25:56Z"
 draft = false
 title = "Presentations"
+paginate = false
 +++
 
 ### Using gRPC-Web to connect GopherJS apps to gRPC backends
