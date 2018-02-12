@@ -81,9 +81,8 @@ that he won our game.
 We later headed over to
 [Heroes square](https://en.wikipedia.org/wiki/H%C5%91s%C3%B6k_tere), a beautiful
 area of the city with many interesting buildings and museums, including
-[a castle built to illustrate different types of castle designs](https://en.wikipedia.org/wiki/Vajdahunyad_Castle)
-, and
-[a hot spring baths](http://szechenyispabaths.com/).
+[a castle built to illustrate different types of castle designs](https://en.wikipedia.org/wiki/Vajdahunyad_Castle), and
+[a thermal spa](http://szechenyispabaths.com/).
 
 <a href='https://photos.google.com/share/AF1QipMFTcnMywWesNZuZm0vHthzm734lSO2jbhxZM1U5S1QzteAIkL3ZI30df-1Jjc0vg?key=N25vOGJLMC16SFBMbnVpMWQ4SGNFX056eWZWal93'><img src='https://lh3.googleusercontent.com/K0LjBO5C8ZrJ7hPyM-5-Do5txlQ6tvUH7u4SlJW0VFQwLrKT3fpo1HiWquXyRA-a2JfoELdvdTV6c-0PWlFza69AQNmLI8OL1x-wqwAgvFW2DxqWGjo_UWmT09F4ov0rwGVN3LDqifM' /></a>
 
