@@ -76,7 +76,7 @@ and promptly challenged Máté to a game. We had some good rallies,
 one of which was recorded by David. I refuse to accept Máté's assertion
 that he won our game.
 
-<video src="/img/table_tennis.m4v" width="700" preload="metadata" controls muted/>
+<iframe src="https://drive.google.com/file/d/1uIITy9fm8aPkPfVThP_m-mp0qjm3nf1zxw/preview" width="720" height="480"></iframe>
 
 We later headed over to
 [Heroes square](https://en.wikipedia.org/wiki/H%C5%91s%C3%B6k_tere), a beautiful
