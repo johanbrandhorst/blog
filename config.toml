@@ -18,6 +18,7 @@ googleAnalytics = "UA-96154465-1"
   	rss = true
   	comments = true
     addThis = "ra-593054e035fc0c92"
+    useChroma = true
     [Params.staticman]
     api = "https://api.staticman.net/v2/entry/johanbrandhorst/blog/master/comments"
     pulls = "https://github.com/johanbrandhorst/blog/pulls"
