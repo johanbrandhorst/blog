@@ -17,14 +17,15 @@ googleAnalytics = "UA-96154465-1"
   	commit = false
   	rss = true
   	comments = true
+    readingTime = true
     addThis = "ra-593054e035fc0c92"
-    useChroma = true
+
     [Params.staticman]
-    api = "https://api.staticman.net/v2/entry/johanbrandhorst/blog/master/comments"
-    pulls = "https://github.com/johanbrandhorst/blog/pulls"
-    [Params.staticman.recaptcha]
-      sitekey = "6LeZpToUAAAAAIVoByULm4eunmCL76Arn0dH-q8z"
-      secret = "akUFoQUbDksw1BVWS162FgkLB65EwI85zeOQcPEmzXPULmhiE+d/LU/FKfnbeUjetjVeZmIDmEGNCKQc+8Er7rH1nAOJP6bN3oJvi/YtbSKEZfUdXAKvECyPfjl7J0rQ3YvtvEQX4VnyKqnAMottOaIZ3CXRI9TwbFFgYjSSJwQ="
+        api = "https://api.staticman.net/v2/entry/johanbrandhorst/blog/master/comments"
+        pulls = "https://github.com/johanbrandhorst/blog/pulls"
+        [Params.staticman.recaptcha]
+            sitekey = "6LeZpToUAAAAAIVoByULm4eunmCL76Arn0dH-q8z"
+            secret = "akUFoQUbDksw1BVWS162FgkLB65EwI85zeOQcPEmzXPULmhiE+d/LU/FKfnbeUjetjVeZmIDmEGNCKQc+8Er7rH1nAOJP6bN3oJvi/YtbSKEZfUdXAKvECyPfjl7J0rQ3YvtvEQX4VnyKqnAMottOaIZ3CXRI9TwbFFgYjSSJwQ="
 
 
 [Author]
