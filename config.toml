@@ -18,7 +18,6 @@ googleAnalytics = "UA-96154465-1"
   	rss = true
   	comments = true
     readingTime = true
-    addThis = "ra-593054e035fc0c92"
 
     [Params.staticman]
         api = "https://api.staticman.net/v2/entry/johanbrandhorst/blog/master/comments"
