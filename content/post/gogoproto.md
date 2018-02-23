@@ -25,6 +25,23 @@ with gRPC can break unexpectedly, at _runtime_.
 In this post I will try to cover best practices for
 working with `gogo/protobuf`.
 
+## TL;DR?
+
+I made an example repo of using `gogo/protobuf` with various parts of the
+greater gRPC ecosystem, graciously hosted under the `gogo` namespace by
+[Walter Schulze](https://github.com/awalterschulze), complete with a
+gRPC-Gateway and OpenAPI UI:
+
+[https://github.com/gogo/grpc-example](https://github.com/gogo/grpc-example)
+
+![gRPC-Example repo in action](/img/swagger.png)
+
+If you find anything that isn't listed on there, or in this post, please
+submit an issue against this repo, and I will attempt to implement a
+workaround or raise a relevant issue upstream.
+
+Still here? Lets move on to the details.
+
 ## GoogleAPIs
 
 The [google/googleapis](https://github.com/google/googleapis)
