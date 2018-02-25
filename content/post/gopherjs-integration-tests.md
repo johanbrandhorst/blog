@@ -61,7 +61,7 @@ spins up a chrome browser window via `chromedriver`, navigates to the page,
 grabs the JS rendered DOM content, parses parts of it to see whether any tests failed,
 and reports the result. All now done via one single command.
 
-<video src="/img/tests.webm" width="700" preload="metadata" controls muted/>
+<video src="/img/tests.webm" width="100%" preload="metadata" controls muted/>
 
 Of course - the best part about this is that Agouti can be made to run with any
 WebDriver compatible browser client, so Selenium, PhantomJS etc can be plugged in

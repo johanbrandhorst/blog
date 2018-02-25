@@ -28,8 +28,6 @@ Gergely Radics, another one of the organisers. They drove me into Budapest
 and I dropped my stuff off at the AirBnB they had booked for me. The room
 was in the central neighbourhood of Astoria.
 
-<div class="airbnb-embed-frame" data-id="22933953" data-view="home" style="width:450px;height:475px;margin:auto"><a href="https://www.airbnb.co.uk/rooms/22933953?s=51"><span>View On Airbnb</span></a><a href="https://www.airbnb.co.uk/rooms/22933953?s=51" rel="nofollow">Design Studio Astoria</a><script async="" src="https://www.airbnb.co.uk/embeddable/airbnb_jssdk"></script></div>
-
 After that, we went out for a little walk in the area as they were keen
 to show me around a little. We went down to the Danube and I snapped this
 beautiful selfie with Máté and Gergely (Máté in the middle and Gergely
@@ -76,7 +74,9 @@ and promptly challenged Máté to a game. We had some good rallies,
 one of which was recorded by David. I refuse to accept Máté's assertion
 that he won our game.
 
-<iframe src="https://drive.google.com/file/d/1uIITy9fm8aPkPfVThP_m-mp0qjm3nf1zxw/preview" width="720" height="480"></iframe>
+<div class="wrap">
+    <iframe src="https://drive.google.com/file/d/1uIITy9fm8aPkPfVThP_m-mp0qjm3nf1zxw/preview"></iframe>
+</div>
 
 We later headed over to
 [Heroes square](https://en.wikipedia.org/wiki/H%C5%91s%C3%B6k_tere), a beautiful
@@ -91,7 +91,7 @@ exhausted at this point but also excited to present my work. I delivered
 a 1h talk about my open source gRPC-Web for Go project. The feedback
 was really good and I was pleased the audience enjoyed the talk.
 
-<video src="/img/meetup.mp4" width="700" preload="metadata" controls muted/>
+<video src="/img/meetup.mp4" width="100%" preload="metadata" controls muted/>
 
 We then headed down to a nearby pub for some drinks and chatting, and of course
 to watch the
