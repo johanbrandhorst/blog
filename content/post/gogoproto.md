@@ -62,6 +62,18 @@ _Bonus_: because the generated files are in the same folder as the proto
 files, including the files works with [golang/dep](https://github.com/golang/dep),
 [limitations on including non-go files notwithstanding](https://github.com/golang/dep/issues/1306).
 
+## Protobuf Any types
+
+The [google.protobuf.Any](https://developers.google.com/protocol-buffers/docs/proto3#any)
+type is used in a wide variety of the GoogleAPIs proto messages,
+but using it with `gogo/protobuf` requires extra care. The `Any`
+message types work by using the internal "registry" of the protobuf
+package used, so you need to make sure any messages you stick in
+an `Any` container have been generated with `gogo/protobuf`.
+Using the `gogo/googleapis` repo is a great start, but the general
+rule of thumb is to ensure all protofiles are generated with
+`gogo/protobuf`.
+
 ## gRPC
 
 gRPC is designed to be payload agnostic, and will work out of the
