@@ -6,9 +6,9 @@
         {{ .Content }}
       </article>
 
-      {{ partial "share_buttons.html" . }}
-
       {{ if ne .Type "page" }}
+        {{ partial "share_buttons.html" . }}
+
         <ul class="pager blog-pager">
           {{ if .PrevInSection }}
             <li class="previous">
