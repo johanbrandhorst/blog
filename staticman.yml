@@ -1,5 +1,5 @@
 comments:
-  allowedFields: ["name", "email", "comment"]
+  allowedFields: ["name", "email", "body"]
   allowedOrigins: ["staging.jbrandhorst.com", "jbrandhorst.com"]
   branch            : "master"
   commitMessage     : "New comment in {options.slug}"
