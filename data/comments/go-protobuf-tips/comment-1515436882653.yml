@@ -2,7 +2,7 @@ _id: 85db0720-f4a3-11e7-9b90-ed3856d083f3
 _parent: >-
   postgo-protobuf-tips
 reply_to: ''
-body: >-
+comment: >-
   Thank you for the post and having the patience to work through some of the
   finer details. I have been rather disappointed so far with this tooling, the
   complexity of .proto imports and confusing protoc parameter syntax. the system

@@ -30,7 +30,7 @@
                     </p>
                 </div>
                 <div class="post-comment">
-                    {{ .body | markdownify }}
+                    {{ .comment | markdownify }}
                 </div>
                 <div class="post-comment-reply-button">
                     <a id="{{ ._id }}" class="btn-info" href="#comment-form" onclick="changeValue('fields[reply_to]', '{{ ._id }}')">Reply to {{ .name }}</a>
@@ -50,7 +50,7 @@
                             </p>
                         </div>
                         <div class="post-comment-reply">
-                            {{ .body | markdownify }}
+                            {{ .comment | markdownify }}
                         </div>
                     {{ end }}
                 {{ end }}
