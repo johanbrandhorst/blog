@@ -31,9 +31,7 @@
           </div>
         {{ end }}
         {{ if .Site.Params.staticman }}
-          <div class="staticman-comments">
-            {{ partial "staticman-comments.html" . }}
-          </div>
+            {{ partial "post_comments.html" . }}
         {{ end }}
       {{ end }}
 
