@@ -1,6 +1,8 @@
 <section class="post-comments">
+    {{ $slug := replace .URL "/" "" }}
+
     {{ if .Site.Data.comments }}
-        {{ $comments := index $.Site.Data.comments ($.Scratch.Get "entryId") }}
+        {{ $comments := index $.Site.Data.comments $slug }}
 
         {{ if $comments }}
             {{ if gt (len $comments) 1 }}

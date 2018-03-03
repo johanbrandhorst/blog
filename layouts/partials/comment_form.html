@@ -1,22 +1,13 @@
 <section>
-    {{ $temp := (replace .URL "/" "") | replaceRE `^([1-2][0-9])\d\d(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])` "" }}
-    {{ $temp2 := .File.BaseFileName }}
-    {{ if eq .File.BaseFileName "index" }}
-        {{ $.Scratch.Add "post_parent" $temp }}
-    {{ else }}
-        {{ $.Scratch.Add "post_parent" $temp2 }}
-    {{ end }}
-
     <a id="comment-form"></a>
     <h3>Add a comment</h3>
 
     <form class="js-form form" method="POST" action="{{ .Site.Params.staticman.api }}">
         <!-- <input type="hidden" name="options[redirect]" value="{{ .Permalink }}#post-submitted">
         <input type="hidden" name="options[redirectError]" value="{{ .Permalink }}#post-error"> -->
-        <input type="hidden" name="options[entryId]" value="{{ $.Scratch.Get " post_parent " }}">
-        <input type="hidden" name="options[slug]" value="{{ .Permalink }}">
+        <input type="hidden" name="options[slug]" value="{{ replace .URL "/" "" }}">
         <input type="hidden" name="options[origin]" value="{{ .Permalink }}">
-        <input type="hidden" name="options[parent]" value="{{ $.Scratch.Get " post_parent " }}">
+        <input type="hidden" name="options[parent]" value="{{ replace .URL "/" "" }}">
         <input type="hidden" name="fields[reply_to]" value="">
         <input type="hidden" name="options[reCaptcha][siteKey]" value="{{ .Site.Params.staticman.recaptcha.siteKey }}">
         <input type="hidden" name="options[reCaptcha][secret]" value="{{ .Site.Params.staticman.recaptcha.secret }}">

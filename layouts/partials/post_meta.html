@@ -11,16 +11,11 @@
   {{ end }}
   {{- if .Site.Params.staticman -}}
     &nbsp;|&nbsp;  <i class="fa fa-comment-o"></i>
-    {{ $temp := (replace .URL "/" "") | replaceRE `^([1-2][0-9])\d\d(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])` "" }}
-    {{ $temp2 := .File.BaseFileName }}
-    {{ if eq .File.BaseFileName "index" }}
-      {{ $.Scratch.Add "entryId" $temp }}
-    {{ else }}
-      {{ $.Scratch.Add "entryId" $temp2 }}
-    {{ end }}
 
-    {{ if .Site.Data.comments }}
-      {{ $comments := index $.Site.Data.comments ($.Scratch.Get "entryId") }}
+  {{ $slug := replace .URL "/" "" }}
+
+  {{ if .Site.Data.comments }}
+    {{ $comments := index $.Site.Data.comments $slug }}
       {{ if $comments }}
         {{ if gt (len $comments) 1  }}
           {{ len $comments  }} {{ i18n "moreComment" }}
