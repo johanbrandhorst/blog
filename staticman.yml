@@ -1,5 +1,5 @@
 comments:
-  allowedFields: ["name", "email", "comment"]
+  allowedFields: ["name", "email", "comment", "reply_to"]
   branch            : "master"
   commitMessage     : "New comment in {options.slug}"
   path: "data/comments/{options.slug}"

@@ -3,8 +3,6 @@
     <h3>Add a comment</h3>
 
     <form class="js-form form" method="POST" action="{{ .Site.Params.staticman.api }}">
-        <!-- <input type="hidden" name="options[redirect]" value="{{ .Permalink }}#post-submitted">
-        <input type="hidden" name="options[redirectError]" value="{{ .Permalink }}#post-error"> -->
         <input type="hidden" name="options[slug]" value="{{ replace .URL "/" "" }}">
         <input type="hidden" name="options[origin]" value="{{ .Permalink }}">
         <input type="hidden" name="options[parent]" value="{{ replace .URL "/" "" }}">
@@ -13,20 +11,30 @@
         <input type="hidden" name="options[reCaptcha][secret]" value="{{ .Site.Params.staticman.recaptcha.secret }}">
 
         <fieldset>
-            <input name="fields[name]" type="text" class="post-comment-field" placeholder="{{ i18n " yourName " }}">
+            <div class="textfield">
+                <input name="fields[name]" type="text" class="post-comment-field" placeholder="{{ i18n "yourName" }}"/>
+            </div>
         </fieldset>
 
         <fieldset>
-            <input name="fields[email]" type="email" class="post-comment-field" placeholder="{{ i18n " yourEmail " }}">
+            <div class="textfield">
+                <input type="email" name="fields[email]" class="post-comment-field" placeholder="{{ i18n "yourEmail" }}"/>
+            </div>
         </fieldset>
 
         <fieldset>
-            <textarea name="fields[comment]" class="post-comment-field" placeholder="{{ i18n " useMarkdown " }}" rows="10"></textarea>
+            <div class="textfield">
+                <textarea name="fields[comment]" type="text" class="post-comment-field" placeholder="{{ i18n "useMarkdown" }}" rows="5"></textarea>
+            </div>
         </fieldset>
 
+        {{ if .Site.Params.staticman.recaptcha }}
         <fieldset>
-            <div class="g-recaptcha" data-sitekey="{{ .Site.Params.staticman.recaptcha.siteKey }}" data-callback="enableBtn"></div>
+            <div class="g-recaptcha" data-sitekey="{{ .Site.Params.staticman.recaptcha.sitekey }}" data-callback="enableBtn" style="padding-top: 20px"></div>
+        </fieldset>
+        {{ end }}
 
+        <fieldset>
             <input type="submit" class="post-comment-field btn" value="Submit" id="submit_button">
         </fieldset>
     </form>
@@ -41,24 +49,14 @@
         }
     </script>
 
-    <div id="post-submitted" class="dialog">
-        <h3>Thank you</h3>
-        <p>Your post has been submitted and will be published once it has been approved.</p>
-        {{ if (.Site.Params.githubPullURL) }}
-        <p>
-            <a href="{{ .Site.Params.githubPullURL }}">Click here</a> to see the pull request you generated.</p>
-        {{ end }}
-        <p>
-            <a href="#" class="btn">OK</a>
-        </p>
-    </div>
-
-    <div id="post-error" class="dialog">
-        <h3>OOPS!</h3>
-        <p>Your post has not been submitted. Please return to the page and try again. Thank You!</p>
-        <p>
-            <a href="#" class="btn">OK</a>
-        </p>
-    </div>
+    <article class="modal">
+        <div class="title">
+            <h2 class="js-modal-title"></h2>
+        </div>
+        <div class="js-modal-text"></div>
+        <div>
+            <button class="js-close-modal">Close</button>
+        </div>
+    </article>
 
 </section>
