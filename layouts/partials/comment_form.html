@@ -32,22 +32,19 @@
         <fieldset>
             <div class="g-recaptcha" data-sitekey="{{ .Site.Params.staticman.recaptcha.sitekey }}" data-callback="enableBtn" style="padding-top: 20px"></div>
         </fieldset>
+
+        <script type="text/javascript">
+            document.getElementById("submit_button").disabled = true;
+            function enableBtn() {
+                document.getElementById("submit_button").disabled = false;
+            }
+        </script>
         {{ end }}
 
         <fieldset>
             <input type="submit" class="post-comment-field btn" value="Submit" id="submit_button">
         </fieldset>
     </form>
-
-    <script type="text/javascript">
-        document.getElementById("submit_button").disabled = true;
-    </script>
-
-    <script type="text/javascript">
-        function enableBtn() {
-            document.getElementById("submit_button").disabled = false;
-        }
-    </script>
 
     <article class="modal">
         <div class="title">

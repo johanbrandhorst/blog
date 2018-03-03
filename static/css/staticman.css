@@ -131,3 +131,25 @@
   .dialog:target {
     display: block;
   }
+
+
+.show-modal .modal {
+	display: block;
+}
+
+.modal {
+	display: none;
+	position: fixed;
+	width: 300px;
+	top: 50%;
+	left: 50%;
+	margin-left: -150px;
+	margin-top: -150px;
+	min-height: 0;
+	height: 30%;
+	z-index: 9999;
+  padding: 0.5rem;
+  border: 1px solid rgba(0,0,0,1);
+  background-color: rgba(220,220,220,1);
+  height: 10em;
+}
