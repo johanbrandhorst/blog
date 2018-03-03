@@ -1,0 +1,59 @@
+<section>
+    <a id="comment-form"></a>
+    <h3>Add a comment</h3>
+
+    <form class="js-form form" method="POST" action="{{ .Site.Params.staticman.api }}">
+        <input type="hidden" name="options[slug]" value="{{ replace .URL "/" "" }}">
+        <input type="hidden" name="options[origin]" value="{{ .Permalink }}">
+        <input type="hidden" name="options[parent]" value="{{ replace .URL "/" "" }}">
+        <input type="hidden" name="fields[reply_to]" value="">
+        <input type="hidden" name="options[reCaptcha][siteKey]" value="{{ .Site.Params.staticman.recaptcha.siteKey }}">
+        <input type="hidden" name="options[reCaptcha][secret]" value="{{ .Site.Params.staticman.recaptcha.secret }}">
+
+        <fieldset>
+            <div class="textfield">
+                <input name="fields[name]" type="text" class="post-comment-field" placeholder="{{ i18n "yourName" }}"/>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <div class="textfield">
+                <input type="email" name="fields[email]" class="post-comment-field" placeholder="{{ i18n "yourEmail" }}"/>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <div class="textfield">
+                <textarea name="fields[comment]" type="text" class="post-comment-field" placeholder="{{ i18n "useMarkdown" }}" rows="5"></textarea>
+            </div>
+        </fieldset>
+
+        {{ if .Site.Params.staticman.recaptcha }}
+        <fieldset>
+            <div class="g-recaptcha" data-sitekey="{{ .Site.Params.staticman.recaptcha.sitekey }}" data-callback="enableBtn" style="padding-top: 20px"></div>
+        </fieldset>
+
+        <script type="text/javascript">
+            document.getElementById("submit_button").disabled = true;
+            function enableBtn() {
+                document.getElementById("submit_button").disabled = false;
+            }
+        </script>
+        {{ end }}
+
+        <fieldset>
+            <input type="submit" class="post-comment-field btn" value="Submit" id="submit_button">
+        </fieldset>
+    </form>
+
+    <article class="modal">
+        <div class="title">
+            <h2 class="js-modal-title"></h2>
+        </div>
+        <div class="js-modal-text"></div>
+        <div>
+            <button class="js-close-modal">Close</button>
+        </div>
+    </article>
+
+</section>
