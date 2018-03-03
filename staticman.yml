@@ -1,8 +1,9 @@
 comments:
   allowedFields: ["name", "email", "comment"]
+  allowedOrigins: ["staging.jbrandhorst.com", "jbrandhorst.com"]
   branch            : "master"
   commitMessage     : "New comment in {options.slug}"
-  path: "data/comments/{options.slug}"
+  path: "data/comments/{options.entryId}"
   filename          : "comment-{@timestamp}"
   format            : "yaml"
   moderation        : true

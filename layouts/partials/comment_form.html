@@ -18,8 +18,8 @@
         <input type="hidden" name="options[origin]" value="{{ .Permalink }}">
         <input type="hidden" name="options[parent]" value="{{ $.Scratch.Get " post_parent " }}">
         <input type="hidden" name="fields[reply_to]" value="">
-        <input type="hidden" name="options[reCaptcha][siteKey]" value="{{ .Site.Params.recaptcha.siteKey }}">
-        <input type="hidden" name="options[reCaptcha][secret]" value="{{ .Site.Params.recaptcha.secret }}">
+        <input type="hidden" name="options[reCaptcha][siteKey]" value="{{ .Site.Params.staticman.recaptcha.siteKey }}">
+        <input type="hidden" name="options[reCaptcha][secret]" value="{{ .Site.Params.staticman.recaptcha.secret }}">
 
         <fieldset>
             <input name="fields[name]" type="text" class="post-comment-field" placeholder="{{ i18n " yourName " }}">
@@ -31,12 +31,6 @@
 
         <fieldset>
             <textarea name="fields[body]" class="post-comment-field" placeholder="{{ i18n " useMarkdown " }}" rows="10"></textarea>
-        </fieldset>
-
-        <fieldset>
-            <div class="notify-me">
-                <input type="checkbox" id="comment-form-reply" name="options[subscribe]" value="email"> Send me an email when someone comments on this post.
-            </div>
         </fieldset>
 
         <fieldset>
