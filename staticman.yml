@@ -7,7 +7,7 @@ comments:
   filename          : "comment-{@timestamp}"
   format            : "yaml"
   moderation        : true
-  requiredFields    : ['name', 'email', 'comment']
+  requiredFields    : ['name', 'email', 'body']
   transforms:
     email           : md5
   generatedFields:
