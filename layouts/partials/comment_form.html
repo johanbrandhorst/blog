@@ -11,8 +11,8 @@
     <h3>Add a comment</h3>
 
     <form class="js-form form" method="POST" action="{{ .Site.Params.staticman.api }}">
-        <input type="hidden" name="options[redirect]" value="{{ .Permalink }}#post-submitted">
-        <input type="hidden" name="options[redirectError]" value="{{ .Permalink }}#post-error">
+        <!-- <input type="hidden" name="options[redirect]" value="{{ .Permalink }}#post-submitted">
+        <input type="hidden" name="options[redirectError]" value="{{ .Permalink }}#post-error"> -->
         <input type="hidden" name="options[entryId]" value="{{ $.Scratch.Get " post_parent " }}">
         <input type="hidden" name="options[slug]" value="{{ .Permalink }}">
         <input type="hidden" name="options[origin]" value="{{ .Permalink }}">
