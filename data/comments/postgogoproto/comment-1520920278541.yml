@@ -1,0 +1,10 @@
+_id: 8c466df0-2682-11e8-afc0-57350dddc52f
+_parent: postgogoproto
+reply_to: ''
+name: Timon Wong
+email: 27eba4a33a317761c17d96f1f009ae49
+comment: >-
+  As a side note, gRPC-Gateway does not work well with
+  `github.com/gogo/protobuf/types.FieldMask` either
+  [here](https://github.com/grpc-ecosystem/grpc-gateway/blob/58f78b988bc393694cef62b92c5cde77e4742ff5/runtime/query.go#L275)
+date: '2018-03-13T05:51:18.540Z'
