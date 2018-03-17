@@ -125,25 +125,35 @@ I'll update this post once I know more.
 
 The gRPC-Gateway is another popular project, and at first it
 might seem completely compatible `gogo/protobuf`. However,
-the gRPC-Gateway [does not work with `gogo/protobuf` registered enums](https://github.com/grpc-ecosystem/grpc-gateway/issues/320).
-The default JSON marshaller used by gRPC-Gateway is also unable
-to marshal [non-nullable non-scalar fields](https://github.com/gogo/protobuf/issues/178).
-In addition to both of these,
-[a bug in the generator](https://github.com/grpc-ecosystem/grpc-gateway/issues/229)
-means generated files with _Well Known Types_ need post-generation corrections.
-This is just another example of a library or tool using
-`golang/protobuf` directly, thus making it incompatible with
-`gogo/protobuf`.
+it suffers from a number of incompatibilities, most of which
+can be traced to its liberal use of `golang/protobuf` packages directly:
 
-Fortunately, workarounds exist for all of these problems.
+1. The gRPC-Gateway [does not work with `gogo/protobuf` registered enums](https://github.com/grpc-ecosystem/grpc-gateway/issues/320).
+1. The default JSON marshaller used by the gRPC-Gateway is unable
+to marshal [non-nullable non-scalar fields](https://github.com/gogo/protobuf/issues/178).
+1. The gRPC-Gateways logic for handling the `google.protobuf.FieldMask`
+_Well Known Type_ in query parameters is hardcoded to use `golang/protobuf` for resolution.
+1. [A bug in the generator](https://github.com/grpc-ecosystem/grpc-gateway/issues/229)
+means generated files with _Well Known Types_ need post-generation corrections.
+
+Fortunately, workarounds exist for most of these problems.
 Using the [`goproto_registration` extension](https://github.com/gogo/protobuf/blob/master/extensions.md#goprotobuf-compatibility)
 of `gogo/protobuf` will ensure enum resolution works.
-As for the JSON marshalling problem, you have to use
-the [`cockroachdb` fork](https://github.com/cockroachdb/cockroach/blob/f9f3d43ca646b6b8a84c6d09b091936ac30bc1ae/pkg/util/protoutil/jsonpb_marshal.go#L35)
+Using the
+[`cockroachdb` fork](https://github.com/cockroachdb/cockroach/blob/f9f3d43ca646b6b8a84c6d09b091936ac30bc1ae/pkg/util/protoutil/jsonpb_marshal.go#L35)
 of `golang/protobuf/jsonpb` with the gRPC-Gateway
-[`WithMarshaler` option](https://github.com/grpc-ecosystem/grpc-gateway/blob/master/runtime/marshaler_registry.go#L85).
-See cockroachdb for
-[an example](https://github.com/cockroachdb/cockroach/blob/f9f3d43ca646b6b8a84c6d09b091936ac30bc1ae/pkg/server/server.go#L1037).
+[`WithMarshaler` option](https://github.com/gogo/grpc-example/blob/d7a68809a4fc66f5d3ce3bbb5b56da2e37e7c3f9/main.go#L126)
+fixes the scalar field marshalling issue.
+
+Both of these workarounds are implemented in the
+[gRPC-example repo](https://github.com/gogo/grpc-example).
+
+Unfortunately, there is no workaround for the `FieldMask` problem,
+as far as I am aware. See
+[the issue in the grpc-example repo](https://github.com/gogo/grpc-example/issues/9)
+for more discussion on this topic. Thanks to
+[Timon Wong](https://github.com/timonwong) for bringing
+this to my attention.
 
 As for the incorrect import, a simple `sed` post-generation
 will sort that out (adjust as necessary):
