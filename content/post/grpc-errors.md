@@ -70,7 +70,7 @@ to attach extra error metadata to an error:
 ```go
 st := status.New(codes.InvalidArgument, "invalid username")
 desc := "The username must only contain alphanumeric characters"
-v := errdetails.BadRequest_FieldViolations{
+v := &errdetails.BadRequest_FieldViolation{
     Field: "username",
     Description: desc,
 }
