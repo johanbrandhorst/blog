@@ -117,21 +117,19 @@ This will work for your own types, but what if you don't have control
 over the extensions used? What if you want to use types from
 `gogo/googleapis` as I suggested in [my post on `gogo/protobuf` compatibility](/post/gogoproto)?
 
-To help with this issue, [I've submitted a PR](https://github.com/grpc/grpc-go/pull/1927)
+To help with this issue, [I submitted a PR](https://github.com/grpc/grpc-go/pull/1927)
 to the Go gRPC project to allow the creation of `status.Status` types from
 arbitrary error types that implement a specific interface. This, in combination
 with the new [`gogo/status` package](https://github.com/gogo/status) allows
 the user the same simple `status` interface that works with arbitrary
 `gogo/protobuf` registered message types.
 
-Note that the package is not useful before the PR has been merged
-and a new release made, as it relies on the PR to allow the Go gRPC package
-to create its own internal `status` message from the error we've returned.
-
 For an example of this in use, please check out the
 [`gogo/grpc-example` repo](https://github.com/gogo/grpc-example),
 which was created to showcase this and other solutions when using `gogo/protobuf`,
-especially together with the gRPC-Gateway.
+especially together with the gRPC-Gateway. Please ensure you use gRPC Go
+[v1.11.0](https://github.com/grpc/grpc-go/releases/tag/v1.11.0)
+or greater to make use of the `gogo/status` package.
 
 ### Further reading
 
