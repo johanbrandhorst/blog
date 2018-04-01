@@ -1,0 +1,10 @@
+_id: f66ea870-35da-11e8-a2aa-97a51cc5217b
+_parent: postgo-protobuf-tips
+reply_to: ''
+name: AA Karim
+email: c15729285f64f3b040ce8093385f997e
+comment: "Thank you so much for this. \r\n\r\nI run my go packages in docker containers so I just tend to `package main` the generated protobuf code so I don't have to reference my $GOPATH all the time. The go_package option saved me a lot of time.\r\n\r\nThe Protobuf documentation is super confusing - surprising considering Go would be a common use case internally at Google. Oh well, I guess they would just look at the existing codebase."
+date: '2018-04-01T18:31:59.725Z'
+sticky: 'false'
+closed: 'false'
+datetime: 1522607519725
