@@ -131,8 +131,6 @@ can be traced to its liberal use of `golang/protobuf` packages directly:
 1. The gRPC-Gateway [does not work with `gogo/protobuf` registered enums](https://github.com/grpc-ecosystem/grpc-gateway/issues/320).
 1. The default JSON marshaller used by the gRPC-Gateway is unable
 to marshal [non-nullable non-scalar fields](https://github.com/gogo/protobuf/issues/178).
-1. The gRPC-Gateways logic for handling the `google.protobuf.FieldMask`
-_Well Known Type_ in query parameters is hardcoded to use `golang/protobuf` for resolution.
 1. [A bug in the generator](https://github.com/grpc-ecosystem/grpc-gateway/issues/229)
 means generated files with _Well Known Types_ need post-generation corrections.
 
@@ -147,13 +145,6 @@ fixes the scalar field marshalling issue.
 
 Both of these workarounds are implemented in the
 [gRPC-example repo](https://github.com/gogo/grpc-example).
-
-Unfortunately, there is no workaround for the `FieldMask` problem,
-as far as I am aware. See
-[the issue in the grpc-example repo](https://github.com/gogo/grpc-example/issues/9)
-for more discussion on this topic. Thanks to
-[Timon Wong](https://github.com/timonwong) for bringing
-this to my attention.
 
 As for the incorrect import, a simple `sed` post-generation
 will sort that out (adjust as necessary):
