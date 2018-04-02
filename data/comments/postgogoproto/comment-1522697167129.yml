@@ -1,0 +1,12 @@
+_id: b072c820-36ab-11e8-96c4-4192b95187e3
+_parent: postgogoproto
+reply_to: 8c466df0-2682-11e8-afc0-57350dddc52f
+name: Johan Brandhorst
+email: 800fb06025c878d3bdb38e3c9454f68d
+comment: >-
+  I've just merged an example of how to successfully use the FieldMask type with
+  gogoproto and the gRPC-Gateway:
+  https://github.com/gogo/grpc-example/commit/6c217371b67a89609c632f047477fa5a1123ac93.
+date: '2018-04-02T19:26:07.128Z'
+tags:
+  - comment-subscription
