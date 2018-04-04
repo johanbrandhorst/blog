@@ -81,7 +81,6 @@ box with `gogo/protobuf`, as while it imports `golang/protobuf`,
 it only uses it to
 [type assert incoming interfaces](https://github.com/grpc/grpc-go/blob/dfa18343df54bda471a4b53677aa7c0d0df882d1/encoding/proto/proto.go)
 into interfaces that are equally supported by all `gogo/protobuf` types.
-No changes necessary here.
 
 ### Reflection
 
@@ -134,13 +133,12 @@ to marshal [non-nullable non-scalar fields](https://github.com/gogo/protobuf/iss
 1. [A bug in the generator](https://github.com/grpc-ecosystem/grpc-gateway/issues/229)
 means generated files with _Well Known Types_ need post-generation corrections.
 
-Fortunately, workarounds exist for most of these problems.
+Fortunately, workarounds exist for these problems.
 Using the [`goproto_registration` extension](https://github.com/gogo/protobuf/blob/master/extensions.md#goprotobuf-compatibility)
 of `gogo/protobuf` will ensure enum resolution works.
-Using the
-[`cockroachdb` fork](https://github.com/cockroachdb/cockroach/blob/f9f3d43ca646b6b8a84c6d09b091936ac30bc1ae/pkg/util/protoutil/jsonpb_marshal.go#L35)
-of `golang/protobuf/jsonpb` with the gRPC-Gateway
-[`WithMarshaler` option](https://github.com/gogo/grpc-example/blob/d7a68809a4fc66f5d3ce3bbb5b56da2e37e7c3f9/main.go#L126)
+Using the [`gogo/gateway` package](https://github.com/gogo/gateway)
+with the gRPC-Gateway
+[`WithMarshaler` option](https://github.com/gogo/grpc-example/blob/6c217371b67a89609c632f047477fa5a1123ac93/main.go#L98)
 fixes the scalar field marshalling issue.
 
 Both of these workarounds are implemented in the
