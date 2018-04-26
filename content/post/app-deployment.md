@@ -5,6 +5,16 @@ tags: ["deployment", "devops", "docker", "scaleway"]
 title: Auto-deployment of your app from Github
 ---
 
+## Update
+Docker Cloud is [being discontinued](http://success.docker.com/article/cloud-migration).
+For an alternative easy app deployment, check my new post
+on [automatic app deployment](/redeploy). Furthermore,
+I would nowadays recommend [Hetzner Cloud](https://www.hetzner.com/)
+over Scaleway. Scaleway was running out of instances
+last time I tried using them, and Hetzner's web console
+is much better than Scaleways.
+
+Old post preserved below.
 ## Introduction
 Yesterday (!) I asked in the Gophers slack for recommendations for deployment
 of static Go binaries, as I was in the process of deploying a demo for another
