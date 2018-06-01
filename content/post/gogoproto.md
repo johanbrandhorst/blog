@@ -25,6 +25,13 @@ with gRPC can break unexpectedly, at _runtime_.
 In this post I will try to cover best practices for
 working with `gogo/protobuf`.
 
+### _Update_
+`golang/protobuf` is in the process of a big refactoring to,
+among other things, make interoperability with `gogo/protobuf` easier. See
+[the design document](https://docs.google.com/document/d/19kfhro7-CnBdFqFk7l4_HmwaH2JT_Rhw5-2FLWLEGGk)
+and subscribe to [the issue](https://github.com/golang/protobuf/issues/364)
+to stay up to date on the progress!
+
 ## TL;DR?
 
 I made an example repo of using `gogo/protobuf` with various parts of the
@@ -171,8 +178,80 @@ most users turn to `gogo/protobuf`.
 In a perfect future, we'd have some or all of the customizability and speed of
 `gogo/protobuf` with the official backing of `golang/protobuf`.
 
-I made
-[a repo](https://github.com/johanbrandhorst/gogoproto-experiments)
+### _Update_
+[Joe Tsai](https://github.com/dsnet), one of the developers working on
+`golang/protobuf` at Google, provided
+[the following perspective](https://gophers.slack.com/archives/C0FSEE1UJ/p1527799668000700)
+on whether any parts of `gogo/protobuf` could be merged into upstream:
+
+> Go protobufs were originally written by Rob Pike back in 2009
+(before the release of Go1) and was designed in a fashion similar
+to `encoding/json` where structs were marshaled based on the presence
+of the `protobuf` field tag. In fact, there was no `proto.Message`
+interface and `Marshal` and `Unmarshal` just operated on `interface{}`.
+Back then, protobufs (as a language) were simpler and the equivalent
+Go structs were more idiomatic. In fact the struct field tag syntax
+was simple enough back then that you could easily hand-craft a Go
+struct to act like a proto message. However, overtime more features
+have crept into protobufs (oneofs and maps added in 2014, proto3
+unknown fields in 2018, and probably more in the future).
+These features have increasingly made Go’s representation less
+idiomatic. For example, oneofs have no natural representation
+in Go and has a fairly clunky API. The implementation of proto3
+unknown field preservation also forces the existence of some
+other field to hold the unknown data. Simply put, the field
+tag syntax has grown more complex and is practically not
+hand-writable today, and generated messages are increasingly
+less idiomatic Go like.
+
+> The `gogo/protobuf` fork occured in 2013
+and one of the stated goals is to provide “more canonical Go
+structures”, which is a significant reason why users prefer
+it over `golang/protobuf`. There are great number of options a
+user may specify in their proto file to customize the generated struct
+(https://github.com/gogo/protobuf/blob/master/extensions.md).
+
+> A few days ago I asked whether Go protobufs were used primarily in
+Go <-> Go communication, or Go <-> other language communication and
+it seemed that many users are in pure Go. I suspect that this fact
+is a source of contention between `golang/protobuf`, `gogo/protobuf`,
+and the users in the Go community. Each party have slightly different
+motivations:
+
+> * `golang/protobuf` lies within the larger spectrum of language specific
+proto implementations (e.g., C++, Java, C#, JavaScript, etc) and
+follows the guidance of the proto team. The proto team is heavily
+concerned with uniformity of behavior across all languages, and less
+so about making protos great in any one particular language.
+
+> * `gogo/protobuf` is very Go centric and provides many user-tweakable
+knobs to adjust the generated struct. Naturally, `gogo/protobuf` appeals
+heavily to the Go community.
+
+> That all being said, regarding merging `gogo/protobuf` into `golang/protobuf`:
+
+> * Any features that violate protobuf semantics cannot be merged
+(e.g., the ability to disable nullability).
+
+> * Furthermore, I’ve spoken to the proto team, and they were hesitant
+to adopt to language specific customizations. If Go were to add
+options to customize the generated code, then that sets precedence
+for other languages to do likewise. This becomes a slippery slope
+where a proto file could become an unreadable mess with
+language-specific options everywhere.
+
+> Personally, I’m a Go programmer and I understand the desire for
+idiomatic Go messages in a very Go centric world, but I also represent
+the interests of the proto team who prioritizes uniformity across all
+programming languages (a reasonable stance to hold). I don’t know if certain
+`gogo/protobuf` features will be merged, but I’m currently focusing
+my time and effort into https://github.com/golang/protobuf/issues/364,
+which should pave the way for `golang/protobuf` and `gogo/protobuf` to
+be able to interoperate. Further discussions on merging can come after that.
+
+## More reading
+
+I made [a repo](https://github.com/johanbrandhorst/gogoproto-experiments)
 for experimenting with various go proto generators
 that you can check out if you want to make your own tests.
 
