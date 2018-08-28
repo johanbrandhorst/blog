@@ -77,7 +77,7 @@ syntax = "proto3";
 
 package team;
 
-import "person/person.proto"
+import "person/person.proto";
 
 message Team {
   repeated person.Person people = 1;
@@ -117,7 +117,7 @@ option go_package = "github.com/myuser/myprotos/team";
 
 package team;
 
-import "person/person.proto"
+import "person/person.proto";
 
 message Team {
   repeated person.Person members = 1;
