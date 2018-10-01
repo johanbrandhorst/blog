@@ -42,7 +42,7 @@ Lets look at a simple example:
 
 ```go
 cb := certify.Certify{
-    Issuer: &certify.VaultIssuer{
+    Issuer: &vault.Issuer{
         VaultURL: &url.URL{
             // Certificate and Private Key are
             // sent over the connection,
