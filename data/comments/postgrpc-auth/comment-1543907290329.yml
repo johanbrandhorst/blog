@@ -1,0 +1,12 @@
+_id: 5b43e6f0-f793-11e8-9100-5f7e243bcd0e
+_parent: postgrpc-auth
+reply_to: ''
+name: Muralidharan
+email: cc20804879cc8e1eee9312fc6bd5b2e3
+comment: >-
+  I used your code and created a simple GRPC server and client-side code. When I
+  run the client code this error message occurred "all SubConns are in
+  TransientFailure, latest connection error: connection error: desc =
+  "transport: authentication handshake failed: tls: first record does not look
+  like a TLS handshake"". Please help me to solve this issue.
+date: '2018-12-04T07:08:10.328Z'
