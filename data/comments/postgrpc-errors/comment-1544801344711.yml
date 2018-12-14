@@ -1,0 +1,7 @@
+_id: fd373510-ffb4-11e8-b4e8-0916b4270577
+_parent: postgrpc-errors
+reply_to: ''
+name: Nimrod Ben-Nes
+email: a92a68a7eacbbfd94603e60fa07426f3
+comment: "Thanks for this article it helped me a lot, and if anyone is interested I made a public package based on it with the aim of easily passing web data through GRPC (I focused on my own needs but it can be easily customized.... :)).\r\n\r\nhttps://github.com/Megalepozy/grpcweberr"
+date: '2018-12-14T15:29:04.707Z'
