@@ -33,21 +33,22 @@ Certify hooks into the [`tls.Config`](https://golang.org/pkg/crypto/tls/#Config)
 `GetCertificate` and `GetClientCertificate` methods to perform certificate
 distribution and renewal whenever it's needed, automatically. It will cache
 certificates that are still valid (if configured), and re-issue certificates
-that approach their expiry.
+that approach their expiry. It deduplicates simultaneous requests to avoid
+overloading issuers.
 
-The library is written so that issuers other than Vault could be used, but
-only the Vault backend is currently implemented.
+The library has implemented issuers for the following 3 private certificate
+authority servers:
 
-Lets look at a simple example:
+- [Vault PKI Secrets Engine](https://vaultproject.io)
+- [Cloudflare CFSSL Certificate Authority](https://cfssl.org/)
+- [AWS Certificate Manager Private Certificate Authority](https://aws.amazon.com/certificate-manager/private-certificate-authority/)
+
+Lets look at a simple example of using the Vault secrets backend:
 
 ```go
 cb := certify.Certify{
     Issuer: &vault.Issuer{
         VaultURL: &url.URL{
-            // Certificate and Private Key are
-            // sent over the connection,
-            // you would need a very good
-            // reason not to want this encrypted.
             Scheme: "https",
             Host: "my-vault-instance.com",
         },
@@ -85,7 +86,7 @@ to be issued, and then stored in the cache for future use.
 ## Mutual TLS with gRPC
 
 The certify tests include an example of using certify
-for [mutual TLS with gRPC](https://github.com/johanbrandhorst/certify/blob/master/certify_test.go#L225).
+for [mutual TLS with gRPC](https://github.com/johanbrandhorst/certify/blob/5def22fb72640efe80dacb27b57929411248af8e/issuers/vault/vault_test.go#L158).
 
 If you enjoyed this blog post, have any questions or input, don't hesitate to
 contact me on [@johanbrandhorst](https://twitter.com/JohanBrandhorst) or
