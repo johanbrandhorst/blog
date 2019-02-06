@@ -90,6 +90,9 @@ to be issued, and then stored in the cache for future use.
 The certify tests include an example of using certify
 for [mutual TLS with gRPC](https://github.com/johanbrandhorst/certify/blob/5def22fb72640efe80dacb27b57929411248af8e/issuers/vault/vault_test.go#L158).
 
+See the [presentations page](/page/presentations#certify) for a video
+introducing Certify.
+
 If you enjoyed this blog post, have any questions or input, don't hesitate to
 contact me on [@johanbrandhorst](https://twitter.com/JohanBrandhorst) or
 under `jbrandhorst` on the Gophers Slack. I'd love to hear your thoughts!
