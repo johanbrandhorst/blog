@@ -26,6 +26,8 @@ To solve this problem, I've written a library that makes this all much easier.
 
 ## Introducing Certify
 
+![Certify](/img/certify.png "Certify")
+
 I've created Certify to allow easy and safe communications between servers
 and clients and services.
 
