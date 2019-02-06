@@ -26,9 +26,9 @@ To solve this problem, I've written a library that makes this all much easier.
 
 ## Introducing Certify
 
-![Certify](/img/certify.png "Certify")
+[![Certify](/img/certify.png "Certify")](https://github.com/johanbrandhorst/certify)
 
-I've created Certify to allow easy and safe communications between servers
+I've created [Certify](https://github.com/johanbrandhorst/certify) to allow easy and safe communications between servers
 and clients and services.
 
 Certify hooks into the [`tls.Config`](https://golang.org/pkg/crypto/tls/#Config)
