@@ -1,0 +1,7 @@
+_id: 86d1cbb0-4dbb-11e9-8acb-956dd3e2720d
+_parent: postgrpc-errors
+reply_to: ''
+name: Ahmad Nurus S.
+email: 66ce2417d1d79df43adb25fb21d5cbe9
+comment: "Hi, in [section on errors](https://cloud.google.com/apis/design/errors) of Google API Design Guide, Google uses a different error schema for Google JSON REST APIs.\r\n\r\nCan I do it like that on grpc-go? make different error schema from my own proto file?\r\n\r\nThanks before"
+date: '2019-03-23T22:32:23.389Z'
