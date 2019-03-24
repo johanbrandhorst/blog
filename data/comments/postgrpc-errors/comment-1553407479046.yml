@@ -1,0 +1,7 @@
+_id: b50383e0-4dfa-11e9-8acb-956dd3e2720d
+_parent: postgrpc-errors
+reply_to: 4b07db60-4dbb-11e9-8acb-956dd3e2720d
+name: Johan
+email: 800fb06025c878d3bdb38e3c9454f68d
+comment: "Hi Ahmad,\r\n\r\nNo, the gRPC Go library does not support any other way to encapsulate errors than inside a status type. You can however include any arbitrary protobuf message inside the status details."
+date: '2019-03-24T06:04:39.046Z'
