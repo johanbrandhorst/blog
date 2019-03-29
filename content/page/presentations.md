@@ -5,16 +5,42 @@ paginate = false
 comments = false
 +++
 
-# Talks
+## Upcoming talks
 
+- [Get Going with WebAssembly (GopherCon San Diego)](#webassembly-gophercon)
+
+## Talks
+
+- [Get Going with WebAssembly (dotGo)](#webassembly-dotgo)
 - [Automate your Go TLS certificates with Vault PKI](#certify)
 - [Writing REST services for the gRPC-curious](#gateway)
-- [Get Going With WebAssembly](#webassembly)
+- [Get Going with WebAssembly (London)](#webassembly-london)
 - [Creating GopherJS apps with gRPC-Web (Cambridge)](#grpcweb-cambridge)
 - [Creating GopherJS Apps with gRPC-Web (Budapest)](#grpcweb-budapest)
 - [Creating GopherJS apps with gRPC-Web (FOSDEM)](#grpcweb-fosdem)
 - [Why REST is dead and what you should use instead](#rest)
 - [Using gRPC-Web to connect GopherJS apps to gRPC backends](#grpcweb-london)
+
+---
+
+### Get Going With WebAssembly (GopherCon San Diego) <a name="webassembly-gophercon"></a>
+
+I'll be doing an introduction to WebAssembly with Go, with deeper analysis and
+more examples than previous WebAssembly talks.
+[More information]([https://www.gophercon.com/agenda/speakers/435214).
+
+---
+
+### Get Going With WebAssembly (dotGo 2019) <a name="webassembly-dotgo"></a>
+
+Given at [dotGo 2019](https://2019.dotgo.eu).
+[Slides](https://talks.godoc.org/github.com/johanbrandhorst/presentations/wasm/wasm.slide),
+[examples repo](https://github.com/johanbrandhorst/wasm-experiments),
+[grpc-web-wasm repo](https://github.com/johanbrandhorst/grpcweb-wasm-example).
+
+<!--<div class="wrap">
+    <iframe src="//www.youtube.com/embed/iTrx0BbUXI4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>-->
 
 ### Automate your Go TLS certificates with Vault PKI <a name="certify"></a>
 
@@ -38,7 +64,7 @@ at [Pusher](https://pusher.com/).
     <iframe src="//www.youtube.com/embed/qFLJEgbTKaU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
-### Get Going With WebAssembly <a name="webassembly"></a>
+### Get Going With WebAssembly (GLUG) <a name="webassembly-london"></a>
 
 Given at the [Go London User Group August 2018 meetup](https://www.meetup.com/Go-London-User-Group/events/253558750/)
 at [Pivotal UK](https://pivotal.io/).
