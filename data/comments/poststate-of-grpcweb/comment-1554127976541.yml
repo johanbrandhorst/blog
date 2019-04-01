@@ -1,0 +1,15 @@
+_id: 3eec9bd0-5488-11e9-b3c5-295a240c9847
+_parent: poststate-of-grpcweb
+reply_to: 4057e110-5487-11e9-b3c5-295a240c9847
+name: Johan
+email: 800fb06025c878d3bdb38e3c9454f68d
+comment: >-
+  gRPC over websockets is possible with a properly instrumented server, see
+  https://github.com/dennwc/dom/tree/master/examples/grpc-over-ws for an example
+  implementation of this (using Go and webassembly). However, this is
+  problematic since it means implementing TCP over websockets over TCP, a huge
+  inefficiency. The gRPC-Web spec tries to make the best gRPC-equivalent
+  transport possible from the browser. When we get websockets over HTTP/2 in the
+  browser the spec may be expanded to include this as a possible transport, but
+  today it is pretty pointless.
+date: '2019-04-01T14:12:56.541Z'
