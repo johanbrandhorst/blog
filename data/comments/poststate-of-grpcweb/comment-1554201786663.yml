@@ -1,0 +1,15 @@
+_id: 19316a40-5534-11e9-bf38-c3a3a604c63b
+_parent: poststate-of-grpcweb
+reply_to: 4057e110-5487-11e9-b3c5-295a240c9847
+name: Johan
+email: 800fb06025c878d3bdb38e3c9454f68d
+comment: >-
+  There are benefits to be sure, but this is so far removed from the rest of the
+  existing web ecosystem as to be mostly academic in importance I think. You can
+  do it today in your own stack if you want to, but you'll end up with huge
+  webassembly binaries (because now the client needs the whole http2-over-tcp
+  stack compiled in) and a Go gRPC server that can't talk to normal gRPC
+  servers. It's certainly exciting as a tech demo, but for wider adoption I
+  think the route that the gRPC-Web team has adopted with the spec is the right
+  one.
+date: '2019-04-02T10:43:06.662Z'
