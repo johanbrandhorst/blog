@@ -138,6 +138,8 @@ can be traced to its liberal use of `golang/protobuf` packages directly:
 1. The gRPC-Gateway [does not work with `gogo/protobuf` registered enums](https://github.com/grpc-ecosystem/grpc-gateway/issues/320).
 1. The default JSON marshaller used by the gRPC-Gateway is unable
    to marshal [non-nullable non-scalar fields](https://github.com/gogo/protobuf/issues/178).
+1. Recent versions (>v1.6.0) of the gateway by default import `golang/protobuf`
+generated field mask types which cause compilation errors.
 1. [A bug in the generator](https://github.com/grpc-ecosystem/grpc-gateway/issues/229)
    means generated files with _Well Known Types_ need post-generation corrections.
 
@@ -148,8 +150,12 @@ Using the [`gogo/gateway` package](https://github.com/gogo/gateway)
 with the gRPC-Gateway
 [`WithMarshaler` option](https://github.com/gogo/grpc-example/blob/6c217371b67a89609c632f047477fa5a1123ac93/main.go#L98)
 fixes the scalar field marshalling issue.
+Turning off generation of the automatic field mask handling with the
+[`allow_patch_feature=false`](https://github.com/grpc-ecosystem/grpc-gateway/blob/79ff520b46091f8148bafeafd6e798826d6d47c2/protoc-gen-grpc-gateway/main.go#L35)
+parameter to `protoc-gen-grpc-gateway` fixes the
+compilation error in newer versions of the generator.
 
-Both of these workarounds are implemented in the
+All of these workarounds are implemented in the
 [gRPC-example repo](https://github.com/gogo/grpc-example).
 
 As for the incorrect import, a simple `sed` post-generation
