@@ -38,9 +38,9 @@ Given at [dotGo 2019](https://2019.dotgo.eu).
 [examples repo](https://github.com/johanbrandhorst/wasm-experiments),
 [grpc-web-wasm repo](https://github.com/johanbrandhorst/grpcweb-wasm-example).
 
-<!--<div class="wrap">
-    <iframe src="//www.youtube.com/embed/iTrx0BbUXI4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>-->
+<div class="wrap">
+    <iframe src="//www.youtube.com/embed/osVHH7rjpxs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 ### Automate your Go TLS certificates with Vault PKI <a name="certify"></a>
 
