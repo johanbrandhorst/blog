@@ -1,0 +1,7 @@
+_id: 04c5c9d0-7e2d-11e9-b0e5-7f43d0a655d3
+_parent: postgrpc-binary-blob-stream
+reply_to: c6cb3020-7e27-11e9-b0e5-7f43d0a655d3
+name: Johan Brandhorst
+email: 800fb06025c878d3bdb38e3c9454f68d
+comment: "Hi Divyanshu,\r\n\r\n`bytes` can be used for this, sure, and streaming is ideal in the case of large data transfers. If you're working with a large structure in Go, you can use the `gob` package to serialize it to `bytes`. If you're working with an existing protobuf structure, you can use `proto.Marshal()` to marshal it into `bytes` as well. Note that `[]byte` in Go can be converted to `string` as well. Not sure what that has to do with memory inefficiency though since it's the same underlying representation in memory."
+date: '2019-05-24T14:05:43.812Z'
