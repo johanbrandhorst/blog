@@ -1,0 +1,11 @@
+_id: b15f9d30-8df8-11e9-8faf-d77b8ea6a678
+_parent: postgo-protobuf-tips
+reply_to: dbb03b90-8d2f-11e9-b979-03384a10b292
+name: David
+email: 99cd75299ab2a5b883de43e9e887a318
+comment: >-
+  Replying to my own post above: I see now that using a `go_package` with
+  slashes is actually taking advantage of a barely-documented feature
+  (https://github.com/golang/protobuf/issues/139) and sometimes necessary to get
+  correct import paths in generated `.pb.go` files.
+date: '2019-06-13T16:31:28.248Z'
