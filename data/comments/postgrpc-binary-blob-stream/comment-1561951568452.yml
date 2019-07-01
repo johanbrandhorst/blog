@@ -1,0 +1,10 @@
+_id: f7374f50-9baf-11e9-9e10-11c8a6edbe4d
+_parent: postgrpc-binary-blob-stream
+reply_to: ''
+name: Donald Viszneki
+email: 9c2813eb83cfbe0e9ab5a5e71ef64b53
+comment: >-
+  What about when your 128MiB blob is not the only part of your reply? Any
+  solution I come up with in this case seems to seriously erode grpc/protobuf's
+  big advantage of giving me an easy, typed RPC interface.
+date: '2019-07-01T03:26:08.451Z'
