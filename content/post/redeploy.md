@@ -7,7 +7,7 @@ tags: ["docker", "containers", "automation"]
 
 ## Introduction
 
-Last year I wrote [a post](/app-deployment) about automating
+Last year I wrote [a post](/post/app-deployment) about automating
 deployment of your application, all the way from git push to
 redeploying your application in your environment. It relied on
 the free version of [Docker Cloud](https://cloud.docker.com),
