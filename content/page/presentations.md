@@ -8,6 +8,7 @@ comments = false
 ## Upcoming talks
 
 - [Get Going with WebAssembly (GopherCon San Diego)](#webassembly-gophercon)
+- [Writing REST services for the gRPC-curious (GopherCon UK)](#gateway-gophercon-uk)
 
 ## Talks
 
@@ -23,11 +24,18 @@ comments = false
 
 ---
 
-### Get Going With WebAssembly (GopherCon San Diego) <a name="webassembly-gophercon"></a>
+### Get Going With WebAssembly (GopherCon San Diego 2019) <a name="webassembly-gophercon"></a>
 
 I'll be doing an introduction to WebAssembly with Go, with deeper analysis and
 more examples than previous WebAssembly talks.
 [More information]([https://www.gophercon.com/agenda/speakers/435214).
+
+### Writing REST services for the gRPC-curious (GopherCon UK 2019) <a name="gateway-gophercon-uk"></a>
+
+I'll be giving an introduction to the gRPC-Gateway, showing the simple and
+powerful typed workflow it offers for developing REST services. I will show
+some less known interesting features of the gateway, such as automatic PATCH
+translation and streaming results.
 
 ---
 
