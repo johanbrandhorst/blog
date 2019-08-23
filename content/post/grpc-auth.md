@@ -15,7 +15,7 @@ the tools provided by the Go gRPC packages.
 Today we'll explore 3 methods of authentication:
 
 1. TLS Client certificate authentication
-1. Token Header authenticaiton
+1. Token Header authentication
 1. HTTP Basic authentication
 
 For the TL:DR; check the [example repo](https://github.com/johanbrandhorst/grpc-auth-example).
