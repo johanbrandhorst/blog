@@ -7,11 +7,12 @@ comments = false
 
 ## Upcoming talks
 
-- [Get Going with WebAssembly (GopherCon San Diego)](#webassembly-gophercon)
-- [Writing REST services for the gRPC-curious (GopherCon UK)](#gateway-gophercon-uk)
+- [Get Going with WebAssembly (GolangConf Russia)](#webassembly-golangconf)
 
 ## Talks
 
+- [Writing REST services for the gRPC-curious (GopherCon UK)](#gateway-gophercon-uk)
+- [Get Going with WebAssembly (GopherCon San Diego)](#webassembly-gophercon)
 - [Get Going with WebAssembly (dotGo)](#webassembly-dotgo)
 - [Automate your Go TLS certificates with Vault PKI](#certify)
 - [Writing REST services for the gRPC-curious](#gateway)
@@ -24,20 +25,26 @@ comments = false
 
 ---
 
-### Get Going With WebAssembly (GopherCon San Diego 2019) <a name="webassembly-gophercon"></a>
+### Get Going With WebAssembly (GolangConf Russia) <a name="webassembly-golangconf"></a>
 
-I'll be doing an introduction to WebAssembly with Go, with deeper analysis and
-more examples than previous WebAssembly talks.
-[More information]([https://www.gophercon.com/agenda/speakers/435214).
+I'll be doing an introduction to WebAssembly with Go with a sample of examples and
+commentary on the future of WebAssembly and Go.
+[More information (in russian)](https://golangconf.ru/2019/abstracts/5670).
+
+---
 
 ### Writing REST services for the gRPC-curious (GopherCon UK 2019) <a name="gateway-gophercon-uk"></a>
 
-I'll be giving an introduction to the gRPC-Gateway, showing the simple and
-powerful typed workflow it offers for developing REST services. I will show
-some less known interesting features of the gateway, such as automatic PATCH
-translation and streaming results.
+Given at [GopherCon UK 2019](https://www.gophercon.co.uk/).
+[Slides](https://talks.godoc.org/github.com/johanbrandhorst/presentations/gophercon-uk-2019/gateway.slide),
+[boilerplate repo](https://github.com/johanbrandhorst/grpc-gateway-boilerplate).
 
----
+### Get Going With WebAssembly (GopherCon San Diego 2019) <a name="webassembly-gophercon"></a>
+
+Given at [GopherCon San Diego 2019](https://www.gophercon.com/).
+[Slides](https://talks.godoc.org/github.com/johanbrandhorst/presentations/gophercon-us-2019/wasm.slide),
+[examples repo](https://github.com/johanbrandhorst/wasm-experiments).
+
 
 ### Get Going With WebAssembly (dotGo 2019) <a name="webassembly-dotgo"></a>
 
