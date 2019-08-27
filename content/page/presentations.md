@@ -45,6 +45,9 @@ Given at [GopherCon San Diego 2019](https://www.gophercon.com/).
 [Slides](https://talks.godoc.org/github.com/johanbrandhorst/presentations/gophercon-us-2019/wasm.slide),
 [examples repo](https://github.com/johanbrandhorst/wasm-experiments).
 
+<div class="wrap">
+    <iframe src="//www.youtube.com/embed/Dxs4LGjmEL4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 ### Get Going With WebAssembly (dotGo 2019) <a name="webassembly-dotgo"></a>
 
