@@ -6,7 +6,7 @@ tags: ["golang", "gRPC"]
 ---
 
 How to best handle errors in Go is a divisive issue, leading
-to opinion pieces by illustruous bloggers such as
+to opinion pieces by illustrious bloggers such as
 [Dave Cheney](https://dave.cheney.net/tag/error-handling),
 the commander himself
 [Rob Pike](https://commandcenter.blogspot.co.uk/2017/12/error-handling-in-upspin.html)
@@ -124,7 +124,7 @@ As a result of this, `gogo/googleapis` types now work transparently with `grpc/s
 
 [`gogo/status`](https://github.com/gogo/status) is still necessary if you want to
 use types that only register with `gogo/protobuf` and don't make use of either
-the `goproto_registration` or `messagename` extensions GoGo Protobuf extensions.
+the `goproto_registration` or `messagename` GoGo Protobuf extensions.
 
 I've preserved the old advice here, but it no longer applies. The
 [`gogo/grpc-example` repo](https://github.com/gogo/grpc-example) has been updated
