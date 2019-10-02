@@ -47,6 +47,10 @@ Given at [GopherCon UK 2019](https://www.gophercon.co.uk/).
 [Slides](https://talks.godoc.org/github.com/johanbrandhorst/presentations/gophercon-uk-2019/gateway.slide),
 [boilerplate repo](https://github.com/johanbrandhorst/grpc-gateway-boilerplate).
 
+<div class="wrap">
+    <iframe src="//www.youtube.com/embed/Pq1paKC-fXk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
 ### Get Going With WebAssembly (GopherCon San Diego 2019) <a name="webassembly-gophercon"></a>
 
 Given at [GopherCon San Diego 2019](https://www.gophercon.com/).
