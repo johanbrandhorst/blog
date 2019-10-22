@@ -7,11 +7,11 @@ comments = false
 
 ## Upcoming talks
 
-- [Get Going with WebAssembly (GolangConf Russia)](#webassembly-golangconf)
 - [Automate your TLS certificate distribution (GolangPiter)](#certify-golangpiter)
 
 ## Talks
 
+- [Get Going with WebAssembly (GolangConf Russia)](#webassembly-golangconf)
 - [Writing REST services for the gRPC-curious (GopherCon UK)](#gateway-gophercon-uk)
 - [Get Going with WebAssembly (GopherCon San Diego)](#webassembly-gophercon)
 - [Get Going with WebAssembly (dotGo)](#webassembly-dotgo)
@@ -26,20 +26,20 @@ comments = false
 
 ---
 
-### Get Going With WebAssembly (GolangConf Russia) <a name="webassembly-golangconf"></a>
-
-I'll be doing an introduction to WebAssembly with Go with a sample of examples and
-commentary on the future of WebAssembly and Go.
-[More information (in russian)](https://golangconf.ru/2019/abstracts/5670).
-
 ### Automate your TLS certificate distribution (GolangPiter) <a name="certify-golangpiter"></a>
 
 An introdution to TLS, why you should use it, how to use it with Go, and an
-introduction of my open-source library for automatically distributing certificates
+introduction to my open-source library for automatically distributing certificates
 using PKI systems like Vault and CFSSL.
 [More information](https://golangpiter.com/en/materials/2646).
 
 ---
+
+### Get Going With WebAssembly (GolangConf Russia) <a name="webassembly-golangconf"></a>
+
+Given at [GolangConf Russia 2019](https://golangconf.ru/en/2019). 
+[Slides](https://talks.godoc.org/github.com/johanbrandhorst/presentations/golangconf-ru-2019/wasm.slide),
+[examples repo](https://github.com/johanbrandhorst/wasm-experiments).
 
 ### Writing REST services for the gRPC-curious (GopherCon UK 2019) <a name="gateway-gophercon-uk"></a>
 
