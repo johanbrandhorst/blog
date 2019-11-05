@@ -7,10 +7,9 @@ comments = false
 
 ## Upcoming talks
 
-- [Automate your TLS certificate distribution (GolangPiter)](#certify-golangpiter)
-
 ## Talks
 
+- [Automate your TLS certificate distribution (GolangPiter)](#certify-golangpiter)
 - [Get Going with WebAssembly (GolangConf Russia)](#webassembly-golangconf)
 - [Writing REST services for the gRPC-curious (GopherCon UK)](#gateway-gophercon-uk)
 - [Get Going with WebAssembly (GopherCon San Diego)](#webassembly-gophercon)
@@ -26,14 +25,16 @@ comments = false
 
 ---
 
+---
+
 ### Automate your TLS certificate distribution (GolangPiter) <a name="certify-golangpiter"></a>
 
 An introdution to TLS, why you should use it, how to use it with Go, and an
 introduction to my open-source library for automatically distributing certificates
 using PKI systems like Vault and CFSSL.
-[More information](https://golangpiter.com/en/materials/2646).
+Given at [GolangPiter 2019](https://golangpiter.com/en/materials/2646).
+[Slides](https://talks.godoc.org/github.com/johanbrandhorst/presentations/golangpiter-ru-2019/certify.slide).
 
----
 
 ### Get Going With WebAssembly (GolangConf Russia) <a name="webassembly-golangconf"></a>
 
