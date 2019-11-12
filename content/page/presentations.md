@@ -42,6 +42,10 @@ Given at [GolangConf Russia 2019](https://golangconf.ru/en/2019).
 [Slides](https://talks.godoc.org/github.com/johanbrandhorst/presentations/golangconf-ru-2019/wasm.slide),
 [examples repo](https://github.com/johanbrandhorst/wasm-experiments).
 
+<div class="wrap">
+    <iframe src="//www.youtube.com/embed/LVFcD7XJ89g" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
 ### Writing REST services for the gRPC-curious (GopherCon UK 2019) <a name="gateway-gophercon-uk"></a>
 
 Given at [GopherCon UK 2019](https://www.gophercon.co.uk/).
