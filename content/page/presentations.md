@@ -35,6 +35,9 @@ using PKI systems like Vault and CFSSL.
 Given at [GolangPiter 2019](https://golangpiter.com/en/materials/2646).
 [Slides](https://talks.godoc.org/github.com/johanbrandhorst/presentations/golangpiter-ru-2019/certify.slide).
 
+<div class="wrap">
+    <iframe src="//www.youtube.com/embed/boG7BSRaJ9E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 ### Get Going With WebAssembly (GolangConf Russia) <a name="webassembly-golangconf"></a>
 
