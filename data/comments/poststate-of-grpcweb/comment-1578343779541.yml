@@ -1,0 +1,7 @@
+_id: 0e5f0eb0-30c6-11ea-9b10-eb04eefba2d0
+_parent: poststate-of-grpcweb
+reply_to: ''
+name: sanakanchha
+email: 1ee7d8a275ae1dbd776e13224b00a4c6
+comment: "Some advice would be really helpful as I am a beginner on using grpc. I am building a client application that talks to the grpc server to retrieve data packets to render shapes(rectangle, circle) on the canvas. I also need to send data back if the user draws any shapes on the canvas.\r\nI was thinking of doing over websockets as well but looks like a bit inefficient.\r\nSo my question is do I have any option other than using the grpc-web and grpc-web proxy as of today?"
+date: '2020-01-06T20:49:39.540Z'
