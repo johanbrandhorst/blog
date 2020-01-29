@@ -1,0 +1,7 @@
+_id: 60d50b30-42b5-11ea-a8f2-f77e5be4e817
+_parent: postgogoproto
+reply_to: ''
+name: Aleksey
+email: 9a4559f49722dd9e2aa1920e999159ab
+comment: "Hi Johan, thanks for sharing this!\r\nAnother problem with gRPC Gateway seems to be with `gogoproto.customtype` (kind of UUID in my case).\r\nI have `bytes` field in proto file. Then in generated *.pb.gw.go I have compilation errors because generated code looks like \r\n```\r\nprotoReq.OrderId, err = runtime.Bytes(val)\r\n```\r\nDo you know anything about this?"
+date: '2020-01-29T16:35:37.447Z'
