@@ -1,0 +1,7 @@
+_id: 366ea270-831a-11ea-8acf-01656d9e3374
+_parent: postgrpc-errors
+reply_to: ''
+name: Prashanth Kumar
+email: 39891d2bc0c7b56130d679e052d6c593
+comment: "Hi Johan,\r\nThis is a very good article on how effectively one can expand the use of gRPC error handling. Based on your article i tried to have my own gRPC message being passed using WithDetails() but it always ends up in giving \":any: message type \"\" isn't linked inerror\" error on the client-side.  Doesn't this support custom proto messages?"
+date: '2020-04-20T15:18:39.982Z'
