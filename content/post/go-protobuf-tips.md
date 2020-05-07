@@ -143,7 +143,7 @@ are no typos in the `go_package` option as it means the files will be generated 
 ## `protoc` plugin parameters
 Another thing I've learned through hours staring at my terminal in bewilderment is
 how parameters are passed to `protoc` plugins. For example, the `protoc-gen-go` plugin
-allows you to specify `plugin=grpc` as a parameter, and the `protoc-gen-grpc-gateway` takes
+allows you to specify `plugins=grpc` as a parameter, and the `protoc-gen-grpc-gateway` takes
 a boolean parameter `logtostderr=true`. I also think the `M` parameter is a `protoc`-wide way
 to change the import path of a specific import as defined in a proto file. Parameters are
 comma (`,`) separated. Parameter specification is delimited by the colon (`:`) character,
@@ -151,7 +151,7 @@ after which comes the desired output path.
 The following are all valid `protoc` commands illustrating this:
 
 ```bash
-$ protoc myproto/myproto.proto -I. --go_out=plugin=grpc:.
+$ protoc myproto/myproto.proto -I. --go_out=plugins=grpc:.
 $ protoc myproto/myproto.proto -I. --grpc-gateway_out=logtostderr=true,Mgoogle/api/annotations.proto=myrepo/api/annotations.proto:.
 ```
 
