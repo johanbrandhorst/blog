@@ -1,0 +1,12 @@
+_id: 4c688500-971f-11ea-9f07-0fe36f552184
+_parent: postpostgres
+reply_to: ''
+name: James
+email: b4d7d6f43eeb2ed97da98506f74b024f
+comment: >-
+  Thanks for the excellent blog, which helped to me transition my Go project
+  from MariaDB to PostgreSQL. One question: Near the beginning of the blog, you
+  showcase your code to scan a timestampz, but I've just been scanning them
+  directly into a time.Time variable and everything seems to be working great so
+  far. Can you explain why your code is needed?
+date: '2020-05-16T02:45:27.402Z'
