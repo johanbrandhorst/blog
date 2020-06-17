@@ -9,6 +9,7 @@ comments = false
 
 ## Talks
 
+- [A Journey to Postgres Productivity (GopherCon EU)](#postgres-gopherconeu)
 - [Automate your TLS certificate distribution (GolangPiter)](#certify-golangpiter)
 - [Get Going with WebAssembly (GolangConf Russia)](#webassembly-golangconf)
 - [Writing REST services for the gRPC-curious (GopherCon UK)](#gateway-gophercon-uk)
@@ -26,6 +27,12 @@ comments = false
 ---
 
 ---
+
+### A Journey to Postgres Productivity (GopherCon EU) <a name="postgres-gopherconeu"></a>
+
+Given at [GopherCon EU 2020](https://gophercon.berlin/). 
+[Slides](https://drive.google.com/file/d/1S0eLf9TDJeG2HVXejPTTdyKSQIhGGwa0/view?usp=sharing),
+[examples repo](https://github.com/johanbrandhorst/grpc-postgres).
 
 ### Automate your TLS certificate distribution (GolangPiter) <a name="certify-golangpiter"></a>
 
