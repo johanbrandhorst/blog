@@ -161,7 +161,7 @@ hosted by [Speechmatics](https://www.speechmatics.com/).
 
 Given at the [Budapest Go February 2018 meetup](https://www.meetup.com/go-budapest/events/247047261/)
 at [Emarsys CraftLab](http://craftlab.hu/).
-[Slides](https://drive.google.com/file/d/194VcC5dY4xgcpINmB7cMJMAH_Oup5hK9/view?usp=sharing)
+[Slides](https://drive.google.com/file/d/194VcC5dY4xgcpINmB7cMJMAH_Oup5hK9/view?usp=sharing).
 
 ### Creating GopherJS apps with gRPC-Web (FOSDEM) <a name="grpcweb-fosdem"></a>
 
@@ -174,7 +174,7 @@ Given at [Go Devroom](https://fosdem.org/2018/schedule/event/gopherjs/) at FOSDE
 
 Given at the [Basingstoke Tech Scene October 2017 meetup](https://www.meetup.com/thebasingstoketechscene/events/243852909/)
 at [Desklodge Basingstoke](https://desklodge.com/welcometodesklodgebasingstoke/).
-[Slides](https://drive.google.com/file/d/1N_KZHFngZHdVI2jKRkYjgcFbFtu9McRM/view?usp=sharing)
+[Slides](https://drive.google.com/file/d/1N_KZHFngZHdVI2jKRkYjgcFbFtu9McRM/view?usp=sharing).
 
 ### Using gRPC-Web to connect GopherJS apps to gRPC backends <a name="grpcweb-london"></a>
 
