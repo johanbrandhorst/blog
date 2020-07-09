@@ -8,6 +8,7 @@ comments = false
 ## Upcoming talks
 
 - [Writing REST services for the gRPC-curious (gRPC Conf 2020)](#gateway-grpcconf-us)
+- [Buf](#buf-bristol)
 
 ## Talks
 
@@ -35,6 +36,11 @@ comments = false
 Presenting at [gRPC Conf 2020](https://events.linuxfoundation.org/grpc-conf/).
 [Event details](https://grpcconf20.sched.com/event/cRfK/writing-rest-services-for-the-grpc-curious-johan-brandhorst-buf),
 [boilerplate repo](https://github.com/johanbrandhorst/grpc-gateway-boilerplate).
+
+### Buf (Golang Bristol) <a name="buf-bristol"></a>
+
+Talking about protobuf, gRPC and buf at the Golang Bristol remote meetup.
+[Event details](https://www.meetup.com/golang-bristol/events/270949344/).
 
 ---
 
