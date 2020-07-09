@@ -48,7 +48,7 @@ Talking about protobuf, gRPC and buf at the Golang Bristol remote meetup.
 
 Talking with Mat Ryer, Jon Calhoun and Johnny Boursiquot about databases, and PostgreSQL in particular.
 
-<audio data-theme="day" data-src="https://changelog.com/gotime/137/embed" src="https://cdn.changelog.com/uploads/gotime/137/go-time-137.mp3" preload="none" class="changelog-episode" controls></audio>
+<audio data-theme="night" data-src="https://changelog.com/gotime/137/embed" src="https://cdn.changelog.com/uploads/gotime/137/go-time-137.mp3" preload="none" class="changelog-episode" controls></audio>
 <p><a href="https://changelog.com/gotime/137">Go Time 137: Focusing in on PostgreSQL</a> – Listen on <a href="https://changelog.com/">Changelog.com</a></p>
 <script async src="//cdn.changelog.com/embed.js"></script>
 
