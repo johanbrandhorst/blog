@@ -7,11 +7,11 @@ comments = false
 
 ## Upcoming talks
 
-- [GoTime on Postgres](#gotime-postgres)
 - [Writing REST services for the gRPC-curious (gRPC Conf 2020)](#gateway-grpcconf-us)
 
 ## Talks
 
+- [GoTime on Postgres](#gotime-postgres)
 - [A Journey to Postgres Productivity (GopherCon EU)](#postgres-gopherconeu)
 - [Automate your TLS certificate distribution (GolangPiter)](#certify-golangpiter)
 - [Get Going with WebAssembly (GolangConf Russia)](#webassembly-golangconf)
@@ -30,10 +30,6 @@ comments = false
 
 ---
 
-### GoTime on PostgreSQL <a name="gotime-postgres"></a>
-
-Talking with Mat Ryer about databases, and PostgreSQL in particular.
-
 ### Writing REST services for the gRPC-curious (gRPC Conf 2020) <a name="gateway-grpcconf-us"></a>
 
 Presenting at [gRPC Conf 2020](https://events.linuxfoundation.org/grpc-conf/).
@@ -42,9 +38,17 @@ Presenting at [gRPC Conf 2020](https://events.linuxfoundation.org/grpc-conf/).
 
 ---
 
+### GoTime on PostgreSQL <a name="gotime-postgres"></a>
+
+Talking with Mat Ryer, Jon Calhoun and Johnny Boursiquot about databases, and PostgreSQL in particular.
+
+<audio data-theme="day" data-src="https://changelog.com/gotime/137/embed" src="https://cdn.changelog.com/uploads/gotime/137/go-time-137.mp3" preload="none" class="changelog-episode" controls></audio>
+<p><a href="https://changelog.com/gotime/137">Go Time 137: Focusing in on PostgreSQL</a> – Listen on <a href="https://changelog.com/">Changelog.com</a></p>
+<script async src="//cdn.changelog.com/embed.js"></script>
+
 ### A Journey to Postgres Productivity (GopherCon EU) <a name="postgres-gopherconeu"></a>
 
-Given at [GopherCon EU 2020](https://gophercon.berlin/). 
+Given at [GopherCon EU 2020](https://gophercon.berlin/).
 [Slides](https://drive.google.com/file/d/1S0eLf9TDJeG2HVXejPTTdyKSQIhGGwa0/view?usp=sharing),
 [examples repo](https://github.com/johanbrandhorst/grpc-postgres).
 
@@ -80,7 +84,9 @@ Given at [GolangConf Russia 2019](https://golangconf.ru/en/2019).
 Joined a panel consisting of Mat Ryer, Filippo Valsorda and Roberto Clapis to discuss security in Go.
 [Show link](https://changelog.com/gotime/101).
 
-<audio data-theme="night" data-src="https://changelog.com/gotime/101/embed" src="https://cdn.changelog.com/uploads/gotime/101/go-time-101.mp3" preload="none" class="changelog-episode" controls></audio><p><a href="https://changelog.com/gotime/101">Go Time 101: Security for Gophers</a> – Listen on <a href="https://changelog.com/">Changelog.com</a></p><script async src="//cdn.changelog.com/embed.js"></script>
+<audio data-theme="night" data-src="https://changelog.com/gotime/101/embed" src="https://cdn.changelog.com/uploads/gotime/101/go-time-101.mp3" preload="none" class="changelog-episode" controls></audio>
+<p><a href="https://changelog.com/gotime/101">Go Time 101: Security for Gophers</a> – Listen on <a href="https://changelog.com/">Changelog.com</a></p>
+<script async src="//cdn.changelog.com/embed.js"></script>
 
 ### Writing REST services for the gRPC-curious (GopherCon UK 2019) <a name="gateway-gophercon-uk"></a>
 
