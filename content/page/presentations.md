@@ -58,6 +58,10 @@ Given at [GopherCon EU 2020](https://gophercon.berlin/).
 [Slides](https://drive.google.com/file/d/1S0eLf9TDJeG2HVXejPTTdyKSQIhGGwa0/view?usp=sharing),
 [examples repo](https://github.com/johanbrandhorst/grpc-postgres).
 
+<div class="wrap">
+    <iframe src="//www.youtube.com/embed/ZRUEJX1fqYc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
 ### Automate your TLS certificate distribution (GolangPiter) <a name="certify-golangpiter"></a>
 
 An introdution to TLS, why you should use it, how to use it with Go, and an
