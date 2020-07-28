@@ -7,13 +7,13 @@ comments = false
 
 ## Upcoming talks
 
-- [Writing REST services for the gRPC-curious (gRPC Conf 2020)](#gateway-grpcconf-us)
 - [A Crash Course in Protobuf and gRPC with Buf](#buf-bristol)
 - [Writing REST services for the gRPC-Curious (GoWest 2020)](#gateway-gowest)
 - [A Journey to Postgres Productivity (GopherCon US 2020)](#postgres-gopherconus)
 
 ## Talks
 
+- [Writing REST services for the gRPC-curious (gRPC Conf 2020)](#gateway-grpcconf-us)
 - [GoTime on Postgres](#gotime-postgres)
 - [A Journey to Postgres Productivity (GopherCon EU)](#postgres-gopherconeu)
 - [Automate your TLS certificate distribution (GolangPiter)](#certify-golangpiter)
@@ -33,11 +33,6 @@ comments = false
 
 ---
 
-### Writing REST services for the gRPC-curious (gRPC Conf 2020) <a name="gateway-grpcconf-us"></a>
-
-Presenting at [gRPC Conf 2020](https://events.linuxfoundation.org/grpc-conf/).
-[Event details](https://grpcconf20.sched.com/event/cRfK/writing-rest-services-for-the-grpc-curious-johan-brandhorst-buf).
-
 ### A Crash Course in Protobuf and gRPC with Buf (Golang Bristol) <a name="buf-bristol"></a>
 
 Talking about protobuf, gRPC and buf at the Golang Bristol remote meetup.
@@ -53,11 +48,18 @@ Presenting at [GopherCon US 2020](https://www.gophercon.com/).
 
 ---
 
+### Writing REST services for the gRPC-curious (gRPC Conf 2020) <a name="gateway-grpcconf-us"></a>
+
+Given at [gRPC Conf 2020](https://events.linuxfoundation.org/grpc-conf/).
+[Slides](https://drive.google.com/file/d/10DH6SqIXK1girtzssYTWP8XT4DcFnqdN/view?usp=sharing),
+[boilerplate repo](https://github.com/johanbrandhorst/grpc-gateway-boilerplate).
+
 ### GoTime on PostgreSQL <a name="gotime-postgres"></a>
 
 Talking with Mat Ryer, Jon Calhoun and Johnny Boursiquot about databases, and PostgreSQL in particular.
 
 <audio data-theme="night" data-src="https://changelog.com/gotime/137/embed" src="https://cdn.changelog.com/uploads/gotime/137/go-time-137.mp3" preload="none" class="changelog-episode" controls></audio>
+
 <p><a href="https://changelog.com/gotime/137">Go Time 137: Focusing in on PostgreSQL</a> – Listen on <a href="https://changelog.com/">Changelog.com</a></p>
 <script async src="//cdn.changelog.com/embed.js"></script>
 
@@ -84,6 +86,7 @@ Given at [GolangPiter 2019](https://golangpiter.com/en/materials/2646).
 </div>
 
 From the same conference, a fireside chat with #DevTalkRu about security and the future of Go:
+
 <div class="wrap">
     <iframe src="//www.youtube.com/embed/ttnH-eMZXwk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
@@ -104,6 +107,7 @@ Joined a panel consisting of Mat Ryer, Filippo Valsorda and Roberto Clapis to di
 [Show link](https://changelog.com/gotime/101).
 
 <audio data-theme="night" data-src="https://changelog.com/gotime/101/embed" src="https://cdn.changelog.com/uploads/gotime/101/go-time-101.mp3" preload="none" class="changelog-episode" controls></audio>
+
 <p><a href="https://changelog.com/gotime/101">Go Time 101: Security for Gophers</a> – Listen on <a href="https://changelog.com/">Changelog.com</a></p>
 <script async src="//cdn.changelog.com/embed.js"></script>
 
