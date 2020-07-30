@@ -36,6 +36,7 @@ comments = false
 ### Writing REST services for the gRPC-curious (GoWest 2020) <a name="gateway-gowest"></a>
 
 Presenting at [GoWest 2020](https://www.gowestconf.com/).
+[Event details](https://www.gowestconf.com/team/writing-rest-services-for-the-grpc-curious).
 
 ### A Journey to Postgres Productivity (GopherCon US) <a name="postgres-gopherconus"></a>
 
