@@ -48,6 +48,10 @@ Presenting at [GopherCon US 2020](https://www.gophercon.com/).
 
 Talking about protobuf, gRPC and buf at the Golang Bristol remote meetup. [Slides](https://drive.google.com/file/d/1h2bCfVRVrvdaAH_ZEg5o9qAhjhOKb1vZ/view?usp=sharing).
 
+<div class="wrap">
+    <iframe src="//www.youtube.com/embed/IjJDZObWYj4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
 ### Writing REST services for the gRPC-curious (gRPC Conf 2020) <a name="gateway-grpcconf-us"></a>
 
 Given at [gRPC Conf 2020](https://events.linuxfoundation.org/grpc-conf/).
