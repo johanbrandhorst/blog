@@ -41,6 +41,7 @@ Presenting at [GoWest 2020](https://www.gowestconf.com/).
 ### A Journey to Postgres Productivity (GopherCon US) <a name="postgres-gopherconus"></a>
 
 Presenting at [GopherCon US 2020](https://www.gophercon.com/).
+[Session details](https://www.gophercon.com/agenda/session/227419).
 
 ---
 
