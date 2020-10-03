@@ -7,11 +7,11 @@ comments = false
 
 ## Upcoming talks
 
-- [Writing REST services for the gRPC-Curious (GoWest 2020)](#gateway-gowest)
 - [A Journey to Postgres Productivity (GopherCon US 2020)](#postgres-gopherconus)
 
 ## Talks
 
+- [Writing REST services for the gRPC-Curious (GoWest 2020)](#gateway-gowest)
 - [A Crash Course in Protobuf and gRPC with Buf](#buf-bristol)
 - [Writing REST services for the gRPC-curious (gRPC Conf 2020)](#gateway-grpcconf-us)
 - [GoTime on Postgres](#gotime-postgres)
@@ -33,17 +33,18 @@ comments = false
 
 ---
 
-### Writing REST services for the gRPC-curious (GoWest 2020) <a name="gateway-gowest"></a>
-
-Presenting at [GoWest 2020](https://www.gowestconf.com/).
-[Event details](https://www.gowestconf.com/team/writing-rest-services-for-the-grpc-curious).
-
 ### A Journey to Postgres Productivity (GopherCon US) <a name="postgres-gopherconus"></a>
 
 Presenting at [GopherCon US 2020](https://www.gophercon.com/).
 [Session details](https://www.gophercon.com/agenda/session/227419).
 
 ---
+
+### Writing REST services for the gRPC-curious (GoWest 2020) <a name="gateway-gowest"></a>
+
+Given at [GoWest 2020](https://www.gowestconf.com/).
+[Event details](https://www.gowestconf.com/team/writing-rest-services-for-the-grpc-curious).
+[Slides](https://drive.google.com/file/d/1IGc1RjwjJBG7-nlZnAjv7Ki-DhXzXnS_/view?usp=sharing).
 
 ### A Crash Course in Protobuf and gRPC with Buf (Golang Bristol) <a name="buf-bristol"></a>
 
