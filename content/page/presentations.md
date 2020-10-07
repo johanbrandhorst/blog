@@ -46,6 +46,10 @@ Given at [GoWest 2020](https://www.gowestconf.com/).
 [Event details](https://www.gowestconf.com/team/writing-rest-services-for-the-grpc-curious).
 [Slides](https://drive.google.com/file/d/1IGc1RjwjJBG7-nlZnAjv7Ki-DhXzXnS_/view?usp=sharing).
 
+<div class="wrap">
+    <iframe src="//www.youtube.com/embed/rbwvY0YpRPI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
 ### A Crash Course in Protobuf and gRPC with Buf (Golang Bristol) <a name="buf-bristol"></a>
 
 Talking about protobuf, gRPC and buf at the Golang Bristol remote meetup. [Slides](https://drive.google.com/file/d/1h2bCfVRVrvdaAH_ZEg5o9qAhjhOKb1vZ/view?usp=sharing).
