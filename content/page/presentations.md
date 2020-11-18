@@ -5,12 +5,9 @@ paginate = false
 comments = false
 +++
 
-## Upcoming talks
-
-- [A Journey to Postgres Productivity (GopherCon US 2020)](#postgres-gopherconus)
-
 ## Talks
 
+- [A Journey to Postgres Productivity (GopherCon US 2020)](#postgres-gopherconus)
 - [Writing REST services for the gRPC-Curious (GoWest 2020)](#gateway-gowest)
 - [A Crash Course in Protobuf and gRPC with Buf](#buf-bristol)
 - [Writing REST services for the gRPC-curious (gRPC Conf 2020)](#gateway-grpcconf-us)
@@ -35,10 +32,9 @@ comments = false
 
 ### A Journey to Postgres Productivity (GopherCon US) <a name="postgres-gopherconus"></a>
 
-Presenting at [GopherCon US 2020](https://www.gophercon.com/).
+Given at [GopherCon US 2020](https://www.gophercon.com/).
 [Session details](https://www.gophercon.com/agenda/session/227419).
-
----
+[Slides](https://drive.google.com/file/d/1terhvAtdcyIZSfP_DBtFOrMim2jdw7th/view?usp=sharing).
 
 ### Writing REST services for the gRPC-curious (GoWest 2020) <a name="gateway-gowest"></a>
 
