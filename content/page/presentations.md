@@ -8,6 +8,7 @@ comments = false
 ## Talks
 
 - [A Journey to Postgres Productivity (GopherCon US 2020)](#postgres-gopherconus)
+- [How and why you should move to Go (Form3 Tech Podcast)](#form3-podcast)
 - [Writing REST services for the gRPC-Curious (GoWest 2020)](#gateway-gowest)
 - [A Crash Course in Protobuf and gRPC with Buf](#buf-bristol)
 - [Writing REST services for the gRPC-curious (gRPC Conf 2020)](#gateway-grpcconf-us)
@@ -33,13 +34,20 @@ comments = false
 ### A Journey to Postgres Productivity (GopherCon US) <a name="postgres-gopherconus"></a>
 
 Given at [GopherCon US 2020](https://www.gophercon.com/).
-[Session details](https://www.gophercon.com/agenda/session/227419).
+[Session details](https://www.gophercon.com/agenda/session/227419),
 [Slides](https://drive.google.com/file/d/1terhvAtdcyIZSfP_DBtFOrMim2jdw7th/view?usp=sharing).
+
+### How and why you should move to Go (Form3 Tech Podcast) <a name="form3-podcast"></a>
+
+A discussion with Kevin Holditch and Andy Kuszyk from Form3 about why we enjoy using Go,
+and how others can get started with Go.
+
+<iframe height="200px" width="100%" frameborder="no" scrolling="no" seamless src="https://player.simplecast.com/8ac266a7-56fa-434e-911d-eea48239dec1?dark=true"></iframe>
 
 ### Writing REST services for the gRPC-curious (GoWest 2020) <a name="gateway-gowest"></a>
 
 Given at [GoWest 2020](https://www.gowestconf.com/).
-[Event details](https://www.gowestconf.com/team/writing-rest-services-for-the-grpc-curious).
+[Event details](https://www.gowestconf.com/team/writing-rest-services-for-the-grpc-curious),
 [Slides](https://drive.google.com/file/d/1IGc1RjwjJBG7-nlZnAjv7Ki-DhXzXnS_/view?usp=sharing).
 
 <div class="wrap">
@@ -85,7 +93,7 @@ An introdution to TLS, why you should use it, how to use it with Go, and an
 introduction to my open-source library for automatically distributing certificates
 using PKI systems like Vault and CFSSL.
 Given at [GolangPiter 2019](https://golangpiter.com/en/materials/2646).
-[Slides](https://drive.google.com/file/d/1aLzOSBx4_-9f4jv2TWAu_QHctyZ_UVcv/view?usp=sharing),
+[Slides](https://drive.google.com/file/d/1aLzOSBx4_-9f4jv2TWAu_QHctyZ_UVcv/view?usp=sharing).
 
 <div class="wrap">
     <iframe src="//www.youtube.com/embed/boG7BSRaJ9E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
