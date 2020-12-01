@@ -1,0 +1,12 @@
+_id: d0c6b170-3407-11eb-92d4-ff9535503d90
+_parent: poststate-of-grpcweb
+reply_to: ''
+name: Chris Majewski
+email: db7663f39268392f2e55f542482ae7de
+comment: >-
+  Thanks for this informative writeup. Were you able to build a working demo of
+  the JavaScript client? I managed to get the Quick Start demo working:
+  https://grpc.io/docs/platforms/web/quickstart/. But when I tried to modify the
+  JavaScript client to talk to my own gRPC server (Python), I hit a wall. More
+  info here: https://github.com/grpc/grpc-web/issues/1001
+date: '2020-12-01T19:02:54.121Z'
