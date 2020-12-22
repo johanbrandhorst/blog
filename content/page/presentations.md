@@ -37,6 +37,10 @@ Given at [GopherCon US 2020](https://www.gophercon.com/).
 [Session details](https://www.gophercon.com/agenda/session/227419),
 [Slides](https://drive.google.com/file/d/1terhvAtdcyIZSfP_DBtFOrMim2jdw7th/view?usp=sharing).
 
+<div class="wrap">
+    <iframe src="//www.youtube.com/embed/AgHdVPSty7k" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
 ### How and why you should move to Go (Form3 Tech Podcast) <a name="form3-podcast"></a>
 
 A discussion with Kevin Holditch and Andy Kuszyk from Form3 about why we enjoy using Go,
