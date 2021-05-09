@@ -1,42 +1,48 @@
 publishDir = "docs"
 canonifyURLs = true
 baseurl = "https://jbrandhorst.com"
-DefaultContentLanguage = "en"
+defaultContentLanguage = "en"
 title = "Go Ahead"
-theme = "beautifulhugo"
+theme = "hermit"
 metaDataFormat = "yaml"
-pygmentsCodefences = true
-pygmentsStyle= "friendly"
+pygmentsCodefences  = true
+pygmentsUseClasses  = true
 googleAnalytics = "UA-96154465-1"
 
-[Params]
-	subtitle = "Golang, gRPC and friends"
-	logo = "img/icon.jpg"
-	favicon = "img/favicon.ico"
-	dateFormat = "January 2, 2006"
+[params]
+	homeSubtitle = "Golang, gRPC and friends"
+	dateform        = "Jan 2, 2006"
+	dateformShort   = "Jan 2"
+	dateformNum     = "2006-01-02"
+	dateformNumTime = "2006-01-02 15:04 -0700"
 	commit = false
 	rss = true
-	comments = true
-	readingTime = true
+	footerCopyright = ' &#183; Thanks to Netlify for hosting my blog'
+	customCSS = ["css/main.css"]
 
-	[Params.staticman]
-		api = "https://api.staticman.net/v2/entry/johanbrandhorst/blog/master/comments"
-		pulls = "https://github.com/johanbrandhorst/blog/pulls"
-		[Params.staticman.recaptcha]
-			sitekey = "6LeZpToUAAAAAIVoByULm4eunmCL76Arn0dH-q8z"
-			secret = "akUFoQUbDksw1BVWS162FgkLB65EwI85zeOQcPEmzXPULmhiE+d/LU/FKfnbeUjetjVeZmIDmEGNCKQc+8Er7rH1nAOJP6bN3oJvi/YtbSKEZfUdXAKvECyPfjl7J0rQ3YvtvEQX4VnyKqnAMottOaIZ3CXRI9TwbFFgYjSSJwQ="
+	[[params.social]]
+		name = "twitter"
+		url = "https://twitter.com/JohanBrandhorst"
 
+	[[params.social]]
+		name = "github"
+		url = "https://github.com/johanbrandhorst"
+
+	[[params.social]]
+		name = "linkedin"
+		url = "https://www.linkedin.com/in/jbrandhorst/"
+
+[markup]
+	[markup.goldmark]
+		[markup.goldmark.renderer]
+	  		unsafe = true
 
 [Author]
 	name = "Johan Brandhorst"
-	github = "johanbrandhorst"
-	twitter = "JohanBrandhorst"
-	linkedin = "johan-brandhorst-satzkorn-aa318220"
-	website = "https://jbrandhorst.com"
 
 [[menu.main]]
 	name = "Blog"
-	url = ""
+	url = "post/"
 	weight = 1
 
 [[menu.main]]
@@ -48,9 +54,3 @@ googleAnalytics = "UA-96154465-1"
 	name = "Presentations"
 	url = "page/presentations/"
 	weight = 3
-
-[[menu.main]]
-	name = "Tags"
-	url = "tags"
-	weight = 4
-

@@ -1,7 +1,0 @@
-_id: abcd6c80-0fb3-11e9-955b-a1039fd26a7c
-_parent: postgrpc-json
-reply_to: ''
-name: Magnus Wahlstrand
-email: 67ea403a7bcddcadc199e4bba8dcbf58
-comment: "Interesting article. I found this implementation using gob instead of json. Based on your info and this, I'll see if I can send generic go structs using gRPC.\r\n\r\nhttps://github.com/harshavardhana/grpc-gob-hello"
-date: '2019-01-03T23:59:57.177Z'

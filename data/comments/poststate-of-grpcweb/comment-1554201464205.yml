@@ -1,7 +1,0 @@
-_id: 5905dbc0-5533-11e9-bf38-c3a3a604c63b
-_parent: poststate-of-grpcweb
-reply_to: 4057e110-5487-11e9-b3c5-295a240c9847
-name: Ruben
-email: cd4bfeb98ca2a6207e32c7e226a7fa54
-comment: "yea I was actually playing around with go wasm for this as well!\r\n\r\nthe interwebs says a lot about tcp over tcp being \"bad\";\r\nsites.inka.de/bigred/devel/tcp-tcp.html . \r\nif it's possible to avoid/mitigate these tcp meltdown issues, it seems like doing grpc over a websocket connection is doable though. \r\n\r\nand you can actually configure custom SSL certs on the client-side, which is impossible any other way in a browser!\r\n\r\nthe ~10% overhead of doing tcp over tcp might be acceptable in many scenarios I think? considering networking is rarely the biggest chunk of response time?"
-date: '2019-04-02T10:37:44.205Z'

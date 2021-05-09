@@ -1,7 +1,0 @@
-_id: 10df6b60-8448-11e9-880a-4d3cf0f682e7
-_parent: postgo-protobuf-tips
-reply_to: ''
-name: Rishabh Lal
-email: fb7377003cf48b9e05683a406caca93c
-comment: "I am using protoc to compile proto files of protocol buffers and I am facing this error: \r\n\r\nsrc/google/protobuf/map_lite_unittest.pb.h:10:40: fatal error: google/protobuf/port_def.inc: No such file or directory\r\ncompilation terminated.\r\n\r\nIf you could advice me how to solve it, would be very much helpful for me."
-date: '2019-06-01T08:34:27.415Z'

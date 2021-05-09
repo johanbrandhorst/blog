@@ -7,7 +7,7 @@ comments = false
 +++
 
 I'm Johan, I like gaming, programming, floorball, skiing and many other things.
-I'm originally from Sweden but I live and work in the United Kingdom.
+I'm originally from Sweden but I live and work in Canada.
 
 My favourite programming language is Go, but I also
 have a great interest in learning Rust and Elm.

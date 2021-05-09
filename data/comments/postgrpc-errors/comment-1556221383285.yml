@@ -1,7 +1,0 @@
-_id: 568fc6a0-6792-11e9-b38c-c592be929c4a
-_parent: postgrpc-errors
-reply_to: ''
-name: Veith Zäch
-email: 414d32e2d370367307bfb08a041c195c
-comment: "If you use grpc-gateway, do not forget to import \r\n```\r\n\t_ \"google.golang.org/genproto/googleapis/rpc/errdetails\"\r\n```\r\n\r\nThe underscore is an import  for its side-effects."
-date: '2019-04-25T19:43:03.284Z'

@@ -1,7 +1,0 @@
-_id: c6cb3020-7e27-11e9-b0e5-7f43d0a655d3
-_parent: postgrpc-binary-blob-stream
-reply_to: ''
-name: Divyanshu Saxena
-email: 276fc94eebe1be513d60d17aded6361f
-comment: "Hi Johan,\r\n\r\nWould you think using `bytes` for sending large arbitrary structures through gRPC could be possible? I want to send a large structure through gRPC as a payload. However, I don't understand how to pack this structure into the `bytes` format required by protobuf. In C++, `bytes` is implemented in the form of strings, which is memory inefficient for large data structures.\r\n\r\nThanks"
-date: '2019-05-24T13:28:12.086Z'
