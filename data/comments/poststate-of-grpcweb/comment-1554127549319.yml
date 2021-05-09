@@ -1,7 +1,0 @@
-_id: 4057e110-5487-11e9-b3c5-295a240c9847
-_parent: poststate-of-grpcweb
-reply_to: ''
-name: Ruben
-email: cd4bfeb98ca2a6207e32c7e226a7fa54
-comment: "is doing gRPC over websockets an option? \r\na pure JS implementation of gRPC could use a websocket as transport and still do all the TLS stuff regardless of the underlying socket?"
-date: '2019-04-01T14:05:49.319Z'
