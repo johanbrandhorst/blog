@@ -47,9 +47,7 @@ To give an idea of the usage, I've put together an example
 using the [GopherJS React bindings](https://myitcv.io/react)
 created by Paul Jolly ([@_myitcv](https://twitter.com/_myitcv)).
 If you want to skip ahead, the source is available on
-[my github](https://github.com/johanbrandhorst/grpcweb-example), and a live
-example can be found on
-[my demo site](https://grpcweb.jbrandhorst.com).
+[my github](https://github.com/johanbrandhorst/grpcweb-example).
 
 I'm going to assume that if you're reading this post you're already familiar with how to implement the Go backend part of this, so we'll jump right into the client. The only difference
 in the backend from a normal Go gRPC server is the use of the
@@ -147,12 +145,9 @@ the frontend can finally start getting some of the benefits
 the backend has enjoyed for a couple of years now,
 courtesy of gRPC and Protobuffers. I'm personally extremely
 excited by the opportunities it affords frontend developers
-working with a simple frontend layer talking to a backend service. Navigate to
-[my demo site](https://grpcweb.jbrandhorst.com)
-for an example of how to develop gRPC-Web applications
-with GopherJS, and take a look at
-[the github repo](https://github.com/johanbrandhorst/grpcweb-example)
-afterwards.
+working with a simple frontend layer talking to a backend service. Take
+a look at [the github repo](https://github.com/johanbrandhorst/grpcweb-example)
+for a complete example.
 
 If you enjoyed this blog post, have any questions or input,
 don't hesitate to contact me on
