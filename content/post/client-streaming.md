@@ -32,7 +32,7 @@ The full source for the Websocket proxy is of course
 It was surprisingly easy to get everything up and running, and I'm pretty pleased with how it turned out.
 It's not entirely done yet, as it doesn't yet support fetch headers and trailers from the server. I added
 a client side streaming and a bidi streaming example to the
-[grpcweb-example page](https://grpcweb.jbrandhorst.com) to show off the capabilities.
+[grpcweb-example app](https://github.com/johanbrandhorst/grpcweb-example) to show off the capabilities.
 I'm particularly happy with how the client chat example turned out, both in the frontend and the logic
 for distributing the messages in the backend. Here's an excerpt:
 
@@ -93,4 +93,3 @@ don't hesitate to contact me on
 [@johanbrandhorst](https://twitter.com/JohanBrandhorst) or
 under `jbrandhorst` on the Gophers Slack. I'd love to hear
 your thoughts!
-
