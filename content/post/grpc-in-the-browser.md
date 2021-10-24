@@ -145,7 +145,8 @@ poor, and
 are available, should you want to use gRPC-Web with TypeScript.
 
 If you want to learn more about gRPC-Web, check out the
-[project website](https://github.com/grpc/grpc-web).
+[project website](https://github.com/grpc/grpc-web) and
+[my previous post on gRPC-Web](/post/state-of-grpcweb/).
 
 ## Which one should you use?
 
