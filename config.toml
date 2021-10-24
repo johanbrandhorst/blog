@@ -10,7 +10,7 @@ pygmentsUseClasses  = true
 googleAnalytics = "UA-96154465-1"
 
 [params]
-	homeSubtitle = "Golang, gRPC and friends"
+	homeSubtitle = "Go, gRPC and friends"
 	dateform        = "Jan 2, 2006"
 	dateformShort   = "Jan 2"
 	dateformNum     = "2006-01-02"
