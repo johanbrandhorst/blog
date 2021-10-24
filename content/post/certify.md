@@ -1,7 +1,7 @@
 ---
 date: 2018-03-25
 subtitle: "Introducing Certify, a purpose built library"
-tags: ["golang", "tls", "certificate", "vault"]
+tags: ["go", "tls", "certificate", "vault"]
 title: Automatic TLS certificate distribution with Vault
 ---
 

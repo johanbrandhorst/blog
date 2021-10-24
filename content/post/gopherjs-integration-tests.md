@@ -1,7 +1,7 @@
 ---
 date: 2017-07-11
 subtitle: "With friends Qunit, Ginkgo and Agouti"
-tags: ["golang", "gopherjs", "testing", "agouti", "ginkgo", "qunit"]
+tags: ["go", "gopherjs", "testing", "agouti", "ginkgo", "qunit"]
 title: GopherJS Integration Tests
 ---
 

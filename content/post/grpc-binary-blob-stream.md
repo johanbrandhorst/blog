@@ -1,7 +1,7 @@
 ---
 date: 2017-07-14
 subtitle: "Using gRPC server-side streaming with binary blobs"
-tags: ["golang", "gRPC", "protobuf"]
+tags: ["go", "gRPC", "protobuf"]
 title: Chunking large messages with gRPC
 ---
 

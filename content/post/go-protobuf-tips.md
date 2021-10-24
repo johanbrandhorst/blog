@@ -2,7 +2,7 @@
 date = "2017-04-18"
 title = "Go Protobuf Tips"
 subtitle = "A couple of tips for working with proto files in golang"
-tags = [ "golang", "protobuf", "grpc", "grpc-gateway" ]
+tags = [ "go", "protobuf", "grpc", "grpc-gateway" ]
 +++
 
 I've had my fair share of dealing with proto files in go (and to some extent JS),

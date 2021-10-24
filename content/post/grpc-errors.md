@@ -2,7 +2,7 @@
 title: "Advanced gRPC Error Usage"
 date: 2018-03-19
 subtitle: "Best practices for error metadata propagation with gRPC"
-tags: ["golang", "gRPC"]
+tags: ["go", "gRPC"]
 ---
 
 How to best handle errors in Go is a divisive issue, leading
@@ -165,4 +165,3 @@ read if you want to learn more about general protobuf API error handling.
 If you enjoyed this blog post, have any questions or input, don't hesitate to
 contact me on [@johanbrandhorst](https://twitter.com/JohanBrandhorst) or
 under `jbrandhorst` on the Gophers Slack. I'd love to hear your thoughts!
-

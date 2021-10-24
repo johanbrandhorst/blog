@@ -2,7 +2,7 @@
 title: "I was invited to a meetup"
 date: 2018-02-10
 subtitle: "My fantastic experience in Budapest"
-tags: ["golang", "meetup", "presentation"]
+tags: ["go", "meetup", "presentation"]
 ---
 
 ## Introduction

@@ -1,7 +1,7 @@
 ---
 date: 2017-09-17
 subtitle: "Enhancing the GopherJS gRPC-Web bindings with Websockets"
-tags: ["golang", "gopherjs", "websockets", "grpc-web", "grpc"]
+tags: ["go", "gopherjs", "websockets", "grpc-web", "grpc"]
 title: Client side streaming in gRPC-Web
 ---
 

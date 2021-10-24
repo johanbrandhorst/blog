@@ -1,7 +1,7 @@
 ---
 date: 2017-07-14
 subtitle: "OOM errors hate this one weird trick"
-tags: ["golang", "gRPC"]
+tags: ["go", "gRPC"]
 title: Throttling resource intensive requests
 ---
 
@@ -74,4 +74,3 @@ don't hesitate to contact me on
 [@johanbrandhorst](https://twitter.com/JohanBrandhorst) or
 under `jbrandhorst` on the Gophers Slack. I'd love to hear
 your thoughts!
-

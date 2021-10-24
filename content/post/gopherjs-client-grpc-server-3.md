@@ -2,7 +2,7 @@
 date = "2017-04-13"
 title = "GopherJS Client and gRPC Server - Part 3"
 subtitle ="A guide to implementing a GopherJS frontend to a gRPC backend exposed over HTTP via the gRPC-gateway"
-tags = [ "golang", "protobuf", "grpc", "grpc-gateway", "gopherjs" ]
+tags = [ "go", "protobuf", "grpc", "grpc-gateway", "gopherjs" ]
 +++
 ## Implement the client
 GopherJS can be used in a couple of different ways, and there's a couple of different
