@@ -270,7 +270,7 @@ Note that for my application to work with CockroachDB, I've had to change the sc
 As discussed, since the URL we're using to connect to the serverless database
 contains our password, the whole thing should be considered a secret.
 Create a new secret via https://console.cloud.google.com/security/secret-manager/create?project=serverless-application-stack
-(adjust for your GCP project name). Paste in the URL in the secret value entry.
+(adjust for your GCP project name). Paste in the Postgres URL in the secret value entry.
 
 I named my secret `postgres-url`.
 
