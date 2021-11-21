@@ -81,7 +81,7 @@ compromises that make them unsuitable for me:
 * Cloudflare Workers have the same lock-in problems as AWS Lambda, and require a
   new way of thinking about state since it's not a database
 
-If you've read any of [my other posts](./postgres.md), you'll know that I'm a fan of
+If you've read any of [my other posts](/post/postgres), you'll know that I'm a fan of
 [PostgreSQL](https://postgresql.org/). Fortunately, a recent product launch ticks
 all the boxes for me:
 [CockroachDB Serverless](https://www.cockroachlabs.com/blog/announcing-cockroachdb-serverless/).
