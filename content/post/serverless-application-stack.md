@@ -155,7 +155,7 @@ connection URL. Since the URL contains your password, the whole thing should be 
 secret, and treated as such. Here's what my string looks like (user and password redacted):
 
 ```
-postgresql://MYUSER:MYPASSWORD@free-tier.gcp-us-central1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full&sslrootcert=$HOME/.postgresql/root.crt&options=--cluster%3Dmerry-possum-4942
+postgresql://AzureDiamond:hunter2@free-tier.gcp-us-central1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full&sslrootcert=$HOME/.postgresql/root.crt&options=--cluster%3Dmerry-possum-4942
 ```
 
 There are a few things to note about the connection string provided.
@@ -172,7 +172,7 @@ There are a few things to note about the connection string provided.
 Our updated connection string looks like this:
 
 ```
-postgresql://MYUSER:MYPASSWORD@free-tier.gcp-us-central1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full&sslrootcert=/root.crt&options=--cluster%3Dmerry-possum-4942
+postgresql://AzureDiamond:hunter2@free-tier.gcp-us-central1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full&sslrootcert=/root.crt&options=--cluster%3Dmerry-possum-4942
 ```
 
 ## Set up the GCP project
@@ -180,6 +180,11 @@ postgresql://MYUSER:MYPASSWORD@free-tier.gcp-us-central1.cockroachlabs.cloud:262
 To isolate all the resources of my projects, I like to create a separate project each time.
 This time, I named my project `serverless-application-stack`, but you can of course name your
 project whatever you like.
+
+## Set up a billing alert on the project
+
+GCP doesn't make it nearly as easy to limit the amount of money spent unfortunately, so it's
+a good idea to set up a billing alert. I have an alert set for when my spend approaches 50% of $1.
 
 ## Create and authenticate with GCP Artifact Registry
 
@@ -246,6 +251,19 @@ $ docker buildx build -t us-central1-docker.pkg.dev/serverless-application-stack
  => => pushing layer ffe56a1c5f38                                     1.5s
  => => pushing layer 6d75f23be3dd                                     1.5s
 ```
+
+## Test your application locally
+
+Now that we've got an image built, we can test running it locally, to make sure it works as we expect:
+
+```shell
+$ docker run \
+    -e POSTGRES_URL=cockroachdb://AzureDiamond:hunter2@free-tier.gcp-us-central1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full&sslrootcert=/root.crt&options=--cluster%3Dmerry-possum-4942 \
+    us-central1-docker.pkg.dev/serverless-application-stack/grpc-postgres/app
+```
+
+Note that for my application to work with CockroachDB, I've had to change the scheme to
+`cockroachdb`. This may not be necessary for your application.
 
 ## Create the secret in GCP Secret Manager
 
