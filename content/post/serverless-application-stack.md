@@ -292,7 +292,7 @@ We're only playing around here, so no need for infinite scaling.
 Under `Advanced settings`, I've reduce the memory capacity to 128MiB, since Go is generally
 pretty good at keeping memory use down, and we shouldn't be buffering a lot of data.
 
-Under `Variables & Secrets`, make sure to set configure your service to use the
+Under `Variables & Secrets`, make sure to configure your service to use the
 `postgres-url` secret we created before. My application looks for the Postgres URL
 under the environment variable `POSTGRES_URL`, so I will mount the secret as an
 environment variable with that key name.
