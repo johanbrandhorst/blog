@@ -13,25 +13,28 @@ instance for persistence. Read on for a deeper dive.
 
 # Serverless compute
 
-## Background
-
 AWS Lambda revolutionized the industry by introducing the concept of
 "serverless" computing to the masses. Today it lets devs and companies
-alike pay for exactly the amount of compute the need, down to the millisecond
+alike pay for exactly the amount of compute they need, down to the millisecond
 it takes to execute the code. A generous free tier lets independent
 developers experiment with and build small projects around it. But it's
 not without its problems:
 
 * Unusual packaging format
+
   Lambda deploys using the AWS CLI, in a custom packaging format, which
   can make it hard to understand how everything gets executed, and easy
   to make mistakes in configuration that aren't discovered until after
   deployment.
+
 * Vendor lock in
+
   Becoming dependent on Lambda makes it hard to move to a different
   provider, should AWS decide to change their terms or prices. The custom
   packaging format increases the work required to migrate off Lambda.
+
 * Hard to test locally
+
   The environment in which Lambda's are executed are not reproducible
   locally, so getting confidence in your code often requires deploying it.
 
@@ -250,6 +253,7 @@ As discussed, since the URL we're using to connect to the serverless database
 contains our password, the whole thing should be considered a secret.
 Create a new secret via https://console.cloud.google.com/security/secret-manager/create?project=serverless-application-stack
 (adjust for your GCP project name). Paste in the URL in the secret value entry.
+
 I named my secret `postgres-url`.
 
 ## Create the Cloud Run service
