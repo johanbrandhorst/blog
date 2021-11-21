@@ -144,13 +144,13 @@ We'll need to use this certificate when creating our container and make sure it'
 to our application when connecting to the database. We could theoretically run our application
 without verifying the certificate of the server we're connecting to, but you almost certainly
 don't want to do that, since it means you can't be sure who you're talking to! Using the
-certificate provided by Cockroach via their cluster management tool we can be sure that
+certificate provided by Cockroach via their cluster web UI, we can be sure that
 we're talking to the right database.
 
 We also need to take careful note of the password. As this is the only thing that prevents other
 users from connecting to your database, make sure to keep it secret! Ideally it doesn't need to
 be written down anywhere other than in the GCP secrets management. My application uses
-a URL to configure all the Postgres connection parameters, and the web UI helpfully provides a
+a URL to configure all the Postgres connection parameters, and the CockroachDB cluster web UI helpfully provides a
 connection URL. Since the URL contains your password, the whole thing should be considered a
 secret, and treated as such. Here's what my string looks like (user and password redacted):
 
