@@ -303,7 +303,7 @@ environment variable with that key name.
 
 Next, we configure this service to `Allow all traffic` and `Allow unauthenticated invocations`.
 I want this service to be publicly available so that users can play around with it, but this
-may differ depending on your needs, of course.
+may differ depending on your needs.
 
 Proceed to create the service by following the wizard.
 
