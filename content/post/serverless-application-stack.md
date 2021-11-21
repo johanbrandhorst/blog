@@ -41,7 +41,7 @@ not without its problems:
 These, among others, make me hesitant to use Lambda for hobby projects or
 small business projects. Fortunately, the industry has been practically
 flooded with options since Lambda was first released, and nowadays there
-are solutions that revolve around contains as a packaging format, which
+are solutions that revolve around containers as a packaging format, which
 removes most of the concerns. In this post, we're going to examine one
 such solution: [Google Cloud Platform Cloud Run](https://cloud.google.com/run).
 
