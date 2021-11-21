@@ -79,7 +79,7 @@ compromises that make them unsuitable for me:
 * PlanetScale also only supports MySQL, and I admit I'm weary of using a database
   [without support for foreign key constraints](https://docs.planetscale.com/tutorials/operating-without-foreign-keys)
 * Cloudflare Workers have the same lock-in problems as AWS Lambda, and require a
-  new way of thinking about state since it's not a database.
+  new way of thinking about state since it's not a database
 
 If you've read any of [my other posts](./postgres.md), you'll know that I'm a fan of
 [PostgreSQL](https://postgresql.org/). Fortunately, a recent product launch ticks
