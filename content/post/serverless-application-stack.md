@@ -150,7 +150,7 @@ we're talking to the right database.
 We also need to take careful note of the password. As this is the only thing that prevents other
 users from connecting to your database, make sure to keep it secret! Ideally it doesn't need to
 be written down anywhere other than in the GCP secrets management. My application uses
-a URL to configure all the Postgres connection parameters, and the web UI helpfully provide a
+a URL to configure all the Postgres connection parameters, and the web UI helpfully provides a
 connection URL. Since the URL contains your password, the whole thing should be considered a
 secret, and treated as such. Here's what my string looks like (user and password redacted):
 
