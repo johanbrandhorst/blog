@@ -166,7 +166,7 @@ There are a few things to note about the connection string provided.
 * It uses a query parameter option I haven't seen before: `options=--cluster%3Dmerry-possum-4942`. This
   is likely some way to route traffic on this host and port to my specific instance handler.
 
-> To learn more about the formatting of the Postgres URL, see
+> To learn more about the formatting of Postgres URLs, see
   [their documentation](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING).
 
 Our updated connection string looks like this:
