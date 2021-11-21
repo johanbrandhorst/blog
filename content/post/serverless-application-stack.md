@@ -1,7 +1,7 @@
 ---
 title: "Serverless Application Stack"
 subtitle: "Using GCP Cloud Run and CockroachDB Serverless"
-date: 2021-11-21
+date: 2021-11-20
 tags: ["cockroachdb", "postgres", "deployment", "go"]
 ---
 
@@ -313,6 +313,19 @@ That's it! Once the service has been created, you'll be allocated a URL where yo
 application can be accessed.
 
 ![Deployed application](/img/cloud-run.png "Deployed Application")
+
+I also went and tested gRPC unary and server side streaming with
+[my script](https://github.com/johanbrandhorst/grpc-postgres/blob/master/cmd/main.go)
+and it seemed to work just fine, which is pretty cool!
+
+```
+$ go run ./cmd/main.go --addr=grpc-postgres-<redacted>.run.app:443
+INFO[2021-11-20] Read user                                     name=Johan role=ADMIN
+INFO[2021-11-20] Read user                                     name=Alice role=GUEST
+INFO[2021-11-20] Read user                                     name=Bob role=GUEST
+INFO[2021-11-20] Read user                                     name=Charles role=GUEST
+INFO[2021-11-20] Finished
+```
 
 ## Wrapping up
 
