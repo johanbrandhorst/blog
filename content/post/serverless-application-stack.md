@@ -97,7 +97,7 @@ of all:
 
 - PostgreSQL Compatibility
 - A generous free-forever tier
-- Automatic backups and redundancy
+- Automatic redundancy
 - No database administration
 - Explicit spending limits
 
