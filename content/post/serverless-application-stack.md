@@ -56,7 +56,7 @@ of the issues with AWS Lambda:
 * Full HTTP/2 and gRPC support
 
 Cloud Run is built on [Knative](https://knative.dev), a serverless deployment
-framework you can run on your own, or as a service, in this case. As a lone
+framework you can run on your own, or as a service, as in this case. As a lone
 dev mostly interested in building hobby projects, it is good to know that
 I _can_ get off GCP if I want to, but I'm mostly interested in the PaaS
 offering to start with.
