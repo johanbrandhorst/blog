@@ -8,7 +8,7 @@ tags: ["cockroachdb", "postgres", "deployment", "go"]
 The dream of a serverless, general-purpose, portable application stack
 is finally a reality. TL;DR: deploy your application to
 [GCP Cloud Run](https://cloud.google.com/run) with a
-[Cockroach DB Serverless](https://www.cockroachlabs.com/blog/announcing-cockroachdb-serverless/)
+[CockroachDB Serverless](https://www.cockroachlabs.com/blog/announcing-cockroachdb-serverless/)
 instance for persistence. Read on for a deeper dive.
 
 # Serverless compute
@@ -84,14 +84,14 @@ compromises that make them unsuitable for me:
 If you've read any of [my other posts](./postgres.md), you'll know that I'm a fan of
 [PostgreSQL](https://postgresql.org/). Fortunately, a recent product launch ticks
 all the boxes for me:
-[Cockroach DB Serverless](https://www.cockroachlabs.com/blog/announcing-cockroachdb-serverless/).
+[CockroachDB Serverless](https://www.cockroachlabs.com/blog/announcing-cockroachdb-serverless/).
 
-## Cockroach DB Serverless
+## CockroachDB Serverless
 
-[Cockroach DB](https://www.cockroachlabs.com/) has long been the answer to the question;
+[CockroachDB](https://www.cockroachlabs.com/) has long been the answer to the question;
 how do I run a relational database workload in a cloud native environment? Often this
 would not be the question you're asking yourself if you're a dev wanting to try out
-some new project, so Cockroach DB was not that interesting. With their latest offering
+some new project, so CockroachDB was not that interesting. With their latest offering
 though, that all changes. It suddenly goes from irrelevant to the most promising solution
 of all:
 
@@ -118,10 +118,10 @@ Now lets take this application stack for a spin!
 
 To test this deployment stack, I'm going to run my
 [grpc-postgres project](https://github.com/johanbrandhorst/grpc-postgres) on Cloud Run,
-connecting to a Cockroach DB Serverless database cluster, and fire off some requests.
+connecting to a CockroachDB Serverless database cluster, and fire off some requests.
 Lets get started!
 
-## Create the Cockroach DB Serverless cluster
+## Create the CockroachDB Serverless cluster
 
 The Cockroach docs have a helpful
 [quickstart doc](https://www.cockroachlabs.com/docs/cockroachcloud/quickstart.html).
