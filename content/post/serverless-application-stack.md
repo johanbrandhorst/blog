@@ -35,7 +35,7 @@ not without its problems:
 
 * Hard to test locally
 
-  The environment in which Lambda's are executed are not reproducible
+  The environments in which Lambda's are executed are not reproducible
   locally, so getting confidence in your code often requires deploying it.
 
 These, among others, make me hesitant to use Lambda for hobby projects or
