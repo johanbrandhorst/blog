@@ -98,11 +98,12 @@ modern version installation tooling.
 ## A different approach
 
 What if we could combine the best of the tool dependencies workflow with the
-best of the BSR remote plugin execution workflow? I was recently introduced to
-an elegant solution that avoids _almost_ all the problems listed above. The
-basic idea is to use tool dependencies when we're forced to, and explicitly
-versioned plugins when we can, downloaded, built and run at execution time.
-Let me illustrate with an example.
+best of the BSR remote plugin execution workflow?
+[Andrew Allen](https://andrewzallen.com) recently introduced me to an elegant
+solution that avoids _almost_ all the problems listed above. The basic idea is
+to use tool dependencies when we're forced to, and explicitly versioned
+plugins when we can, downloaded, built and run at execution time. Let me
+illustrate with an example.
 
 > If you just want to see the code, I've put together an
 > [example repo](https://github.com/johanbrandhorst/go-protobuf-plugin-versioning-example).
