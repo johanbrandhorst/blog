@@ -8,18 +8,12 @@ comments = false
 
 I'm Johan, I've been doing open source since 2016, mostly in the Go ecosystem 🐻. I'm currently a maintainer 👨‍🔧 of:
 
--  [**The gRPC-Gateway**](https://github.com/grpc-ecosystem/grpc-gateway) 🌉, a HTTP/JSON <-> gRPC translation layer which is serving companies and open source projects such as [etcd](https://github.com/etcd-io/etcd/blob/master/Documentation/dev-guide/api_grpc_gateway.md), [Core OS](https://coreos.com/blog/grpc-protobufs-swagger.html), [Cockroach DB](https://www.cockroachlabs.com/), [Chef](https://www.chef.io/) and others.
+- [**The gRPC-Gateway**](https://github.com/grpc-ecosystem/grpc-gateway) 🌉, a HTTP/JSON <-> gRPC translation layer which is serving companies and open source projects such as [etcd](https://github.com/etcd-io/etcd/blob/master/Documentation/dev-guide/api_grpc_gateway.md), [Core OS](https://coreos.com/blog/grpc-protobufs-swagger.html), [Cockroach DB](https://www.cockroachlabs.com/), [Chef](https://www.chef.io/) and others.
 - [**Go gRPC Middleware**](https://github.com/grpc-ecosystem/go-grpc-middleware) 🥪, a collection of interceptors that add logging, metrics, tracing, authentication, retrying logic and more to your Go gRPC servers.
-- [**Improbable's gRPC-Web**](https://github.com/improbable-eng/grpc-web) 🕸️, a project that brings gRPC to the browser and implements a pure Go gRPC-Web proxy that can be used in-process with your gRPC server or as a standalone proxy.
-- [**TinyGo**](https://github.com/tinygo-org/tinygo) 🖨️, a project that aims to bring Go to micro controllers and WebAssembly.
-- [**Certify**](https://github.com/johanbrandhorst/certify) 👨‍⚖️, a Go in-process certificate manager that automatically issues and renews certificates for your application.
 
 I'm also a contributor 👨‍💻 to:
 
-- [**The Go standard library**](https://github.com/golang/go), especially the WebAssembly port, where I ported the GopherJS `net/http` implementation to the standard library, allowing the use of `net/http` HTTP requests from inside WebAssembly applications.
-- [**gRPC-Go**](https://github.com/grpc/grpc-go), the official gRPC library for Go.
-- [**Golang protobuf**](https://github.com/golang/protobuf), the official Google Protocol Buffers implementation for Go.
-- [**GoGo protobuf**](https://github.com/gogo/protobuf), a third party Google Protocol Buffers implementation for Go that includes extra features such as automatic time conversion, faster marshalling and more.
+- [**The Go standard library**](https://github.com/golang/go), especially the WebAssembly port, where I led the implementation of the WASI preview 1 port (`wasip1`) and related functionality such as `go:wasmimport`, `go:wasmexport` and more.
 
 I frequently deliver technical talks 🗨️ at conferences, including [**GopherCon San Diego** 🇺🇸](https://www.gophercon.com), [**GopherCon UK** 🇬🇧](https://www.gophercon.co.uk), [**dotGo** 🇫🇷](https://www.dotgo.eu), [**GopherCon EU** 🇪🇺](https://gophercon.berlin/), [**FOSDEM** 🇧🇪](https://fosdem.org) and more. I've also featured on [**Go Time** 🎙️](https://changelog.com/gotime) on topics ranging from security 🛡️ to PostgreSQL 🐘.
 
