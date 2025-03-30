@@ -3,16 +3,16 @@
   command = "hugo"
 
 [context.production.environment]
-  HUGO_VERSION = "0.83.1"
+  HUGO_VERSION = "0.126.1"
 
 [context.deploy-preview]
   command = "hugo -b $DEPLOY_PRIME_URL"
 
 [context.deploy-preview.environment]
-  HUGO_VERSION = "0.83.1"
+  HUGO_VERSION = "0.126.1"
 
 [context.branch-deploy]
   command = "hugo -b https://${BRANCH}.jbrandhorst.com"
 
 [context.branch-deploy.environment]
-  HUGO_VERSION = "0.83.1"
+  HUGO_VERSION = "0.126.1"
