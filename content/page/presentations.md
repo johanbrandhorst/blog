@@ -8,7 +8,6 @@ comments = false
 ## Talks
 
 - [A Journey to Postgres Productivity (GopherCon US 2020)](#postgres-gopherconus)
-- [How and why you should move to Go (Form3 Tech Podcast)](#form3-podcast)
 - [Writing REST services for the gRPC-Curious (GoWest 2020)](#gateway-gowest)
 - [A Crash Course in Protobuf and gRPC with Buf](#buf-bristol)
 - [Writing REST services for the gRPC-curious (gRPC Conf 2020)](#gateway-grpcconf-us)
@@ -40,13 +39,6 @@ Given at [GopherCon US 2020](https://www.gophercon.com/).
 <div class="wrap">
     <iframe src="//www.youtube.com/embed/AgHdVPSty7k" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
-
-### How and why you should move to Go (Form3 Tech Podcast) <a name="form3-podcast"></a>
-
-A discussion with Kevin Holditch and Andy Kuszyk from Form3 about why we enjoy using Go,
-and how others can get started with Go.
-
-<iframe height="200px" width="100%" frameborder="no" scrolling="no" seamless src="https://player.simplecast.com/8ac266a7-56fa-434e-911d-eea48239dec1?dark=true"></iframe>
 
 ### Writing REST services for the gRPC-curious (GoWest 2020) <a name="gateway-gowest"></a>
 
