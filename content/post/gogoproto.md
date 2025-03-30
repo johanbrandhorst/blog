@@ -139,7 +139,7 @@ can be traced to its liberal use of `golang/protobuf` packages directly:
 1. The default JSON marshaller used by the gRPC-Gateway is unable
    to marshal [non-nullable non-scalar fields](https://github.com/gogo/protobuf/issues/178).
 1. Recent versions (>v1.6.0) of the gateway by default import `golang/protobuf`
-generated field mask types which cause compilation errors.
+   generated field mask types which cause compilation errors.
 1. [A bug in the generator](https://github.com/grpc-ecosystem/grpc-gateway/issues/229)
    means generated files with _Well Known Types_ need post-generation corrections.
 
@@ -265,6 +265,6 @@ that you can check out if you want to make your own tests.
 
 If you enjoyed this blog post, have any questions or input,
 don't hesitate to contact me on
-[@johanbrandhorst](https://twitter.com/JohanBrandhorst) or
+[@jbrandhorst.com](https://bsky.app/profile/jbrandhorst.com) or
 under `jbrandhorst` on the Gophers Slack. I'd love to hear
 your thoughts!

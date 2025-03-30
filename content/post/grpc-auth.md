@@ -227,5 +227,5 @@ when possible, but this requires quite a bit of external setup. Check
 out [my Certify library](/post/certify/) to make that kind of thing easier.
 
 If you enjoyed this blog post, have any questions or input, don't hesitate to
-contact me on [@johanbrandhorst](https://twitter.com/JohanBrandhorst) or
+contact me on [@jbrandhorst.com](https://bsky.app/profile/jbrandhorst.com) or
 under `jbrandhorst` on the Gophers Slack. I'd love to hear your thoughts!

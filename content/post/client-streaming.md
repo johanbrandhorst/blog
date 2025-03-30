@@ -90,6 +90,6 @@ thanks to Websockets and our Websocket proxy.
 
 If you enjoyed this blog post, have any questions or input,
 don't hesitate to contact me on
-[@johanbrandhorst](https://twitter.com/JohanBrandhorst) or
+[@jbrandhorst.com](https://bsky.app/profile/jbrandhorst.com) or
 under `jbrandhorst` on the Gophers Slack. I'd love to hear
 your thoughts!

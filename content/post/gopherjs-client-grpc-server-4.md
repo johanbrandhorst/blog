@@ -4,6 +4,7 @@ title = "GopherJS Client and gRPC Server - Part 4"
 subtitle ="A guide to implementing a GopherJS frontend to a gRPC backend exposed over HTTP via the gRPC-gateway"
 tags = [ "go", "protobuf", "grpc", "grpc-gateway", "gopherjs" ]
 +++
+
 ## Putting it all together
 
 As we touched upon earlier, we generate a package from the generated JS
@@ -283,6 +284,7 @@ Now hopefully if we navigate to https://localhost:10000 in
 a browser we'll be greeted by our website. And that's it!
 
 ## Final thoughts
+
 `GopherJS` is cool, `gRPC` is great, the `gRPC-gateway` is awesome, and
 the `grpc-websocket-proxy` is amazing. With these tools put together
 we've shown that it's possible to use all the features of modern
@@ -293,4 +295,4 @@ Again, to see the whole example in one place, please check out
 [my github](https://github.com/johanbrandhorst/gopherjs-grpc-websocket).
 
 I hope you've enjoyed reading this, and if you have any feedback or questions,
-please contact me on gophers slack or via [my twitter](https://twitter.com/JohanBrandhorst).
+please contact me on gophers slack or via [bluesky](https://bsky.app/profile/jbrandhorst.com).

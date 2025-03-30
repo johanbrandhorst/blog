@@ -54,14 +54,14 @@ format. Lets look at an example:
 ```yaml
 version: "3"
 services:
-    myservice:
-        # This must match the repo you've configured
-        # the webhook to be sent from.
-        # Without a tag, latest is assumed
-        image: mydockernamespace/myrepo
-        ports:
-            - "80:8080"
-        restart: always
+  myservice:
+    # This must match the repo you've configured
+    # the webhook to be sent from.
+    # Without a tag, latest is assumed
+    image: mydockernamespace/myrepo
+    ports:
+      - "80:8080"
+    restart: always
 ```
 
 This configures webhooks from `mydockernamespace/myrepo` to
@@ -93,5 +93,5 @@ We've introduced `redeploy`, an app that makes it easy to redeploy
 your containers automatically straight from a push to your github repo.
 
 If you enjoyed this blog post, have any questions or input, don't hesitate to
-contact me on [@johanbrandhorst](https://twitter.com/JohanBrandhorst) or
+contact me on [@jbrandhorst.com](https://bsky.app/profile/jbrandhorst.com) or
 under `jbrandhorst` on the Gophers Slack. I'd love to hear your thoughts!

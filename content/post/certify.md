@@ -94,5 +94,5 @@ See the [presentations page](/page/presentations#certify) for a video
 introducing Certify.
 
 If you enjoyed this blog post, have any questions or input, don't hesitate to
-contact me on [@johanbrandhorst](https://twitter.com/JohanBrandhorst) or
+contact me on [@jbrandhorst.com](https://bsky.app/profile/jbrandhorst.com) or
 under `jbrandhorst` on the Gophers Slack. I'd love to hear your thoughts!

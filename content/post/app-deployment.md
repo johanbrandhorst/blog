@@ -6,6 +6,7 @@ title: Auto-deployment of your app from Github
 ---
 
 ## Update
+
 Docker Cloud is [being discontinued](http://success.docker.com/article/cloud-migration).
 For an alternative easy app deployment, check my new post
 on [automatic app deployment](/redeploy). Furthermore,
@@ -15,7 +16,9 @@ last time I tried using them, and Hetzner's web console
 is much better than Scaleways.
 
 Old post preserved below.
+
 ## Introduction
+
 Yesterday (!) I asked in the Gophers slack for recommendations for deployment
 of static Go binaries, as I was in the process of deploying a demo for another
 blog post I'm working on. I was told to check out [Scaleway](https://www.scaleway.com/)
@@ -28,6 +31,7 @@ put together a quick walkthrough of the steps
 I followed to get everything up and running.
 
 ## Spin up the server
+
 Register with Scaleway, add your SSH public key
 and start a `VC1S` server. We could
 get fancy here and use an `ARM` backed server,
@@ -44,6 +48,7 @@ While the machine is spinning up it's time to set up our
 Docker Cloud account.
 
 ## Docker Cloud
+
 [Register or login](https://cloud.docker.com/) if
 you already have a Docker hub account, and
 navigate to `Cloud Settings`. You'll need to link your GitHub
@@ -54,6 +59,7 @@ ultimate peace of mind that there won't be any nasty surprises
 down the line.
 
 ## Register the Scaleway node to Docker Cloud
+
 Once registered, we need to add our Scaleway node as a Docker node.
 First things first, Docker Cloud requires us to open a
 couple of inbound ports, namely `2375/tcp`, `6783/tcp` and `6783/udp`.
@@ -75,6 +81,7 @@ from the Docker Cloud page. If everything works, your Docker Cloud
 page should tell you that the node was successfully registered!
 
 ## Sidenote: Multi-stage Docker Builds
+
 At this point I want to mention that this works particularly
 well if you utilize multi-stage docker builds. They're a new
 feature in Docker `17.05`, so ensure you've selected `17.05`
@@ -103,6 +110,7 @@ larger than the size of the binary itself. Truly we are
 living in the future.
 
 ## Setting up the Docker Cloud repository
+
 We've added Docker Cloud to our GitHub already, so now
 we can go ahead and create a repository from GitHub. I'm assuming
 you've already got your source repo on github so it should
@@ -113,6 +121,7 @@ of your repository. Otherwise, just select the path to the
 `Dockerfile`. Your new Docker Cloud repository will automatically be configured to build on new merges to master.
 
 ## Deploying the app
+
 Go to the repository page we just created. See that alluring
 `Launch Service` button in the top right? It's time to launch
 our service! Click it and on the next page you'll get a new interface
@@ -133,6 +142,6 @@ redeployment triggered straight from your GitHub pushes.
 Lean back in your chair and crack open a cold one, you deserve it!
 
 If you liked this article, or you have anything you'd like to add
-or correct, don't hesitate to reach out to me on twitter
-[@johanbrandhorst](https://twitter.com/JohanBrandhorst) or on
+or correct, don't hesitate to reach out to me on bluesky
+[@jbrandhorst.com](https://bsky.app/profile/jbrandhorst.com) or on
 Gophers Slack under `jbrandhorst`. Thanks for reading!

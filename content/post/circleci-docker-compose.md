@@ -13,11 +13,11 @@ them at my QUnit GopherJS page. This was a great start, but after running
 it a couple of times we find that there are several problems:
 
 1. It requires all browsers tested to be installed on the machine running the tests.
-This limits the scale of testing as no-one is going to be running around with Chrome,
-Firefox, Safari, Edge and whatever other browser we may want to test with. Especially
-not different versions of said browsers!
+   This limits the scale of testing as no-one is going to be running around with Chrome,
+   Firefox, Safari, Edge and whatever other browser we may want to test with. Especially
+   not different versions of said browsers!
 1. It's _still_ a manual step. Wouldn't it be great if these tests could be run on every
-pull request and every push to the master branch?
+   pull request and every push to the master branch?
 
 ## Enter CircleCI
 
@@ -44,46 +44,46 @@ containers. As such, I wrote a `docker-compose` file to define the setup require
 Here's the docker-compose file I used:
 
 ```yaml
-version: '2'
+version: "2"
 networks:
-    internal:
-        driver: bridge
+  internal:
+    driver: bridge
 services:
-    chromedriver:
-        environment:
-            CHROMEDRIVER_WHITELISTED_IPS: ""
-        expose:
-            - "4444"
-        image: robcherry/docker-chromedriver:latest
-        networks:
-            - internal
-        privileged: true
-    selenium:
-        expose:
-            - "4444"
-        image: selenium/standalone-firefox:latest
-        networks:
-            - internal
-    testrunner:
-        # This just sleeps, we execute the test command using docker-compose exec.
-        container_name: testrunner
-        command: sleep infinity
-        depends_on:
-            - chromedriver
-            - selenium
-        environment:
-            CHROMEDRIVER_ADDR: chromedriver:4444
-            SELENIUM_ADDR: selenium:4444
-            GOPHERJS_SERVER_ADDR: testrunner:8080
-        expose:
-            - "8080"
-            - "9090"
-            - "9095"
-            - "9100"
-            - "9105"
-        image: golang:latest
-        networks:
-            - internal
+  chromedriver:
+    environment:
+      CHROMEDRIVER_WHITELISTED_IPS: ""
+    expose:
+      - "4444"
+    image: robcherry/docker-chromedriver:latest
+    networks:
+      - internal
+    privileged: true
+  selenium:
+    expose:
+      - "4444"
+    image: selenium/standalone-firefox:latest
+    networks:
+      - internal
+  testrunner:
+    # This just sleeps, we execute the test command using docker-compose exec.
+    container_name: testrunner
+    command: sleep infinity
+    depends_on:
+      - chromedriver
+      - selenium
+    environment:
+      CHROMEDRIVER_ADDR: chromedriver:4444
+      SELENIUM_ADDR: selenium:4444
+      GOPHERJS_SERVER_ADDR: testrunner:8080
+    expose:
+      - "8080"
+      - "9090"
+      - "9095"
+      - "9100"
+      - "9105"
+    image: golang:latest
+    networks:
+      - internal
 ```
 
 It starts a ChromeDriver, a Selenium and a standard Go container.
@@ -126,15 +126,15 @@ required to get it running on CircleCI? Look no further:
 
 ```yaml
 tests:
-    docker:
-        - image: ypereirareis/docker-compose
-    working_directory: /go/src/github.com/johanbrandhorst/protobuf
-    steps:
-        - checkout
-        - setup_remote_docker
-        - run:
-            name: Browser Integration Tests
-            command: make integration
+  docker:
+    - image: ypereirareis/docker-compose
+  working_directory: /go/src/github.com/johanbrandhorst/protobuf
+  steps:
+    - checkout
+    - setup_remote_docker
+    - run:
+        name: Browser Integration Tests
+        command: make integration
 ```
 
 We use `ypereirareis/docker-compose` which just comes with `docker-compose` pre-installed.
@@ -157,7 +157,6 @@ the CI in action on my [github repo](https://github.com/johanbrandhorst/protobuf
 
 If you enjoyed this blog post, have any questions or input,
 don't hesitate to contact me on
-[@johanbrandhorst](https://twitter.com/JohanBrandhorst) or
+[@jbrandhorst.com](https://bsky.app/profile/jbrandhorst.com) or
 under `jbrandhorst` on the Gophers Slack. I'd love to hear
 your thoughts!
-

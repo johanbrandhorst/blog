@@ -14,6 +14,7 @@ implement some custom request throttling. Here I'll show an easy way to accompli
 this with the use of a Go channel.
 
 ## The Semaphore
+
 I'm not going to introduce semaphores here, just show you how to implement one in Go
 and what they can be used for. Firstly, the implementation:
 
@@ -71,6 +72,6 @@ are running at any one time.
 
 If you enjoyed this blog post, have any questions or input,
 don't hesitate to contact me on
-[@johanbrandhorst](https://twitter.com/JohanBrandhorst) or
+[@jbrandhorst.com](https://bsky.app/profile/jbrandhorst.com) or
 under `jbrandhorst` on the Gophers Slack. I'd love to hear
 your thoughts!

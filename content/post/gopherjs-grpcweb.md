@@ -11,12 +11,12 @@ how to work with a gRPC backend from the GopherJS world. It relies on the
 piece of tech, but unfortunately carries a couple of downsides:
 
 1. Clients don't know what types are used - the interface is HTTP JSON.
-This can be somewhat mitigated with the use of swagger generated interfaces,
-but it's still not perfect.
+   This can be somewhat mitigated with the use of swagger generated interfaces,
+   but it's still not perfect.
 1. The interface being JSON means marshalling and unmarshalling can become a
-significant part of the latency between the client and the server.
+   significant part of the latency between the client and the server.
 1. The gRPC-gateway requires specific changes to the proto
-definitions - it's not as straightforward as just defining your RPC methods.
+   definitions - it's not as straightforward as just defining your RPC methods.
 
 Fortunately, with the release of a spec compliant
 [gRPC-Web implementation from Improbable](https://spatialos.improbable.io/games/grpc-web-moving-past-restjson-towards-type-safe-web-apis),
@@ -45,7 +45,7 @@ into how to generate the client interfaces.
 
 To give an idea of the usage, I've put together an example
 using the [GopherJS React bindings](https://myitcv.io/react)
-created by Paul Jolly ([@_myitcv](https://twitter.com/_myitcv)).
+created by Paul Jolly ([@\_myitcv](https://twitter.com/_myitcv)).
 If you want to skip ahead, the source is available on
 [my github](https://github.com/johanbrandhorst/grpcweb-example).
 
@@ -140,6 +140,7 @@ error is `io.EOF`, it means the server has closed the stream
 successfully.
 
 ## Wrapping up
+
 With the release of an unofficial gRPC-Web client by Improbable,
 the frontend can finally start getting some of the benefits
 the backend has enjoyed for a couple of years now,
@@ -151,6 +152,6 @@ for a complete example.
 
 If you enjoyed this blog post, have any questions or input,
 don't hesitate to contact me on
-[@johanbrandhorst](https://twitter.com/JohanBrandhorst) or
+[@jbrandhorst.com](https://bsky.app/profile/jbrandhorst.com) or
 under `jbrandhorst` on the Gophers Slack. I'd love to hear
 your thoughts!

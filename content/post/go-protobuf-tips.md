@@ -10,10 +10,12 @@ so I thought I'd share some stuff I've learnt the hard way by working
 with proto files.
 
 ## Protoc include paths
+
 The `protoc` include paths can be pretty confusing, so I'll give a few examples
 of how to use it properly.
 
 #### Just include the current directory
+
 `protoc` requires that the files referenced are in the include path, so if you're
 referencing files relative to the current directory, you'll need to specify `-I.`,
 which also means the `protoc` will resolve
@@ -26,6 +28,7 @@ $ protoc myproto/myproto.proto -I. --go_out=:.
 As long as your proto file imports are all relative to the current directory, this will work.
 
 #### Several include paths
+
 If you're using the [grpc-gateway](https://github.com/grpc-ecosystem/grpc-gateway)
 you'll have to include the `google/api/annotations.proto` proto file.
 The way I've always done that is by vendoring the proto files and adding the vendor path
@@ -45,12 +48,14 @@ In that case, you'll probably define some `third_party` folder where you can put
 the external dependencies.
 
 ## Use the `go_package` option
+
 This isn't something readily advertised in the
 [introduction to protobuffers in Go](https://developers.google.com/protocol-buffers/docs/gotutorial)
 or [Go gRPC quick start](http://www.grpc.io/docs/quickstart/go.html), but I find it
 is essential if you ever want to import proto definitions from one proto file to another.
 
 #### Raison d'être
+
 For example, lets say we have `person.proto` in `person/person.proto`. It defines the
 proto package `person` and the message `Person`.
 
@@ -88,7 +93,9 @@ When we generate a go file from this definition using `protoc`, we'll end up wit
 that imports `person/person.pb.go`. That's no good!
 
 Enter the `go_package` option.
+
 #### Using the `go_package` option
+
 For a proto file defined in `github.com/myuser/myprotos/myproto/myproto.proto` the
 appropriate `go_option` value would be `github.com/myuser/myprotos/myproto`.
 This means that the `protoc` compiler can generate a go file that will include the package
@@ -130,6 +137,7 @@ that you'll generate go code from so that in the future when a dependency might 
 saved yourself, or even better, someone else, a whole lot of head scratching.
 
 #### `protoc-gen-go` output paths with `go_package` option
+
 One final note on the `go_package` option. Specifying it in your proto file means the
 `protoc-gen-go` `protoc` plugin outputs your generated files as if the specified output directory is at the root of the `go_package` path. So... you'll probably want to slightly modify your `protoc` line:
 
@@ -141,6 +149,7 @@ This should mean the files appear where you expect them to appear. Mind you make
 are no typos in the `go_package` option as it means the files will be generated in wrong place.
 
 ## `protoc` plugin parameters
+
 Another thing I've learned through hours staring at my terminal in bewilderment is
 how parameters are passed to `protoc` plugins. For example, the `protoc-gen-go` plugin
 allows you to specify `plugins=grpc` as a parameter, and the `protoc-gen-grpc-gateway` takes
@@ -156,6 +165,7 @@ $ protoc myproto/myproto.proto -I. --grpc-gateway_out=logtostderr=true,Mgoogle/a
 ```
 
 ## More
+
 Feel free to reach out to me on gophers slack or on
-[my twitter](https://twitter.com/JohanBrandhorst) if you found this helpful or if you have
+[bluesky](https://bsky.app/profile/jbrandhorst.com) if you found this helpful or if you have
 any more tips I should include in this list.

@@ -131,29 +131,29 @@ I've preserved the old advice here, but it no longer applies. The
 to make use of `grpc/status` again.
 
 > I mentioned above that the `status` package uses the `Any` protobuf
-message type under the hood. This, combined with the `Status.WithDetails`
-and `Status.Details` methods [using the `golang/protobuf/ptypes`](https://github.com/grpc/grpc-go/blob/738eb6b62fe9a30ddfe19934b0a22b1a66fbb661/status/status.go#L162)
-directly causes it to be generally
-[incompatible with `gogo/protobuf` messages](https://github.com/grpc/grpc-go/issues/1885).
-One workaround for this is to register your error metadata messages with
-`golang/protobuf` through the [`goproto_registration` extension](https://github.com/gogo/protobuf/blob/master/extensions.md#goprotobuf-compatibility).
-This will work for your own types, but what if you don't have control
-over the extensions used? What if you want to use types from
-`gogo/googleapis` as I suggested in [my post on `gogo/protobuf` compatibility](/post/gogoproto)?
+> message type under the hood. This, combined with the `Status.WithDetails`
+> and `Status.Details` methods [using the `golang/protobuf/ptypes`](https://github.com/grpc/grpc-go/blob/738eb6b62fe9a30ddfe19934b0a22b1a66fbb661/status/status.go#L162)
+> directly causes it to be generally
+> [incompatible with `gogo/protobuf` messages](https://github.com/grpc/grpc-go/issues/1885).
+> One workaround for this is to register your error metadata messages with
+> `golang/protobuf` through the [`goproto_registration` extension](https://github.com/gogo/protobuf/blob/master/extensions.md#goprotobuf-compatibility).
+> This will work for your own types, but what if you don't have control
+> over the extensions used? What if you want to use types from
+> `gogo/googleapis` as I suggested in [my post on `gogo/protobuf` compatibility](/post/gogoproto)?
 
 > To help with this issue, [I submitted a PR](https://github.com/grpc/grpc-go/pull/1927)
-to the Go gRPC project to allow the creation of `status.Status` types from
-arbitrary error types that implement a specific interface. This, in combination
-with the new [`gogo/status` package](https://github.com/gogo/status) allows
-the user the same simple `status` interface that works with arbitrary
-`gogo/protobuf` registered message types.
+> to the Go gRPC project to allow the creation of `status.Status` types from
+> arbitrary error types that implement a specific interface. This, in combination
+> with the new [`gogo/status` package](https://github.com/gogo/status) allows
+> the user the same simple `status` interface that works with arbitrary
+> `gogo/protobuf` registered message types.
 
 > For an example of this in use, please check out the
-[`gogo/grpc-example` repo](https://github.com/gogo/grpc-example),
-which was created to showcase this and other solutions when using `gogo/protobuf`,
-especially together with the gRPC-Gateway. Please ensure you use gRPC Go
-[v1.11.0](https://github.com/grpc/grpc-go/releases/tag/v1.11.0)
-or greater to make use of the `gogo/status` package.
+> [`gogo/grpc-example` repo](https://github.com/gogo/grpc-example),
+> which was created to showcase this and other solutions when using `gogo/protobuf`,
+> especially together with the gRPC-Gateway. Please ensure you use gRPC Go
+> [v1.11.0](https://github.com/grpc/grpc-go/releases/tag/v1.11.0)
+> or greater to make use of the `gogo/status` package.
 
 ### Further reading
 
@@ -163,5 +163,5 @@ with a thorough discussion of the Status Protobuf type which I encourage you to
 read if you want to learn more about general protobuf API error handling.
 
 If you enjoyed this blog post, have any questions or input, don't hesitate to
-contact me on [@johanbrandhorst](https://twitter.com/JohanBrandhorst) or
+contact me on [@jbrandhorst.com](https://bsky.app/profile/jbrandhorst.com) or
 under `jbrandhorst` on the Gophers Slack. I'd love to hear your thoughts!

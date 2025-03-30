@@ -153,9 +153,9 @@ If you want to learn more about gRPC-Web, check out the
 Though these both sound like similar projects from a distance, they're actually
 built for two different use cases. Here's a quick guide to choosing:
 
-* Do you want to expose a RESTful HTTP/JSON API?
+- Do you want to expose a RESTful HTTP/JSON API?
   - Use the gRPC-Gateway
-* Do you want to use gRPC with a browser client?
+- Do you want to use gRPC with a browser client?
   - Use gRPC-Web
 
 If you want to do both of the above, you can use the gRPC-Gateway to solve both
@@ -163,5 +163,5 @@ problems, but the browser client will be worse, since it either has to be
 manually created, or generated via the OpenAPIv2 generator.
 
 If you enjoyed this blog post, have any questions or input, don't hesitate to
-contact me on [@johanbrandhorst](https://twitter.com/JohanBrandhorst) or
+contact me on [@jbrandhorst.com](https://bsky.app/profile/jbrandhorst.com) or
 under `jbrandhorst` on the Gophers Slack. I'd love to hear your thoughts!

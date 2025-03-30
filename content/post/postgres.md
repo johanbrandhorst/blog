@@ -227,5 +227,5 @@ post can help you in your own interactions with Postgres from Go. With the
 exception of `pgx`, most of the advice here applies to any relational database.
 
 If you enjoyed this blog post, have any questions or input, don't hesitate to
-contact me on [@johanbrandhorst](https://twitter.com/JohanBrandhorst) or
+contact me on [@jbrandhorst.com](https://bsky.app/profile/jbrandhorst.com) or
 under `jbrandhorst` on the Gophers Slack. I'd love to hear your thoughts!

@@ -24,8 +24,8 @@ pygmentsUseClasses  = true
 		name = "Johan Brandhorst-Satzkorn"
 
 	[[params.social]]
-		name = "twitter"
-		url = "https://twitter.com/JohanBrandhorst"
+		name = "bluesky"
+		url = "https://bsky.app/profile/jbrandhorst.com"
 
 	[[params.social]]
 		name = "github"

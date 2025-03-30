@@ -20,20 +20,20 @@ it takes to execute the code. A generous free tier lets independent
 developers experiment with and build small projects around it. But it's
 not without its problems:
 
-* Unusual packaging format
+- Unusual packaging format
 
   Lambda deploys using the AWS CLI, in a custom packaging format, which
   can make it hard to understand how everything gets executed, and easy
   to make mistakes in configuration that aren't discovered until after
   deployment.
 
-* Vendor lock in
+- Vendor lock in
 
   Becoming dependent on Lambda makes it hard to move to a different
   provider, should AWS decide to change their terms or prices. The custom
   packaging format increases the work required to migrate off Lambda.
 
-* Hard to test locally
+- Hard to test locally
 
   The environments in which Lambda's are executed are not reproducible
   locally, so getting confidence in your code often requires deploying it.
@@ -50,10 +50,10 @@ such solution: [Google Cloud Platform Cloud Run](https://cloud.google.com/run).
 Cloud run uses the container as the application packaging format, fixing most
 of the issues with AWS Lambda:
 
-* A widely used, open standard
-* Portable to numerous different orchestration solutions
-* Easy to run and test locally
-* Full HTTP/2 and gRPC support
+- A widely used, open standard
+- Portable to numerous different orchestration solutions
+- Easy to run and test locally
+- Full HTTP/2 and gRPC support
 
 Cloud Run is built on [Knative](https://knative.dev), a serverless deployment
 framework you can run on your own, or as a service, as in this case. As a lone
@@ -75,10 +75,10 @@ Durable Objects](https://blog.cloudflare.com/introducing-workers-durable-objects
 have made serverless persistence readily available to devs, but they all include
 compromises that make them unsuitable for me:
 
-* AWS Aurora (as of writing this) only supports MySQL, and as far as I can tell does not include a free tier
-* PlanetScale also only supports MySQL, and I admit I'm weary of using a database
+- AWS Aurora (as of writing this) only supports MySQL, and as far as I can tell does not include a free tier
+- PlanetScale also only supports MySQL, and I admit I'm weary of using a database
   [without support for foreign key constraints](https://docs.planetscale.com/tutorials/operating-without-foreign-keys)
-* Cloudflare Workers have the same lock-in problems as AWS Lambda, and require a
+- Cloudflare Workers have the same lock-in problems as AWS Lambda, and require a
   new way of thinking about state since it's not a database
 
 If you've read any of [my other posts](/post/postgres), you'll know that I'm a fan of
@@ -108,9 +108,9 @@ As a dev working on toy projects, this is very comforting and confidence inducin
 Well done Cockroach Labs!
 
 > If you're interested in learning more about how Cockroach Labs built their serverless
-offering, they wrote a
-[very interesting blog post](https://www.cockroachlabs.com/blog/how-we-built-cockroachdb-serverless/)
-about it!
+> offering, they wrote a
+> [very interesting blog post](https://www.cockroachlabs.com/blog/how-we-built-cockroachdb-serverless/)
+> about it!
 
 Now lets take this application stack for a spin!
 
@@ -160,14 +160,14 @@ postgresql://AzureDiamond:hunter2@free-tier.gcp-us-central1.cockroachlabs.cloud:
 
 There are a few things to note about the connection string provided.
 
-* It includes the path to the root certificate, so if we want to change where we put the certificate,
+- It includes the path to the root certificate, so if we want to change where we put the certificate,
   we'll need to change the connection string. I plan on putting the certificate in `/root.cert`, so
   I updated this part of the query.
-* It uses a query parameter option I haven't seen before: `options=--cluster%3Dmerry-possum-4942`. This
+- It uses a query parameter option I haven't seen before: `options=--cluster%3Dmerry-possum-4942`. This
   is likely some way to route traffic on this host and port to my specific instance handler.
 
 > To learn more about the formatting of Postgres URLs, see
-  [their documentation](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING).
+> [their documentation](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING).
 
 Our updated connection string looks like this:
 
@@ -298,8 +298,8 @@ under the environment variable `POSTGRES_URL`, so I will mount the secret as an
 environment variable with that key name.
 
 > Under `Connections`, I tried enabling HTTP/2 connections for this service, since my
-  application is both a HTTP and gRPC server, but it seemed to break my HTTP server, so I left
-  it disabled in the end.
+> application is both a HTTP and gRPC server, but it seemed to break my HTTP server, so I left
+> it disabled in the end.
 
 Next, we configure this service to `Allow all traffic` and `Allow unauthenticated invocations`.
 I want this service to be publicly available so that users can play around with it, but this
@@ -334,5 +334,5 @@ application stack with persistence. I will probably be sure to use this method f
 new experiments I want to try out and share with people.
 
 If you enjoyed this blog post, have any questions or input, don't hesitate to
-contact me on [@johanbrandhorst](https://twitter.com/JohanBrandhorst) or
+contact me on [@jbrandhorst.com](https://bsky.app/profile/jbrandhorst.com) or
 under `jbrandhorst` on the Gophers Slack. I'd love to hear your thoughts!

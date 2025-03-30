@@ -9,7 +9,7 @@ tags: ["go", "gRPC", "JSON"]
 
 It's often said that gRPC is tied to the
 [Google Protocol Buffers](https://developers.google.com/protocol-buffers/)
- payload format, but this is not strictly true. While the _default_ format
+payload format, but this is not strictly true. While the _default_ format
 for gRPC payloads is Protobuf, the gRPC-Go implementation exposes a
 [`Codec` interface](https://godoc.org/google.golang.org/grpc/encoding#Codec)
 which allows _arbitrary_ payload encoding. This could be used for all kinds of things,
@@ -93,6 +93,7 @@ to the payload:
 ```
 
 Headers must include `TE` and the correct `Content-Type`:
+
 ```bash
  -H "Content-Type: application/grpc+json" -H "TE:trailers"
 ```
@@ -124,5 +125,5 @@ us to send cURL requests with JSON payloads directly to our gRPC servers,
 no proxies, no grpc-gateway, no setup except for importing a package necessary.
 
 If you enjoyed this blog post, have any questions or input, don't hesitate to
-contact me on [@johanbrandhorst](https://twitter.com/JohanBrandhorst) or
+contact me on [@jbrandhorst.com](https://bsky.app/profile/jbrandhorst.com) or
 under `jbrandhorst` on the Gophers Slack. I'd love to hear your thoughts!

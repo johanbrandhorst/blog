@@ -16,6 +16,7 @@ stream it, using the gRPC streaming methods, naturally.
 TL;DR? Code is [available on my github](https://github.com/johanbrandhorst/chunker).
 
 ## Server-side streaming
+
 We'll define a protofile with a single service exposing a single method returning
 a streamed message type.
 
@@ -121,6 +122,6 @@ that can be marshalled to a byte slice, including other proto messages.
 
 If you enjoyed this blog post, have any questions or input,
 don't hesitate to contact me on
-[@johanbrandhorst](https://twitter.com/JohanBrandhorst) or
+[@jbrandhorst.com](https://bsky.app/profile/jbrandhorst.com) or
 under `jbrandhorst` on the Gophers Slack. I'd love to hear
 your thoughts!
