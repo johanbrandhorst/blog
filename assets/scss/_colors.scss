@@ -1,0 +1,142 @@
+// Default Colors for site
+$pine-green: #018472;
+$bright-grey: #eeeeee;
+$white: #ffffff;
+$davys-grey : #494f5c;
+$granite-grey: #666666;
+$sonic-silver: #777777; 
+$arsenic: #3b3e48;
+$css-grey: #7d828a;
+$japanese-indigo: #2c3e50;
+$pine-tree: #272822;
+$taupe-grey: #878787;
+$chinese-silver: #cccccc;
+$anti-flash-white: #f1f1f1;
+$lapis-lazuli: #21759b; 
+
+// Default Colors and Opacity for Admonition
+$blueberry: #448aff;
+$turquoise-surf: #00b8d4;
+$caribbean-green: #00bfa5;
+$malachite: #00c853;
+$dark-orange: #ff9100;
+$crayola: #ff5252;
+$awesome: #ff1744;
+$folly: #f50057;
+$admonition-background-opacity : 0.1;
+
+// Default dimmed value
+$dimmed-opacity: 0.6 !default;
+
+// Background color
+$html-background: $bright-grey !default;
+
+// Site Navigation color
+$site-nav-children-border-right:$chinese-silver !default;
+
+// Posts seperator in list view
+$post-item-border-bottom: $chinese-silver !default;
+
+// Pinned posts group seperator in list view
+$pinned-posts-group-border-bottom: $chinese-silver !default;
+
+// Elements of the site which are expected to follow accent color
+// In this current form, `accentColor` in hugo.toml will have higher precedence than these declarations
+$aTag-mixin-a-box-shadow: $lapis-lazuli !default; // Box shadow for Mixin "aTag" used by figure element
+$aTag-mixin-a-hover-box-shadow: $lapis-lazuli !default; // Box shadow on hover for Mixin "aTag" used by figure element
+$content-anchor-hover: $lapis-lazuli !default; // Anchor text hover color
+$post-description-a-hover-border-bottom: $lapis-lazuli !default; // Anchor text on hover for post description in list
+$tableofcontents-a-hover-border-bottom: $lapis-lazuli !default; // Table of Contents on hover
+$scrolltotop-arrow: $lapis-lazuli !default; // Scroll yo Top arrow color
+$typewriter: $lapis-lazuli !default; // Typewriter carat color
+$footnote-ref-hover-background: $lapis-lazuli !default; // Footnote reference on hover
+$marked-background: $lapis-lazuli !default; // Marked text background color
+$inserted-text-underline: $lapis-lazuli !default; // Inserted text underline color
+
+// Footnote
+$footnote-ref-background: $japanese-indigo !default;
+
+// Scroll to Top Default colors
+// Scroll to Top "Up arrow" color is defined as : $scrolltotop-arrow
+$scrolltotop-ring: $chinese-silver !default;
+$scrolltotop-circle: $chinese-silver !default;
+
+// Page Scrollbar
+$pagescrollbar-background: $japanese-indigo !default;
+$pagescrollbar-thumb: $taupe-grey !default;
+$pagescrollbar-thumb-hover: $davys-grey !default;
+
+// Table of Contents
+$tableofcontents-background: transparent;
+
+// Table of Contents Scrollbar
+$tableofcontents-scrollbar-track: darken($pagescrollbar-thumb, 10%) !default;
+$tableofcontents-scrollbar-thumb: $japanese-indigo !default;
+$tableofcontents-scrollbar-thumb-hover: lighten($japanese-indigo, 10%) !default;
+
+// Text color
+$text: $davys-grey !default;
+
+// Text selection color
+$text-select: $css-grey !default;
+
+// Marked text color
+$marked-text:$davys-grey !default;
+
+// Link text color on hover
+$a-hover: $arsenic !default;
+
+// 404 Page
+$btn-404-a-border: $davys-grey !default;
+$btn-404-a-hover: $white !default;
+
+// Social Share links pane
+$share-links-background: $japanese-indigo !default;
+$share-links-a: $css-grey !default;
+$share-links-a-hover-active-focus: $davys-grey !default;
+
+// Code block, Mermaid block color
+$pre-code: $chinese-silver !default;
+$pre-code-background: transparent !default;
+$code-background:$pine-tree !default;
+$syntax-background: $japanese-indigo !default;
+$pre-background: $pine-tree !default;
+$mermaid-background: $pine-tree !default;
+
+// Code copy button
+$highlight-copy-btn: $white !default;
+$highlight-copy-btn-hover: $sonic-silver !default;
+$highlight-copy-btn-background: $granite-grey !default;
+
+// Site Header color
+$site-header-background:$chinese-silver !default;
+
+// Mobile menu color
+$mobile-menu-background: $chinese-silver !default;
+
+// Accessibility - Screen reader
+$screen-reader-text: $lapis-lazuli !default;
+$screen-reader-text-background: $anti-flash-white !default;
+
+//Admonition colors
+$admonition-background: (
+    "note": rgba($blueberry, $admonition-background-opacity),
+    "info": rgba($turquoise-surf, $admonition-background-opacity),
+    "tip": rgba($caribbean-green, $admonition-background-opacity),
+    "success": rgba($malachite, $admonition-background-opacity),
+    "warning": rgba($dark-orange, $admonition-background-opacity),
+    "failure": rgba($crayola, $admonition-background-opacity),
+    "danger": rgba($awesome, $admonition-background-opacity),
+    "bug": rgba($folly, $admonition-background-opacity),
+    ) !default;
+
+$admonition-color: (
+    "note": $blueberry,
+    "info": $turquoise-surf,
+    "tip": $caribbean-green,
+    "success": $malachite,
+    "warning": $dark-orange,
+    "failure": $crayola,
+    "danger": $awesome,
+    "bug": $folly,
+    ) !default;
