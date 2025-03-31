@@ -1,9 +1,8 @@
-+++
-draft = false
-title = "Presentations"
-paginate = false
-comments = false
-+++
+---
+title: "Presentations"
+ShowToc: false
+ShowReadingTime: false
+---
 
 ## Talks
 

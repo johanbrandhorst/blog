@@ -1,10 +1,8 @@
-+++
-date = "2017-03-23T22:25:56Z"
-draft = false
-title = "About me"
-paginate = false
-comments = false
-+++
+---
+title: "About me"
+ShowToc: false
+ShowReadingTime: false
+---
 
 I'm Johan, I've been doing open source since 2016, mostly in the Go ecosystem 🐻. I'm currently a maintainer 👨‍🔧 of:
 

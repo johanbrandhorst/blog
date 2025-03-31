@@ -1,0 +1,52 @@
+publishDir: docs
+canonifyURLs: true
+baseurl: https://jbrandhorst.com
+defaultContentLanguage: en
+title: Go Ahead
+theme: PaperMod
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+params:
+  ShowReadingTime: true
+  ShowToC: true
+  ShowCodeCopyButtons: true
+  ShowRssButtonInSectionTermList: true
+  profileMode:
+    enabled: true
+    title: Go Ahead
+    buttons:
+      - name: Blog
+        url: /post
+      - name: About
+        url: /page/about
+  socialIcons:
+    - name: Bluesky
+      url: https://bsky.app/profile/jbrandhorst.com
+    - name: github
+      url: https://github.com/johanbrandhorst
+    - name: linkedin
+      url: https://www.linkedin.com/in/jbrandhorst/
+  author:
+    - name: Johan Brandhorst-Satzkorn
+  footer:
+    text: "Thanks to [Netlify](https://netlify.app) for hosting my blog"
+
+menu:
+  main:
+    - name: Blog
+      url: post/
+      weight: 1
+    - name: About
+      url: page/about/
+      weight: 2
+    - name: Presentations
+      url: page/presentations/
+      weight: 3
+    - name: Search
+      url: search/
+      weight: 4
