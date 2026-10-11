@@ -1,7 +1,7 @@
 ---
 title: "So you want to use GoGo Protobuf"
 date: 2018-02-19
-subtitle: "Best practices for using GoGo Protobuf"
+summary: "Best practices for using GoGo Protobuf"
 tags: ["go", "protobuf", "gogoprotobuf", "grpc", "grpc-gateway"]
 ---
 

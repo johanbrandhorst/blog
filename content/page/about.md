@@ -1,7 +1,11 @@
 ---
 title: "About me"
-ShowToc: false
-ShowReadingTime: false
+showTableOfContents: false
+showReadingTime: false
+showDate: false
+showAuthor: false
+showPagination: false
+showRelatedContent: false
 ---
 
 I'm Johan, I've been doing open source since 2016, mostly in the Go ecosystem 🐻. I'm currently a maintainer 👨‍🔧 of:

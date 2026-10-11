@@ -1,7 +1,7 @@
 +++
 date = "2017-04-18"
 title = "Go Protobuf Tips"
-subtitle = "A couple of tips for working with proto files in golang"
+summary = "A couple of tips for working with proto files in golang"
 tags = [ "go", "protobuf", "grpc", "grpc-gateway" ]
 +++
 

@@ -1,0 +1,110 @@
+.wrap {
+  position: relative;
+  padding-bottom: 56.25%; /* proportion value to aspect ratio 16:9 (9 / 16 = 0.5625 or 56.25%) */
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+}
+.wrap iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Presentations page, see layouts/shortcodes/talks.html */
+.talks {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: 1.5rem;
+  margin: 1rem 0 2.5rem;
+}
+.talk {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(var(--color-neutral-200), 1);
+  border-radius: 0.5rem;
+  scroll-margin-top: 5rem;
+}
+.dark .talk {
+  border-color: rgba(var(--color-neutral-700), 1);
+}
+.talk:target {
+  outline: 2px solid rgba(var(--color-primary-500), 1);
+}
+.talk-thumb {
+  display: block;
+  aspect-ratio: 16 / 9;
+  background: rgba(var(--color-neutral-100), 1);
+}
+.dark .talk-thumb {
+  background: rgba(var(--color-neutral-800), 1);
+}
+.talk-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.15s;
+}
+.talk-thumb:hover img {
+  opacity: 0.85;
+}
+.talk-placeholder {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 2rem;
+  color: rgba(var(--color-primary-500), 1);
+}
+.talk-placeholder > span:last-child {
+  font-size: 0.875rem;
+  color: rgba(var(--color-neutral-500), 1);
+}
+.talk-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.875rem 1rem 1rem;
+}
+.talk-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+.talk-title a:hover {
+  color: rgba(var(--color-primary-600), 1);
+}
+.dark .talk-title a:hover {
+  color: rgba(var(--color-primary-400), 1);
+}
+.talk-event {
+  font-size: 0.875rem;
+  color: rgba(var(--color-neutral-500), 1);
+}
+.talk-blurb {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-top: 0.25rem;
+}
+.talk-links {
+  margin-top: auto;
+  padding-top: 0.5rem;
+  font-size: 0.875rem;
+}
+.talk-links a {
+  color: rgba(var(--color-primary-700), 1);
+  text-decoration: underline;
+  text-decoration-color: rgba(var(--color-primary-300), 1);
+  text-underline-offset: 2px;
+}
+.dark .talk-links a {
+  color: rgba(var(--color-primary-400), 1);
+  text-decoration-color: rgba(var(--color-primary-700), 1);
+}

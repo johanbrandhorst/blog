@@ -1,7 +1,7 @@
 ---
 title: "gRPC Client Authentication"
 date: 2018-07-22
-subtitle: "A crash course in different auth methods"
+summary: "A crash course in different auth methods"
 tags: ["go", "gRPC", "authentication", "jwt", "tls"]
 ---
 

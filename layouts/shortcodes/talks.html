@@ -1,0 +1,57 @@
+{{- /*
+  Renders data/talks.yaml as a grid of cards grouped by year.
+
+  YouTube thumbnails are fetched at build time and served from this site, so
+  visitors don't make requests to YouTube until they click through.
+*/ -}}
+{{- $talks := hugo.Data.talks }}
+{{- $years := slice }}
+{{- range $talks }}{{ $years = $years | append .year }}{{ end }}
+{{- range sort ($years | uniq) "value" "desc" }}
+{{- $year := . }}
+<h2 id="talks-{{ $year }}">{{ $year }}</h2>
+<div class="talks not-prose">
+  {{- range where $talks "year" $year }}
+  {{- $href := "" }}
+  {{- $kind := "Slides" }}
+  {{- $icon := "file-lines" }}
+  {{- $thumb := false }}
+  {{- with .youtube }}
+    {{- $href = printf "https://www.youtube.com/watch?v=%s" . }}
+    {{- $kind = "Video" }}
+    {{- $icon = "youtube" }}
+    {{- $url := printf "https://i.ytimg.com/vi/%s/hqdefault.jpg" . }}
+    {{- with try (resources.GetRemote $url) }}
+      {{- with .Err }}
+        {{- warnf "talks: failed to fetch thumbnail %s: %s" $url . }}
+      {{- else with .Value }}
+        {{- $thumb = .Fill "640x360 Center webp q80" }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+  {{- with .start }}{{ $href = printf "%s&t=%ds" $href . }}{{ end }}
+  {{- with .video }}{{ $href = . }}{{ $kind = "Video" }}{{ $icon = "youtube" }}{{ end }}
+  {{- with .podcast }}{{ $href = . }}{{ $kind = "Podcast" }}{{ $icon = "music" }}{{ end }}
+  {{- if and (not $href) .links }}{{ $href = (index .links 0).url }}{{ end }}
+  <article class="talk" id="{{ .id }}">
+    <a class="talk-thumb" href="{{ $href }}" target="_blank" rel="noopener" aria-label="{{ $kind }}: {{ .title }}" tabindex="-1">
+      {{- with $thumb }}
+      <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="" loading="lazy" decoding="async">
+      {{- else }}
+      <span class="talk-placeholder">{{ partial "icon.html" $icon }}<span>{{ $kind }}</span></span>
+      {{- end }}
+    </a>
+    <div class="talk-body">
+      <h3 class="talk-title"><a href="{{ $href }}" target="_blank" rel="noopener">{{ .title }}</a></h3>
+      <p class="talk-event">{{ .event }} · {{ .year }}</p>
+      <p class="talk-blurb">{{ .blurb }}</p>
+      {{- with .links }}
+      <p class="talk-links">
+        {{- range $i, $l := . }}{{ if $i }} · {{ end }}<a href="{{ $l.url }}" target="_blank" rel="noopener">{{ $l.name }}</a>{{ end }}
+      </p>
+      {{- end }}
+    </div>
+  </article>
+  {{- end }}
+</div>
+{{- end }}

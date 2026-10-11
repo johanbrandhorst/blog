@@ -1,6 +1,6 @@
 ---
 title: "How I use Postgres with Go"
-subtitle: "The libraries I love to use with Postgres"
+summary: "The libraries I love to use with Postgres"
 date: 2019-04-07
 tags: ["go", "postgres", "docker"]
 ---

@@ -1,7 +1,7 @@
 ---
 title: "I was invited to a meetup"
 date: 2018-02-10
-subtitle: "My fantastic experience in Budapest"
+summary: "My fantastic experience in Budapest"
 tags: ["go", "meetup", "presentation"]
 ---
 
@@ -91,7 +91,7 @@ exhausted at this point but also excited to present my work. I delivered
 a 1h talk about my open source gRPC-Web for Go project. The feedback
 was really good and I was pleased the audience enjoyed the talk.
 
-<video src="/img/meetup.mp4" width="100%" preload="metadata" controls muted/>
+<video src="/img/meetup.mp4" width="100%" preload="metadata" controls muted></video>
 
 We then headed down to a nearby pub for some drinks and chatting, and of course
 to watch the

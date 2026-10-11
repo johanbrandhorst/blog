@@ -1,6 +1,6 @@
 ---
 date: 2017-06-20
-subtitle: Introducing the GopherJS gRPC-Web bindings
+summary: Introducing the GopherJS gRPC-Web bindings
 tags: ["go", "protobuf", "grpc", "grpc-web", "gopherjs", "react"]
 title: gRPC-Web with GopherJS
 ---

@@ -1,7 +1,7 @@
 ---
 title: "Advanced gRPC Error Usage"
 date: 2018-03-19
-subtitle: "Best practices for error metadata propagation with gRPC"
+summary: "Best practices for error metadata propagation with gRPC"
 tags: ["go", "gRPC"]
 ---
 

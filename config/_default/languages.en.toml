@@ -1,0 +1,20 @@
+locale = "en"
+label = "English"
+weight = 1
+title = "Go Ahead"
+
+[params]
+  displayName = "EN"
+  isoCode = "en"
+  dateFormat = "2 January 2006"
+  description = "Johan Brandhorst-Satzkorn's blog about Go, gRPC and open source"
+
+[params.author]
+  name = "Johan Brandhorst-Satzkorn"
+  image = "img/icon.jpg"
+  headline = "Go, gRPC and open source"
+  links = [
+    { bluesky = "https://bsky.app/profile/jbrandhorst.com" },
+    { github = "https://github.com/johanbrandhorst" },
+    { linkedin = "https://www.linkedin.com/in/jbrandhorst/" },
+  ]

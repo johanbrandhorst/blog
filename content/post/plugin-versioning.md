@@ -1,6 +1,6 @@
 ---
 title: "Go Protobuf Plugin Versioning"
-subtitle: "Avoiding common pitfalls in plugin versioning"
+summary: "Avoiding common pitfalls in plugin versioning"
 date: 2022-10-20
 tags: ["protobuf", "grpc", "buf", "go", "modules"]
 ---
