@@ -1,6 +1,6 @@
 ---
 title: "Serverless Application Stack"
-subtitle: "Using GCP Cloud Run and CockroachDB Serverless"
+summary: "Using GCP Cloud Run and CockroachDB Serverless"
 date: 2021-11-20
 tags: ["cockroachdb", "postgres", "deployment", "go"]
 ---

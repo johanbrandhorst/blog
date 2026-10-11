@@ -1,0 +1,48 @@
+# Blowfish theme parameters. Anything not set here uses the theme default,
+# see https://blowfish.page/docs/configuration/#theme-parameters.
+
+colorScheme = "blowfish"
+defaultAppearance = "light"
+autoSwitchAppearance = true
+
+enableSearch = true
+enableCodeCopy = true
+
+[header]
+  layout = "basic"
+
+[footer]
+  showMenu = true
+  showCopyright = true
+  showThemeAttribution = true
+  showAppearanceSwitcher = true
+  showScrollToTop = true
+
+[homepage]
+  layout = "profile"
+  showRecent = true
+  showRecentItems = 5
+  showMoreLink = true
+  showMoreLinkDest = "/post/"
+
+[article]
+  showDate = true
+  showAuthor = true
+  showHeadingAnchors = true
+  showPagination = true
+  showReadingTime = true
+  showWordCount = false
+  showTableOfContents = true
+  showTaxonomies = true
+  showRelatedContent = true
+  relatedContentLimit = 3
+
+[list]
+  showSummary = true
+  groupByYear = true
+
+[taxonomy]
+  showTermCount = true
+
+[term]
+  showTableOfContents = false

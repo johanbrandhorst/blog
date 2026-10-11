@@ -1,7 +1,11 @@
 ---
 title: "Presentations"
-ShowToc: false
-ShowReadingTime: false
+showTableOfContents: false
+showReadingTime: false
+showDate: false
+showAuthor: false
+showPagination: false
+showRelatedContent: false
 ---
 
 ## Talks

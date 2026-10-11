@@ -1,6 +1,6 @@
 ---
 title: The state of gRPC in the browser
-subtitle: A technical analysis of the gRPC-Web ecosystem
+summary: A technical analysis of the gRPC-Web ecosystem
 date: 2019-01-08
 tags: ["grpc", "grpc-web"]
 ---

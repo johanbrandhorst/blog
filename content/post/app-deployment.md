@@ -1,6 +1,6 @@
 ---
 date: 2017-06-04
-subtitle: "Or how I learned to love Docker Cloud and Scaleway"
+summary: "Or how I learned to love Docker Cloud and Scaleway"
 tags: ["deployment", "devops", "docker", "scaleway"]
 title: Auto-deployment of your app from Github
 ---

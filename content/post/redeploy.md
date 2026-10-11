@@ -1,7 +1,7 @@
 ---
 title: "Replacing Docker Cloud"
 date: 2018-04-24
-subtitle: "Introducing Redeploy, automatic Docker Hub deployments"
+summary: "Introducing Redeploy, automatic Docker Hub deployments"
 tags: ["docker", "containers", "automation"]
 ---
 

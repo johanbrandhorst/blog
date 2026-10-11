@@ -1,6 +1,6 @@
 ---
 date: 2017-07-14
-subtitle: "OOM errors hate this one weird trick"
+summary: "OOM errors hate this one weird trick"
 tags: ["go", "gRPC"]
 title: Throttling resource intensive requests
 ---

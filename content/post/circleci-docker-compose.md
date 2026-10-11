@@ -1,6 +1,6 @@
 ---
 date: 2017-08-04
-subtitle: "Using docker-compose with CircleCI"
+summary: "Using docker-compose with CircleCI"
 tags: ["docker", "circleci", "docker-compose", "github"]
 title: Advanced CircleCI docker testing
 ---
