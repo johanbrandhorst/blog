@@ -1,0 +1,300 @@
+# Talks and podcasts, newest first. Rendered by the talks shortcode on the
+# presentations page.
+#
+# Fields:
+#   id:      anchor for linking directly to a talk (keep stable, old links use them)
+#   title:   talk title
+#   event:   where it was given
+#   year:    year it was given
+#   blurb:   a sentence or two about the talk
+#   youtube: YouTube video ID, used for the thumbnail and video link
+#   start:   optional YouTube start offset in seconds
+#   video:   video link when not on YouTube
+#   podcast: episode link, for podcast appearances
+#   links:   extra links as name/url pairs (slides, repos, event pages)
+
+- id: postgres-gopherconus
+  title: A Journey to Postgres Productivity
+  event: GopherCon US
+  year: 2020
+  blurb: >-
+    A tour of the tools and libraries that make working with PostgreSQL from Go
+    productive, from drivers and migrations to query generation.
+  youtube: AgHdVPSty7k
+  links:
+    - name: Slides
+      url: https://drive.google.com/file/d/1terhvAtdcyIZSfP_DBtFOrMim2jdw7th/view?usp=sharing
+    - name: Session
+      url: https://www.gophercon.com/agenda/session/227419
+
+- id: gateway-gowest
+  title: Writing REST services for the gRPC-curious
+  event: GoWest
+  year: 2020
+  blurb: >-
+    How to use the gRPC-Gateway to serve a REST/JSON API and a gRPC API from
+    the same protobuf definitions.
+  youtube: rbwvY0YpRPI
+  links:
+    - name: Slides
+      url: https://drive.google.com/file/d/1IGc1RjwjJBG7-nlZnAjv7Ki-DhXzXnS_/view?usp=sharing
+    - name: Event
+      url: https://www.gowestconf.com/team/writing-rest-services-for-the-grpc-curious
+
+- id: buf-bristol
+  title: A Crash Course in Protobuf and gRPC with Buf
+  event: Golang Bristol
+  year: 2020
+  blurb: >-
+    An introduction to protobuf and gRPC, and how Buf makes working with
+    protobuf files easier, at the Golang Bristol remote meetup.
+  youtube: IjJDZObWYj4
+  links:
+    - name: Slides
+      url: https://drive.google.com/file/d/1h2bCfVRVrvdaAH_ZEg5o9qAhjhOKb1vZ/view?usp=sharing
+
+- id: gateway-grpcconf-us
+  title: Writing REST services for the gRPC-curious
+  event: gRPC Conf
+  year: 2020
+  blurb: >-
+    How to use the gRPC-Gateway to serve a REST/JSON API and a gRPC API from
+    the same protobuf definitions.
+  youtube: AaqZvsrULi4
+  links:
+    - name: Slides
+      url: https://drive.google.com/file/d/10DH6SqIXK1girtzssYTWP8XT4DcFnqdN/view?usp=sharing
+    - name: Boilerplate repo
+      url: https://github.com/johanbrandhorst/grpc-gateway-boilerplate
+
+- id: gotime-postgres
+  title: "Go Time #137: Focusing in on PostgreSQL"
+  event: Go Time podcast
+  year: 2020
+  blurb: >-
+    Talking with Mat Ryer, Jon Calhoun and Johnny Boursiquot about databases,
+    and PostgreSQL in particular.
+  podcast: https://changelog.com/gotime/137
+
+- id: postgres-gopherconeu
+  title: A Journey to Postgres Productivity
+  event: GopherCon EU
+  year: 2020
+  blurb: >-
+    A tour of the tools and libraries that make working with PostgreSQL from Go
+    productive, from drivers and migrations to query generation.
+  youtube: ZRUEJX1fqYc
+  links:
+    - name: Slides
+      url: https://drive.google.com/file/d/1S0eLf9TDJeG2HVXejPTTdyKSQIhGGwa0/view?usp=sharing
+    - name: Examples repo
+      url: https://github.com/johanbrandhorst/grpc-postgres
+
+- id: certify-golangpiter
+  title: Automate your TLS certificate distribution
+  event: GolangPiter
+  year: 2019
+  blurb: >-
+    An introduction to TLS, why you should use it, how to use it with Go, and
+    how Certify automatically distributes certificates using PKI systems like
+    Vault and CFSSL.
+  youtube: boG7BSRaJ9E
+  links:
+    - name: Slides
+      url: https://drive.google.com/file/d/1aLzOSBx4_-9f4jv2TWAu_QHctyZ_UVcv/view?usp=sharing
+    - name: Event
+      url: https://golangpiter.com/en/materials/2646
+
+- id: devtalkru-golangpiter
+  title: "Fireside chat with #DevTalkRu"
+  event: GolangPiter
+  year: 2019
+  blurb: >-
+    A conversation about security and the future of Go, recorded at
+    GolangPiter.
+  youtube: ttnH-eMZXwk
+
+- id: webassembly-golangconf
+  title: Get Going with WebAssembly
+  event: GolangConf Russia
+  year: 2019
+  blurb: >-
+    An introduction to compiling Go to WebAssembly and running it in the
+    browser.
+  youtube: LVFcD7XJ89g
+  links:
+    - name: Slides
+      url: https://drive.google.com/file/d/1a6k48BhyRYl9kYdo6X3Grj5daDfB2zlw/view?usp=sharing
+    - name: Examples repo
+      url: https://github.com/johanbrandhorst/wasm-experiments
+
+- id: gotime-security
+  title: "Go Time #101: Security for Gophers"
+  event: Go Time podcast
+  year: 2019
+  blurb: >-
+    A panel with Mat Ryer, Filippo Valsorda and Roberto Clapis discussing
+    security in Go.
+  podcast: https://changelog.com/gotime/101
+
+- id: gateway-gophercon-uk
+  title: Writing REST services for the gRPC-curious
+  event: GopherCon UK
+  year: 2019
+  blurb: >-
+    How to use the gRPC-Gateway to serve a REST/JSON API and a gRPC API from
+    the same protobuf definitions.
+  youtube: Pq1paKC-fXk
+  links:
+    - name: Slides
+      url: https://drive.google.com/file/d/1ArpYp7cLt3NlbIIqJVtKREdQl4FTCsyi/view?usp=sharing
+    - name: Boilerplate repo
+      url: https://github.com/johanbrandhorst/grpc-gateway-boilerplate
+
+- id: webassembly-gophercon
+  title: Get Going with WebAssembly
+  event: GopherCon San Diego
+  year: 2019
+  blurb: >-
+    An introduction to compiling Go to WebAssembly and running it in the
+    browser.
+  youtube: Dxs4LGjmEL4
+  links:
+    - name: Slides
+      url: https://drive.google.com/file/d/17R30Bkng3VSqUUshVugI7Jem5GWPjASc/view?usp=sharing
+    - name: Examples repo
+      url: https://github.com/johanbrandhorst/wasm-experiments
+
+- id: webassembly-dotgo
+  title: Get Going with WebAssembly
+  event: dotGo
+  year: 2019
+  blurb: >-
+    Compiling Go to WebAssembly and running it in the browser, including
+    talking to a gRPC backend with gRPC-Web from WebAssembly.
+  youtube: osVHH7rjpxs
+  links:
+    - name: Slides
+      url: https://drive.google.com/file/d/16WbYt2I6Y7Xj_zhUpSgWs9VRnMVv66w9/view?usp=sharing
+    - name: Examples repo
+      url: https://github.com/johanbrandhorst/wasm-experiments
+    - name: gRPC-Web Wasm repo
+      url: https://github.com/johanbrandhorst/grpcweb-wasm-example
+
+- id: certify
+  title: Automate your Go TLS certificates with Vault PKI
+  event: London HashiCorp User Group
+  year: 2019
+  blurb: >-
+    Using Certify to automatically issue and renew TLS certificates for Go
+    servers from Vault's PKI backend, hosted at Monzo.
+  youtube: 4We8yg9yefA
+  links:
+    - name: Slides
+      url: https://drive.google.com/file/d/1efy_YKOmOJxvxAo6Hy_AjRzp0LYGkVfF/view?usp=sharing
+    - name: Certify repo
+      url: https://github.com/johanbrandhorst/certify
+    - name: Meetup
+      url: https://www.meetup.com/London-HashiCorp-User-Group/events/258184914/
+
+- id: gateway
+  title: Writing REST services for the gRPC-curious
+  event: Go London User Group
+  year: 2018
+  blurb: >-
+    How to use the gRPC-Gateway to serve a REST/JSON API and a gRPC API from
+    the same protobuf definitions, hosted at Pusher.
+  youtube: qFLJEgbTKaU
+  links:
+    - name: Slides
+      url: https://drive.google.com/file/d/1gGX9H3_sW0i1vILCsHrJ7ZiQPJpuMPok/view?usp=sharing
+    - name: Boilerplate repo
+      url: https://github.com/johanbrandhorst/grpc-gateway-boilerplate
+    - name: Meetup
+      url: https://www.meetup.com/Go-London-User-Group/events/256927219/
+
+- id: webassembly-london
+  title: Get Going with WebAssembly
+  event: Go London User Group
+  year: 2018
+  blurb: >-
+    Compiling Go to WebAssembly and running it in the browser, including
+    talking to a gRPC backend with gRPC-Web, hosted at Pivotal.
+  youtube: iTrx0BbUXI4
+  links:
+    - name: Slides
+      url: https://drive.google.com/file/d/1RdXC_x2svH0IyHeACIi_Hk3Xp3Hz84bE/view?usp=sharing
+    - name: Examples repo
+      url: https://github.com/johanbrandhorst/wasm-experiments
+    - name: gRPC-Web Wasm repo
+      url: https://github.com/johanbrandhorst/grpcweb-wasm-example
+    - name: Meetup
+      url: https://www.meetup.com/Go-London-User-Group/events/253558750/
+
+- id: grpcweb-cambridge
+  title: Creating GopherJS apps with gRPC-Web
+  event: Cambridge Gophers
+  year: 2018
+  blurb: >-
+    Writing browser frontends in Go with GopherJS and talking to gRPC backends
+    with gRPC-Web, hosted at Speechmatics.
+  youtube: ITi6CkPv_78
+  start: 58
+  links:
+    - name: Slides
+      url: https://drive.google.com/file/d/1xhTcMkdB0BDTgCvo7HtReWiE_zMF3aCl/view?usp=sharing
+    - name: Meetup
+      url: https://www.meetup.com/Cambridge-Gophers/events/249735338/
+
+- id: grpcweb-budapest
+  title: Creating GopherJS apps with gRPC-Web
+  event: Budapest Go meetup
+  year: 2018
+  blurb: >-
+    Writing browser frontends in Go with GopherJS and talking to gRPC backends
+    with gRPC-Web, at Emarsys CraftLab.
+  links:
+    - name: Slides
+      url: https://drive.google.com/file/d/194VcC5dY4xgcpINmB7cMJMAH_Oup5hK9/view?usp=sharing
+    - name: Meetup
+      url: https://www.meetup.com/go-budapest/events/247047261/
+
+- id: grpcweb-fosdem
+  title: Creating GopherJS apps with gRPC-Web
+  event: FOSDEM Go devroom
+  year: 2018
+  blurb: >-
+    Writing browser frontends in Go with GopherJS and talking to gRPC backends
+    with gRPC-Web.
+  video: https://video.fosdem.org/2018/H.1308%20(Rolin)/gopherjs.webm
+  links:
+    - name: Slides
+      url: https://drive.google.com/file/d/1o8dYFTfYNE9Zf2FnJaVS76EpMMxfEKVV/view?usp=sharing
+    - name: Schedule
+      url: https://fosdem.org/2018/schedule/event/gopherjs/
+
+- id: rest
+  title: Why REST is dead and what you should use instead
+  event: Basingstoke Tech Scene
+  year: 2017
+  blurb: >-
+    Making the case for gRPC and protobuf over hand-written REST APIs.
+  links:
+    - name: Slides
+      url: https://drive.google.com/file/d/1N_KZHFngZHdVI2jKRkYjgcFbFtu9McRM/view?usp=sharing
+    - name: Meetup
+      url: https://www.meetup.com/thebasingstoketechscene/events/243852909/
+
+- id: grpcweb-london
+  title: Using gRPC-Web to connect GopherJS apps to gRPC backends
+  event: Go London User Group
+  year: 2017
+  blurb: >-
+    Connecting GopherJS browser apps directly to gRPC backends with gRPC-Web,
+    hosted at Skills Matter CodeNode.
+  video: https://skillsmatter.com/skillscasts/10924-using-grpc-web-to-connect-gopherjs-apps-to-grpc-backends
+  links:
+    - name: Slides
+      url: https://drive.google.com/file/d/1lSvxZWdHkXbAp80UJWufc_Mn4-HLokUV/view?usp=sharing
+    - name: Meetup
+      url: https://www.meetup.com/Go-London-User-Group/events/243176499/
