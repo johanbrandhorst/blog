@@ -19,11 +19,12 @@ enableCodeCopy = true
   showScrollToTop = true
 
 [homepage]
-  layout = "profile"
-  showRecent = true
-  showRecentItems = 5
-  showMoreLink = true
-  showMoreLinkDest = "/post/"
+  layout = "custom" # layouts/partials/home/custom.html
+  showRecent = false
+  buttons = [
+    { name = "Blog", url = "post/" },
+    { name = "About", url = "page/about/" },
+  ]
 
 [article]
   showDate = true
