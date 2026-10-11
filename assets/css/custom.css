@@ -143,57 +143,40 @@
 
 /* Blog archive, see layouts/post/list.html */
 .archive {
-  margin-top: 2.5rem;
+  margin-top: 2rem;
   max-width: 48rem;
 }
-.archive-year + .archive-year {
-  margin-top: 2.5rem;
-}
-.archive-year h2 {
-  padding-bottom: 0.5rem;
-  margin-bottom: 0.5rem;
-  border-bottom: 1px solid rgba(var(--color-neutral-200), 1);
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: rgba(var(--color-neutral-500), 1);
-}
-.dark .archive-year h2 {
-  border-color: rgba(var(--color-neutral-700), 1);
-  color: rgba(var(--color-neutral-400), 1);
-}
-.archive-year li {
-  display: grid;
-  grid-template-columns: 4rem 1fr;
-  gap: 1rem;
+.archive li {
   padding: 0.6rem 0;
 }
-.archive-year time {
-  padding-top: 0.15rem;
-  font-size: 0.875rem;
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-  color: rgba(var(--color-neutral-500), 1);
+.archive li + li {
+  border-top: 1px solid rgba(var(--color-neutral-100), 1);
 }
-.archive-year a {
+.dark .archive li + li {
+  border-color: rgba(var(--color-neutral-800), 1);
+}
+.archive a {
+  display: block;
   font-size: 1.1rem;
   font-weight: 600;
   line-height: 1.4;
   color: rgba(var(--color-neutral-900), 1);
 }
-.dark .archive-year a {
+.dark .archive a {
   color: rgba(var(--color-neutral-100), 1);
 }
-.archive-year a:hover {
+.archive a:hover {
   color: rgba(var(--color-primary-600), 1);
 }
-.dark .archive-year a:hover {
+.dark .archive a:hover {
   color: rgba(var(--color-primary-400), 1);
 }
-.archive-year p {
-  margin-top: 0.15rem;
+.archive p {
+  margin: 0;
   font-size: 0.925rem;
+  line-height: 1.4;
   color: rgba(var(--color-neutral-500), 1);
 }
-.dark .archive-year p {
+.dark .archive p {
   color: rgba(var(--color-neutral-400), 1);
 }

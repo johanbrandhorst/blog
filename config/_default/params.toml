@@ -35,6 +35,7 @@ enableCodeCopy = true
   showWordCount = false
   showTableOfContents = true
   showTaxonomies = true
+  seriesOpened = true
   showRelatedContent = true
   relatedContentLimit = 3
 

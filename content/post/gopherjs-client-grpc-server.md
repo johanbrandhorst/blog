@@ -3,6 +3,8 @@ date = "2017-04-10"
 title = "GopherJS Client and gRPC Server - Introduction"
 summary ="A guide to implementing a GopherJS frontend to a gRPC backend exposed over HTTP via the gRPC-gateway"
 tags = [ "go", "protobuf", "grpc", "grpc-gateway", "gopherjs" ]
+series = [ "GopherJS Client and gRPC Server" ]
+series_order = 1
 +++
 I've been using [gRPC](http://www.grpc.io/) and [Go](https://golang.org/) a lot in the last year.
 At [Cognitive Logic](https://www.cognitivelogic.com) every one of our backend services is
