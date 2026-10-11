@@ -1,0 +1,34 @@
+{{- /*
+  Compact archive for the blog section: one row per post with the date,
+  title and summary, grouped by year. Overrides the Blowfish list layout.
+*/ -}}
+{{ define "main" }}
+  <header>
+    <h1 class="mt-5 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      {{ .Title | emojify }}
+    </h1>
+  </header>
+
+  {{ with .Content }}
+    <section class="prose dark:prose-invert mt-4">{{ . }}</section>
+  {{ end }}
+
+  <div class="archive">
+    {{ range .Pages.GroupByDate "2006" }}
+      <section class="archive-year" aria-labelledby="year-{{ .Key }}">
+        <h2 id="year-{{ .Key }}">{{ .Key }}</h2>
+        <ul>
+          {{ range .Pages }}
+            <li>
+              <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2" }}</time>
+              <div>
+                <a href="{{ .RelPermalink }}">{{ .Title | emojify }}</a>
+                {{ with .Params.summary }}<p>{{ . | plainify }}</p>{{ end }}
+              </div>
+            </li>
+          {{ end }}
+        </ul>
+      </section>
+    {{ end }}
+  </div>
+{{ end }}
