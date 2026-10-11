@@ -12,7 +12,7 @@ enableCodeCopy = true
   layout = "basic"
 
 [footer]
-  showMenu = true
+  showMenu = false
   showCopyright = true
   showThemeAttribution = true
   showAppearanceSwitcher = true
