@@ -12,18 +12,19 @@ enableCodeCopy = true
   layout = "basic"
 
 [footer]
-  showMenu = true
+  showMenu = false
   showCopyright = true
   showThemeAttribution = true
   showAppearanceSwitcher = true
   showScrollToTop = true
 
 [homepage]
-  layout = "profile"
-  showRecent = true
-  showRecentItems = 5
-  showMoreLink = true
-  showMoreLinkDest = "/post/"
+  layout = "custom" # layouts/partials/home/custom.html
+  showRecent = false
+  buttons = [
+    { name = "Blog", url = "post/" },
+    { name = "About", url = "page/about/" },
+  ]
 
 [article]
   showDate = true
@@ -34,6 +35,7 @@ enableCodeCopy = true
   showWordCount = false
   showTableOfContents = true
   showTaxonomies = true
+  seriesOpened = true
   showRelatedContent = true
   relatedContentLimit = 3
 

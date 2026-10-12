@@ -3,6 +3,8 @@ date = "2017-04-11"
 title = "GopherJS Client and gRPC Server - Part 1"
 summary = "A guide to implementing a GopherJS frontend to a gRPC backend exposed over HTTP via the gRPC-gateway"
 tags = [ "go", "protobuf", "grpc", "grpc-gateway", "gopherjs" ]
+series = [ "GopherJS Client and gRPC Server" ]
+series_order = 2
 +++
 ## Create the protobuf interface
 

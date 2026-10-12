@@ -1,0 +1,24 @@
+{{- /*
+  Compact archive for the blog section: one row per post with the title and
+  summary, newest first. Overrides the Blowfish list layout.
+*/ -}}
+{{ define "main" }}
+  <header>
+    <h1 class="mt-5 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      {{ .Title | emojify }}
+    </h1>
+  </header>
+
+  {{ with .Content }}
+    <section class="prose dark:prose-invert mt-4">{{ . }}</section>
+  {{ end }}
+
+  <ul class="archive">
+    {{ range .Pages }}
+      <li>
+        <a href="{{ .RelPermalink }}">{{ .Title | emojify }}</a>
+        {{ with .Params.summary }}<p>{{ . | plainify }}</p>{{ end }}
+      </li>
+    {{ end }}
+  </ul>
+{{ end }}

@@ -1,0 +1,17 @@
+{{- /*
+  A minimal homepage: the site title, social links and a few buttons,
+  centered on the page. Buttons are configured in params.homepage.buttons.
+*/ -}}
+<article class="home-simple h-full flex flex-col items-center justify-center text-center">
+  <h1 class="text-4xl font-extrabold">{{ .Site.Title }}</h1>
+  <div class="home-simple-links text-2xl">
+    {{ partialCached "author-links.html" . }}
+  </div>
+  {{ with .Site.Params.homepage.buttons }}
+    <nav class="home-simple-buttons" aria-label="Sections">
+      {{ range . }}
+        <a href="{{ .url | relLangURL }}">{{ .name }}</a>
+      {{ end }}
+    </nav>
+  {{ end }}
+</article>

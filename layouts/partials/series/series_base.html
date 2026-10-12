@@ -1,0 +1,22 @@
+{{- /*
+  Overrides the Blowfish series box. Lists the posts in the series by title,
+  since the titles already say which part they are, and looks the series up
+  through the page's terms so multi-word series names work.
+*/ -}}
+{{ with .GetTerms "series" }}
+  {{ $series := index . 0 }}
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-primary-200 text-neutral-800 -ms-5 ps-5 dark:bg-primary-800 dark:text-neutral-100">
+    {{ $series.LinkTitle }} - {{ i18n "article.part_of_series" }}
+  </summary>
+  {{ range sort $series.Pages "Params.series_order" }}
+    <div
+      class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+      {{ if eq .Permalink $.Permalink }}
+        <span class="font-semibold">{{ .Title | emojify }}</span>
+      {{ else }}
+        <a href="{{ .RelPermalink }}">{{ .Title | emojify }}</a>
+      {{ end }}
+    </div>
+  {{ end }}
+{{ end }}
